@@ -81,31 +81,18 @@ class Imprimir extends CI_Controller{
         $y=10;
 
         for ($i=0;$i<10;$i++){
-                $html='<table border="0" style="width: 240px;font-family: Times;font-size: 9px ">
+                $html='<table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
-                <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1"><br>&nbsp;</p></td>
+                <td style="text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br><br> <br>Telefono:'.$telefono.'<br></td>               
             </tr>
             <tr>
-                <td style="width: 50px;"></td>
-                <td style="width: 140px;text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br><br>Telefono: <br>'.$telefono.'</td>
-                <td style="width: 50px;"></td>
-            </tr>
-            <tr>
-                <td colspan="3"><p style="font-size: 9px;color: #0a6aa1"><small style="text-align: center;font-size: 9px;font-weight: bold;">www.redayni.org </small></p></td>  
-            </tr>   
-            <tr>
-            <td colspan="3" style="text-align: center">&nbsp;</td>
-            </tr>
-            <tr>
-               <td style="width: 50px;">&nbsp;</td>
-               <td style="width: 140px;text-align: center">&nbsp;</td>
-               <td style="width: 50px;text-align: right">&nbsp;</td>
+                <td ><p style="font-size: 9px;color: #0a6aa1"><small style="text-align: center;font-size: 9px;font-weight: bold;">www.redayni.org </small></p></td>  
             </tr>
             </table>';
                 if ($con%2==0){
                     $pdf->SetXY(20, $y);
                 }else{
-                    $pdf->SetXY(115, $y);
+                    $pdf->SetXY(105, $y);
                     $y=$y+51;
                 }
                 if ($con==10){
@@ -135,7 +122,7 @@ class Imprimir extends CI_Controller{
 
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio' AND categoria='$categoria' AND nivel='$nivel' AND paralelo='$paralelo'");
         $con=0;
-        $y=10;
+        $y=3;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $nivel=$row->nivel;
@@ -144,39 +131,40 @@ class Imprimir extends CI_Controller{
             $colegio=$row->colegio;
             $id=$row->id;
             $carpeta=$row->carpeta;
-            file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_128));
-            $html='<table border="0" style="border: 1px solid grey;width: 240px;font-family: Times;font-size: 9px ">
+            file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_39));
+            $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/GUIDO VILLAGOMEZ.jpg" width="30" alt=""><br><br><img src="img/ayni.png" width="30" alt=""></td>
-                <td style="width: 153px;font-size: 8px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br>'.$categoria.':'.$nivel.' '.$paralelo.'</td>
+                <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
+                <td style="width: 153px;font-size: 8px;height: 70px"><small style="font-size: 7px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.' : '.$nivel.' '.$paralelo.'</small>
+                </td>
                 <td style="width: 55px;"><img src="'.base_url().'fotos/'.$id.'.png" width="55" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3"><p style="font-size: 9px;"><small style="text-align: center;font-size: 9px;font-weight: bold;">'.$nombre.'</small><br></p></td>  
+                <td colspan="3" style="margin: 100px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
             </tr>   
             <tr>
-            <td colspan="3" style="text-align: center"><img src="img/qr/'.$row->id.'.jpg" width="120" alt=""></td>
+            <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>
             </tr>
             <tr>
-               <td style="width: 50px;"></td>
-               <td style="width: 140px;text-align: center">*'.$id.'*</td>
-               <td style="width: 50px;text-align: right">'.date('Y').'</td>
+               <td style="width: 50px;height: 17px"></td>
+               <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
+               <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
             </tr>
             </table>';
 
             if ($con==10){
                 $con=0;
                 $pdf->AddPage();
-                $y=10;
+                $y=3;
             }
             if ($con%2==0){
-                $pdf->SetXY(15, $y);
+                $pdf->SetXY(25, $y);
             }else{
                 $pdf->SetXY(110, $y);
-                $y=$y+51;
+                $y=$y+55;
             }
             $pdf->writeHTML($html,0,0);
             $con++;
