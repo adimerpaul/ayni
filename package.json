@@ -1,0 +1,26 @@
+{
+  "name": "ayni",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/adimerpaul/ayni.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adimerpaul/ayni/issues"
+  },
+  "homepage": "https://github.com/adimerpaul/ayni#readme",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
+  }
+}
