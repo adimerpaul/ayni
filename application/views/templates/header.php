@@ -64,7 +64,7 @@
                             <li><a title="Compose Mail" href="<?=base_url()?>Profesores"><i class="fa fa-paper-plane sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Profesores</span></a></li>
                         </ul>
                     </li>
-                    <li><a title="Landing Page" href="#" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
+                    <li><a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
                     <li>
                         <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-print icon-wrap"></i> <span class="mini-click-non">Imprimir todo</span></a>
                         <ul class="submenu-angle" aria-expanded="false">

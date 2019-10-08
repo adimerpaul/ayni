@@ -40,7 +40,7 @@
                             </div>
                             <label class="col-sm-1" >Celular</label>
                             <div class="col-sm-3">
-                                <input type="text" required name="celular" id="celular" class="form-control" placeholder="celular">
+                                <input type="text"  name="celular" id="celular" class="form-control" placeholder="celular">
                             </div>
                             <label class="col-sm-1" >Prefijo</label>
                             <div class="col-sm-1">
