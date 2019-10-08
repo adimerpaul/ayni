@@ -96,14 +96,19 @@
             </div>
         </div>
     </div>
+    <form action="<?=base_url()?>Students/Kardex" method="post">
+        <button type="submit" class="btn btn-info p-1 " >
+            <i class="fa fa-camera"></i> Generar kardex
+        </button>
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
+            <td></td>
+            <th>Fecha</th>
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Colegio</th>
             <th>Curso</th>
-            <th>Fecha</th>
             <th>Opciones</th>
         </tr>
         </thead>
@@ -111,15 +116,23 @@
         <?php
         $query=$this->db->query("SELECT * FROM estudiante");
         foreach ($query->result() as $row){
+            if ($row->estado=="INACTIVO"){
+                $in="";
+                $ba="";
+            }else{
+                $in="<input type='checkbox' name='c$row->id'>";
+                $ba="<a href='".base_url()."Students/baja/$row->idestudiante'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
+            }
             echo "<tr>
+                    <td>$in</td>
+                    <td>$row->fecha</td>
                     <td>$row->id</td>
                     <td>$row->nombre</td>
                     <td>$row->colegio</td>
                     <td>$row->categoria $row->nivel $row->paralelo </td>
-                    <td>$row->fecha</td>
                     <td>
-                        <a href='".base_url()."Students/target/$row->idestudiante' target='_blank' class='btn btn-warning p-1'> <i class='fa fa-camera-retro'></i> Credencial</a>
-                        <button class='btn btn-info p-1' data-codigo='$row->idestudiante' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>                       
+                        <button type='button' class='btn btn-info p-1' data-codigo='$row->idestudiante' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+                        $ba
                     </td>
                 </tr>";
         }
@@ -127,6 +140,7 @@
 
         </tbody>
     </table>
+    </form>
 </div>
 
 <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -218,6 +232,11 @@
 
 <script !src="">
     window.onload=function (e) {
+        $('.confirmar').click(function (e) {
+            if (!confirm("Seguro de dar de baja?")){
+                e.preventDefault();
+            }
+        });
         $('#modificar').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var codigo = button.data('codigo') // Extract info from data-* attributes
@@ -278,7 +297,8 @@
                     "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
-            }
+            },
+            "order": [[ 1, "desc" ]]
         });
 
     }

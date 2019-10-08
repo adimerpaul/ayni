@@ -173,6 +173,7 @@ class Imprimir extends CI_Controller{
         exit;
 
     }
+
     function profesores(){
         $colegio=$_POST['colegio'];
 
@@ -196,7 +197,7 @@ class Imprimir extends CI_Controller{
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/GUIDO VILLAGOMEZ.jpg" width="30" alt=""><br><br><img src="img/ayni.png" width="30" alt=""></td>
+                <td style="width: 32px;"><img src="img/GUIDO VILLAGOMEZ.jpg" width="30" alt=""><br><br><img src="img/ayni.jpg" width="45" alt=""></td>
                 <td style="width: 153px;font-size: 8px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br>'.$profesion.'</td>
                 <td style="width: 55px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="55" alt=""></td>
             </tr>
