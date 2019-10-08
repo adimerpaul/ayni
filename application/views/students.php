@@ -24,11 +24,20 @@
                         <div class="form-group row">
                             <label class="col-sm-1" >Colegio</label>
                             <div class="col-sm-3">
-                                <select name="colegio" class="form-control" id="colegio" required>
-                                    <option value="">Selecionar..</option>
-                                    <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                                    <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
-                                </select>
+<!--                                <select name="colegio" class="form-control" id="colegio" required>-->
+<!--                                    <option value="">Selecionar..</option>-->
+<!--                                    <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>-->
+<!--                                    <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>-->
+<!--                                </select>-->
+                                <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
+                                <datalist id="colegios">
+                                    <?php
+                                    $query=$this->db->query("SELECT colegio FROM estudiante GROUP BY colegio");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->colegio'>";
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
                             <label class="col-sm-1" >Categoria</label>
                             <div class="col-sm-3">
@@ -68,15 +77,20 @@
                             </div>
                             <label class="col-sm-1" >Nombre Completo</label>
                             <div class="col-sm-3">
-                                <input type="text" name="nombre" class="form-control" placeholder="Apellido nombres">
+                                <input type="text"  name="nombre" id="nombre" class="form-control" placeholder="Apellido nombres">
+                                <small class="alert alert-success p-0">Cantidad libres de carateres <span id="cantidad">40</span></small>
+                            </div>
+                            <label class="col-sm-1" >Prefijo</label>
+                            <div class="col-sm-1">
+                                <input type="text" name="pre" id="pre" class="form-control" >
                             </div>
                             <label class="col-sm-1" >Su cogido sera</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-1">
                                 <input type="text" name="id" id="codigo" class="form-control" >
                             </div>
                             <label class="col-sm-1" >Telefono</label>
                             <div class="col-sm-3">
-                                <input type="text" id="telefono" name="telefono" class="form-control" placeholder="telefono">
+                                <input type="text" id="telefono" name="telefono" class="form-control" placeholder="52-11111">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -96,8 +110,8 @@
             </div>
         </div>
     </div>
-    <form action="<?=base_url()?>Students/Kardex" method="post">
-        <button type="submit" class="btn btn-info p-1 " >
+    <form action="<?=base_url()?>Students/Kardex" method="post" target="_blank">
+        <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Generar kardex
         </button>
     <table id="example" class="display" style="width:100%">
@@ -118,10 +132,11 @@
         foreach ($query->result() as $row){
             if ($row->estado=="INACTIVO"){
                 $in="";
-                $ba="";
+                $ba="<a href='".base_url()."Students/alta/$row->idestudiante'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
             }else{
                 $in="<input type='checkbox' name='c$row->id'>";
-                $ba="<a href='".base_url()."Students/baja/$row->idestudiante'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
+                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idestudiante' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+<a href='".base_url()."Students/baja/$row->idestudiante'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
             }
             echo "<tr>
                     <td>$in</td>
@@ -131,7 +146,7 @@
                     <td>$row->colegio</td>
                     <td>$row->categoria $row->nivel $row->paralelo </td>
                     <td>
-                        <button type='button' class='btn btn-info p-1' data-codigo='$row->idestudiante' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+                        
                         $ba
                     </td>
                 </tr>";
@@ -160,8 +175,12 @@
                             <input type="text" name="idestudiante" id="idestudiante2" hidden>
                             <select name="colegio" class="form-control" id="colegio2" required>
                                 <option value="">Selecionar..</option>
-                                <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                                <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
+                                <?php
+                                $query=$this->db->query("SELECT colegio FROM estudiante GROUP  BY colegio");
+                                foreach ($query->result() as $row){
+                                    echo "<option value='$row->colegio'>$row->colegio</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <label class="col-sm-1" >Categoria</label>
@@ -208,6 +227,7 @@
                         <div class="col-sm-3">
                             <input type="text" name="id" id="codigo2" class="form-control" >
                         </div>
+
                         <label class="col-sm-1" >Telefono</label>
                         <div class="col-sm-3">
                             <input type="text" id="telefono2" name="telefono" class="form-control" placeholder="telefono">
@@ -232,6 +252,11 @@
 
 <script !src="">
     window.onload=function (e) {
+        $('#nombre').keyup(function (e) {
+            $('#cantidad').html(40-parseInt($(this).val().length));
+            $(this).val($(this).val().toUpperCase());
+            e.preventDefault();
+        });
         $('.confirmar').click(function (e) {
             if (!confirm("Seguro de dar de baja?")){
                 e.preventDefault();
@@ -257,20 +282,37 @@
                 }
             });
         })
-        $('#colegio').change(function (e) {
-            if ($(this).val()=="JUANA AZURDUY DE PADILLA"){
-                pre='JA';
-                $('#telefono').val('52-52147');
-            }else{
-                pre='GV';
-                $('#telefono').val('52-123456')
-            }
+        $('#pre').keyup(function (e) {
+            $('#codigo').val($('#pre').val()+''+num);
+        });
+        var num;
+        $('#colegio').keyup(function (e) {
+            $(this).val($(this).val().toUpperCase());
             $.ajax({
-                url:'Students/consulta/'+$(this).val(),
+                url:'Students/prefijo/'+$(this).val().trim(),
                 success:function (e) {
-                    $('#codigo').val(pre+e);
+                    // console.log(e);
+                    $('#pre').val(e);
+                    var pre=e;
+                    $.ajax({
+                        url:'Students/consulta/'+$('#colegio').val().trim(),
+                        success:function (e) {
+                            num=e;
+                            $('#codigo').val(pre+num);
+                            // console.log('a');
+                            $.ajax({
+                                url:'Students/telefono/'+$('#colegio').val().trim(),
+                                success:function (e) {
+
+                                    $('#telefono').val(e);
+                                    // console.log('a');
+                                }
+                            })
+                        }
+                    })
                 }
             })
+
             e.preventDefault();
         });
         $('#example').DataTable({

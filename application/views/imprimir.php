@@ -8,8 +8,12 @@
                     <!--            <input type="text"   id="colegio" placeholder="">-->
                     <select name="colegio" class="form-control" required>
                         <option value="">Selecionar..</option>
-                        <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                        <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
+                        <?php
+                        $query=$this->db->query("SELECT colegio FROM estudiante GROUP  BY colegio");
+                        foreach ($query->result() as $row){
+                            echo "<option value='$row->colegio'>$row->colegio</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group">
@@ -62,8 +66,12 @@
                     <!--            <input type="text"   id="colegio" placeholder="">-->
                     <select name="colegio" class="form-control" required>
                         <option value="">Selecionar..</option>
-                        <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                        <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
+                        <?php
+                        $query=$this->db->query("SELECT colegio FROM estudiante GROUP  BY colegio");
+                        foreach ($query->result() as $row){
+                            echo "<option value='$row->colegio'>$row->colegio</option>";
+                        }
+                        ?>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary "> <i class="fa fa-print"></i> Consultar</button>

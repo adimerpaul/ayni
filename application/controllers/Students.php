@@ -11,7 +11,21 @@ class Students extends CI_Controller {
         $this->load->view('students');
         $this->load->view('templates/footer');
     }
-    function consulta($colegio){
+    function prefijo($colegio=""){
+        $colegio=urldecode($colegio);
+        $row=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'")->row();
+        if (isset($row->pre)){
+        echo $row->pre;
+        }
+    }
+    function telefono($colegio=""){
+        $colegio=urldecode($colegio);
+        $row=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'")->row();
+        if (isset($row->telefono)){
+            echo $row->telefono;
+        }
+    }
+    function consulta($colegio=""){
         $colegio=urldecode($colegio);
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'");
         echo $query->num_rows() +1001;
@@ -76,6 +90,14 @@ class Students extends CI_Controller {
         ");
         header('Location: '.base_url().'Students');
     }
+    function alta($id){
+        $this->db->query("UPDATE estudiante SET 
+        estado='ACTIVO'
+        WHERE
+        idestudiante='$id'
+        ");
+        header('Location: '.base_url().'Students');
+    }
     function insert(){
         $colegio=$_POST['colegio'];
         $categoria=$_POST['categoria'];
@@ -84,6 +106,7 @@ class Students extends CI_Controller {
         $nombre=$_POST['nombre'];
         $id=$_POST['id'];
         $telefono=$_POST['telefono'];
+        $pre=$_POST['pre'];
 
 
         $mi_archivo = 'foto';
@@ -112,7 +135,8 @@ class Students extends CI_Controller {
         id='$id',
         paralelo='$paralelo',
         categoria='$categoria',
-        telefono='$telefono'
+        telefono='$telefono',
+        pre='$pre'
         ");
         header('Location: '.base_url().'Students');
     }

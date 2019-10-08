@@ -24,11 +24,15 @@
                         <div class="form-group row">
                             <label class="col-sm-1" >Colegio</label>
                             <div class="col-sm-3">
-                                <select name="colegio" class="form-control" id="colegio" required>
-                                    <option value="">Selecionar..</option>
-                                    <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                                    <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
-                                </select>
+                                <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
+                                <datalist id="colegios">
+                                    <?php
+                                    $query=$this->db->query("SELECT colegio FROM profesor WHERE colegio<>'AYNI' GROUP BY colegio");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->colegio'>";
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
                             <label class="col-sm-1" >Nombre Completo</label>
                             <div class="col-sm-3">
@@ -36,10 +40,14 @@
                             </div>
                             <label class="col-sm-1" >Celular</label>
                             <div class="col-sm-3">
-                                <input type="text" required name="celular" class="form-control" placeholder="celular">
+                                <input type="text" required name="celular" id="celular" class="form-control" placeholder="celular">
+                            </div>
+                            <label class="col-sm-1" >Prefijo</label>
+                            <div class="col-sm-1">
+                                <input type="text" name="pre" id="pre" class="form-control" >
                             </div>
                             <label class="col-sm-1" >Su cogido sera</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-1">
                                 <input type="text" name="id" id="codigo" class="form-control" >
                             </div>
                             <label class="col-sm-1" >Usuario</label>
@@ -76,14 +84,20 @@
             </div>
         </div>
     </div>
+    <form action="<?=base_url()?>Profesores/Kardex" method="post" target="_blank">
+        <button type="submit" class="btn btn-info p-1" >
+            <i class="fa fa-camera"></i> Generar kardex
+        </button>
+
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
+            <th></th>
+            <th>Fecha</th>
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Colegio</th>
             <th>Profesion</th>
-            <th>Fecha</th>
             <th>Opciones</th>
         </tr>
         </thead>
@@ -91,15 +105,23 @@
         <?php
         $query=$this->db->query("SELECT * FROM profesor WHERE nombre!='AYNI'");
         foreach ($query->result() as $row){
+            if ($row->estado=="INACTIVO"){
+                $in="";
+                $ba="<a href='".base_url()."Profesores/alta/$row->idprofesor'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
+            }else{
+                $in="<input type='checkbox' name='c$row->id'>";
+                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idprofesor' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+<a href='".base_url()."Profesores/baja/$row->idprofesor'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
+            }
             echo "<tr>
+                    <td>$in</td>
+                    <td>$row->fecha</td>
                     <td>$row->id</td>
                     <td>$row->nombre</td>
                     <td>$row->colegio</td>
                     <td>$row->profesion </td>
-                    <td>$row->fecha</td>
                     <td>
-                        <a href='".base_url()."Profesores/target/$row->idprofesor' target='_blank' class='btn btn-warning p-1'> <i class='fa fa-camera-retro'></i> Credencial</a>
-                        <button class='btn btn-info p-1' data-codigo='$row->idprofesor' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>                       
+                    $ba                       
                     </td>
                 </tr>";
         }
@@ -107,6 +129,7 @@
 
         </tbody>
     </table>
+    </form>
 </div>
 
 <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -126,8 +149,12 @@
                             <input type="text" id="idprofesor2" hidden name="idprofesor">
                             <select name="colegio" class="form-control" id="colegio2" required>
                                 <option value="">Selecionar..</option>
-                                <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                                <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
+                                <?php
+                                $query=$this->db->query("SELECT colegio FROM profesor GROUP  BY colegio");
+                                foreach ($query->result() as $row){
+                                    echo "<option value='$row->colegio'>$row->colegio</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <label class="col-sm-1" >Nombre Completo</label>
@@ -140,7 +167,7 @@
                         </div>
                         <label class="col-sm-1" >Su cogido sera</label>
                         <div class="col-sm-3">
-                            <input type="text" name="id" id="codigo2"  class="form-control" >
+                            <input type="text" name="id" id="codigo2" class="form-control" >
                         </div>
                         <label class="col-sm-1" >Usuario</label>
                         <div class="col-sm-3">
@@ -178,6 +205,12 @@
 
 <script !src="">
     window.onload=function (e) {
+        $('.confirmar').click(function (e) {
+            if (!confirm("Seguro de dar de baja?")){
+                e.preventDefault();
+            }
+        });
+
         $('#modificar').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var codigo = button.data('codigo') // Extract info from data-* attributes
@@ -196,14 +229,40 @@
                 }
             });
         })
-        $('#colegio').change(function (e) {
-
+        $('#pre').keyup(function (e) {
+            $('#codigo').val($('#pre').val()+''+num);
+        });
+        $('#pre').keyup(function (e) {
+            $('#codigo').val($('#pre').val()+''+num);
+        });
+        var num;
+        $('#colegio').keyup(function (e) {
+            $(this).val($(this).val().toUpperCase());
             $.ajax({
-                url:'Profesores/consulta/'+$(this).val(),
+                url:'Profesores/prefijo/'+$(this).val().trim(),
                 success:function (e) {
-                    $('#codigo').val(pre+e);
+                    // console.log(e);
+                    $('#pre').val(e);
+                    var pre=e;
+                    $.ajax({
+                        url:'Profesores/consulta/'+$('#colegio').val().trim(),
+                        success:function (e) {
+                            num=e;
+                            $('#codigo').val(pre+num);
+                            // console.log('a');
+                            $.ajax({
+                                url:'Profesores/telefono/'+$('#colegio').val().trim(),
+                                success:function (e) {
+
+                                    $('#celular').val(e);
+                                    // console.log('a');
+                                }
+                            })
+                        }
+                    })
                 }
             })
+
             e.preventDefault();
         });
         $('#nombre').keyup(function (e) {
@@ -215,6 +274,7 @@
             e.preventDefault();
         });
         $('#example').DataTable({
+            "order":[[1,"desc"]],
             language:{
                 "sProcessing":     "Procesando...",
                 "sLengthMenu":     "Mostrar _MENU_ registros",
