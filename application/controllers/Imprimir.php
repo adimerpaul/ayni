@@ -81,9 +81,9 @@ class Imprimir extends CI_Controller{
         $y=10;
 
         for ($i=0;$i<10;$i++){
-                $html='<table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
+                $html='<table border="1" style="width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
-                <td style="text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br><br> <br>Telefono:'.$telefono.'<br></td>               
+                <td style="text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Telefono:'.$telefono.'<br></td>               
             </tr>
             <tr>
                 <td ><p style="font-size: 9px;color: #0a6aa1"><small style="text-align: center;font-size: 9px;font-weight: bold;">www.redayni.org </small></p></td>  
@@ -93,7 +93,7 @@ class Imprimir extends CI_Controller{
                     $pdf->SetXY(20, $y);
                 }else{
                     $pdf->SetXY(105, $y);
-                    $y=$y+51;
+                    $y=$y+55;
                 }
                 if ($con==10){
                     $con=0;
