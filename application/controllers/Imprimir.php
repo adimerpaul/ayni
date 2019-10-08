@@ -81,7 +81,7 @@ class Imprimir extends CI_Controller{
         $y=10;
 
         for ($i=0;$i<10;$i++){
-                $html='<table border="1" style="width: 240px;font-family: Arial;font-size: 9px ">
+                $html='<table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td style="text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Telefono:'.$telefono.'<br></td>               
             </tr>
@@ -89,17 +89,20 @@ class Imprimir extends CI_Controller{
                 <td ><p style="font-size: 9px;color: #0a6aa1"><small style="text-align: center;font-size: 9px;font-weight: bold;">www.redayni.org </small></p></td>  
             </tr>
             </table>';
-                if ($con%2==0){
-                    $pdf->SetXY(20, $y);
-                }else{
-                    $pdf->SetXY(105, $y);
-                    $y=$y+55;
-                }
-                if ($con==10){
-                    $con=0;
-                    $pdf->AddPage();
-                    $y=10;
-                }
+
+            if ($con==10){
+                $con=0;
+                $pdf->AddPage();
+                $y=2;
+            }
+            if ($con%2==0){
+                $pdf->SetXY(25, $y);
+            }else{
+                $pdf->SetXY(110, $y);
+                $y=$y+55;
+            }
+
+
                 $pdf->writeHTML($html,0,0);
                 $con++;
 
@@ -122,7 +125,7 @@ class Imprimir extends CI_Controller{
 
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio' AND categoria='$categoria' AND nivel='$nivel' AND paralelo='$paralelo'");
         $con=0;
-        $y=3;
+        $y=2;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $nivel=$row->nivel;
@@ -158,7 +161,7 @@ class Imprimir extends CI_Controller{
             if ($con==10){
                 $con=0;
                 $pdf->AddPage();
-                $y=3;
+                $y=2;
             }
             if ($con%2==0){
                 $pdf->SetXY(25, $y);
