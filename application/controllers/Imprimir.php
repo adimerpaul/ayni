@@ -83,7 +83,7 @@ class Imprimir extends CI_Controller{
         for ($i=0;$i<10;$i++){
                 $html='<table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
-                <td style="text-align: center" >UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Telefono:'.$telefono.'<br></td>               
+                <td style="text-align: center" ><br><br>UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>TELEFONO:'.$telefono.'<br>ORURO-BOLIVIA <br> <br></td>               
             </tr>
             <tr>
                 <td ><p style="font-size: 9px;color: #0a6aa1"><small style="text-align: center;font-size: 9px;font-weight: bold;">www.redayni.org </small></p></td>  
