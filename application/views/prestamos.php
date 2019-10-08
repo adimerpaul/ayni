@@ -1,6 +1,6 @@
 <div class="button-ad-wrap" style="width: 100%">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success p-1 mb-2" id="insert">
+    <button type="button" class="btn btn-success p-1 mb-2" id="insert" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-book"></i> Registrar Prestamos de libro
     </button>
 
@@ -14,19 +14,35 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Registro de prestamo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form  method="post" action="<?=base_url()?>Students/insert" enctype="multipart/form-data">
+                    <form  method="post" action="<?=base_url()?>Prestamos/insert" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label class="col-sm-1" >Tipo</label>
+                            <div class="col-sm-3">
+                                <input  type="radio" required checked name="tipo"  id="estudiante" value="ESTUDIANTE" >ESTUDIANTE
+                                <input  type="radio" required name="tipo"  id="profesor" value="PROFESOR" > PROFESOR
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Libro</label>
                             <div class="col-sm-3">
-                                <input  type="text" autofocus name="libro" class="form-control" id="libro" >
+                                <input  type="text" required autofocus name="libro" class="form-control" id="libro" >
                             </div>
                             <div class="col-sm-8" id="datoslibro">
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-1" >Persona</label>
+                            <div class="col-sm-3">
+                                <input  type="text" required name="codigo" class="form-control" id="codigo" >
+                            </div>
+                            <div class="col-sm-8" id="datospersona">
 
                             </div>
                         </div>
@@ -64,6 +80,12 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                     $row2=$this->db->query("SELECT * FROM profesor WHERE idprofesor='$row->id'")->row();
                     $nombre=$row2->nombre;
                 }
+            if ($row->estado=='PRESTADO'){
+
+            }else{
+
+            }
+
                 $tipo=substr($row->tipo,0,1);
                 echo "<tr>
                     <td>$row->fecha</td>
@@ -73,6 +95,7 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                     <td>$row->fechadevo</td>
                     <td>
                         <a href='".base_url()."Prestamos/boleta/$row->idprestamo' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>
+                        <a href='".base_url()."Prestamos/devolver/$row->idprestamo' class=' devolver btn btn-success p-1'> <i class='fa fa-desktop'></i>Devolver </a>
                     </td>
                 </tr>";
             }
@@ -176,6 +199,11 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
 
 <script !src="">
     window.onload=function (e) {
+        $('.devolver').click(function (e) {
+            if (!confirm("Seguro de devolver?")){
+                e.preventDefault();
+            }
+        });
         $('#libro').keyup(function (e) {
             $.ajax({
                url:'Prestamos/datlibro/'+$(this).val().trim(),
@@ -183,6 +211,7 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                    if (e.length>2){
                        var datos=JSON.parse(e)[0];
                        $('#datoslibro').html("<b>Titulo=</b>"+datos.titulo+" <b>Autor=</b>"+datos.autor+" <b>Area=</b>"+datos.area+"");
+                       $('#codigo').focus();
                    }else{
                        $('#datoslibro').html('');
                    }
@@ -190,20 +219,37 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
             });
             e.preventDefault();
         });
-        $('.confirmar').click(function (e) {
-            if (!confirm("Seguro de dar de baja?")){
-                e.preventDefault();
+        $('#codigo').keyup(function (e) {
+            // console.log( $('#estudiante').is(':checked'));
+            if ($('#estudiante').is(':checked')){
+                var tipo="ESTUDIANTE";
+            }else {
+                var tipo="PROFESOR";
             }
-        });
-        $('#insert').click(function (e) {
-            $('#exampleModal').modal('show');
-            $('#libro').val('asd');
-            $('#libro').focus();
+            $.ajax({
+                url:'Prestamos/datestudiante/'+$(this).val().trim()+'/'+tipo,
+                success:function (e) {
+                    // console.log(e);
+                    if (e.length>2){
+                        var datos=JSON.parse(e)[0];
+                        $('#datospersona').html("<b>Nombre=</b>"+datos.nombre);
+                    }else{
+                        $('#datospersona').html('');
+                    }
+                }
+            });
             e.preventDefault();
         });
-        $('#exampleModal').on('show.bs.modal', function (event) {
+        // $('#insert').click(function (e) {
+        //     $('#exampleModal').modal('show');
+        //     $('#libro').val('asd');
+        //     $('#libro').focus();
+        //     e.preventDefault();
+        // });
+        $('#exampleModal').on('shown.bs.modal', function () {
             $('#libro').focus();
         });
+
         $('#modificar').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var codigo = button.data('codigo') // Extract info from data-* attributes

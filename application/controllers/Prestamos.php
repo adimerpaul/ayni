@@ -12,8 +12,25 @@ class Prestamos extends CI_Controller{
         $this->load->view('prestamos');
         $this->load->view('templates/footer');
     }
+    function devolver($id){
+        $this->db->query("UPDATE prestamo SET 
+fechadevo='".date("Y-m-d H:i:s")."',
+estado='DEVUELTO'
+WHERE
+idprestamo='$id'
+");
+        header("Location: ".base_url()."Prestamos");
+    }
     function datlibro($id=""){
         $query=$this->db->query("SELECT * FROM libro WHERE codigo='$id'");
+        echo json_encode( $query->result_array());
+    }
+    function datestudiante($cod="",$tipo=""){
+        if ($tipo=="ESTUDIANTE"){
+            $query=$this->db->query("SELECT * FROM estudiante WHERE id='$cod'");
+        }else{
+            $query=$this->db->query("SELECT * FROM profesor WHERE id='$cod'");
+        }
         echo json_encode( $query->result_array());
     }
     function boleta($id){
@@ -66,5 +83,27 @@ class Prestamos extends CI_Controller{
         }
         $pdf->Output('example_006.pdf', 'I');
         exit;
+    }
+    function insert(){
+        $tipo=trim($_POST['tipo']);
+        $codigo=trim($_POST['codigo']);
+        $libro= trim( $_POST['libro']);
+        $row=$this->db->query("SELECT * FROM libro WHERE codigo='$libro'")->row();
+        $idlibro=$row->idlibro;
+
+        if ($tipo=="ESTUDIANTE"){
+            $row=$this->db->query("SELECT * FROM estudiante WHERE id='$codigo'")->row();
+            $id=$row->idestudiante;
+        }else{
+            $row=$this->db->query("SELECT * FROM profesor WHERE id='$codigo'")->row();
+            $id=$row->idprofesor;
+        }
+       $this->db->query("INSERT INTO prestamo SET 
+idlibro='$idlibro',
+id='$id',
+tipo='$tipo'
+");
+        header("Location: ".base_url()."Prestamos");
+
     }
 }
