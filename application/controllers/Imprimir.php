@@ -122,7 +122,7 @@ class Imprimir extends CI_Controller{
 
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio' AND categoria='$categoria' AND nivel='$nivel' AND paralelo='$paralelo'");
         $con=0;
-        $y=1;
+        $y=3;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $nivel=$row->nivel;
@@ -158,7 +158,7 @@ class Imprimir extends CI_Controller{
             if ($con==10){
                 $con=0;
                 $pdf->AddPage();
-                $y=1;
+                $y=3;
             }
             if ($con%2==0){
                 $pdf->SetXY(25, $y);
