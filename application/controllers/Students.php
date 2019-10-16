@@ -243,12 +243,12 @@ class Students extends CI_Controller {
             </tr>
             <tr>
                 <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
-                <td style="width: 153px;font-size: 8px;height: 70px"><small style="font-size: 7px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.' : '.$nivel.' '.$paralelo.'</small>
+                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.' : '.$nivel.' '.$paralelo.'</small>
                 </td>
-                <td style="width: 55px;"><img src="'.base_url().'fotos/'.$id.'.png" width="55" alt=""></td>
+                <td style="width: 77px;"><img src="'.base_url().'fotos/'.$id.'.png" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3" style="margin: 100px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
+                <td colspan="3" style="margin: 100px;font-size:9px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
             </tr>   
             <tr>
             <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>

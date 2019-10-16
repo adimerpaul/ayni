@@ -22,6 +22,22 @@
                 <div class="modal-body">
                     <form  method="post" action="<?=base_url()?>Students/insert" enctype="multipart/form-data">
                         <div class="form-group row">
+                            <label class="col-sm-1" >Colegio</label>
+                            <div class="col-sm-3">
+                                <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
+                                <datalist id="colegios">
+                                    <?php
+                                    $query=$this->db->query("SELECT colegio FROM estudiante GROUP BY colegio");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->colegio'>";
+                                    }
+                                    ?>
+                                </datalist>
+                            </div>
+                            <label class="col-sm-1" >Numero Alcaldia</label>
+                            <div class="col-sm-3">
+                                <input type="number" name="nroalcaldia" class="form-control" required placeholder="Nro alcaldia">
+                            </div>
                             <label class="col-sm-1" >Autor</label>
                             <div class="col-sm-3">
 <!--                                <input type="text" name="autor" class="form-control" placeholder="Apellido nombres">-->
@@ -37,33 +53,45 @@
                             </div>
                             <label class="col-sm-1" >Titulo</label>
                             <div class="col-sm-3">
-                                <input type="text" name="titulo" class="form-control" required placeholder="Titulo">
+                                <input list="titulos" name="titulo" class="form-control"placeholder="Titulor">
+                                <datalist id="titulos">
+                                    <?php
+                                    $query=$this->db->query("SELECT titulo FROM libro GROUP BY titulo");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->titulo'>";
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
-                            <label class="col-sm-1" >Fotocopia</label>
+                            <label class="col-sm-1" >Original</label>
                             <div class="col-sm-3">
-                                <select name="fotocopia" class="form-control" id="colegio" required>
+                                <select name="original" class="form-control" id="" required>
                                     <option value="">Selecionar..</option>
                                     <option value="ORIGINAL">ORIGINAL</option>
                                     <option value="FOTOCOPIA">FOTOCOPIA</option>
                                 </select>
                             </div>
-                            <label class="col-sm-1" >Edicion</label>
+                            <label class="col-sm-1" >Año Edicion</label>
                             <div class="col-sm-3">
-                                <input type="number" name="edicion" class="form-control" required placeholder="Edicion">
+                                <input type="number" name="aniedicion" class="form-control" required placeholder="Edicion">
                             </div>
                             <label class="col-sm-1" >editorial</label>
                             <div class="col-sm-3">
                                 <input type="text" name="editorial" class="form-control" required placeholder="editorial">
                             </div>
                             <label class="col-sm-1" >procedencia</label>
-
                             <div class="col-sm-3">
                                 <input type="text" name="procedencia" class="form-control" required placeholder="procedencia">
                             </div>
                             <label class="col-sm-1" >estado</label>
 
                             <div class="col-sm-3">
-                                <input type="text" name="estado" class="form-control" required placeholder="estado">
+                                <select name="estado" class="form-control" id="" required>
+                                    <option value="">Selecionar..</option>
+                                    <option value="NUEVO">NUEVO</option>
+                                    <option value="REGULAR">REGULAR</option>
+                                    <option value="MALO">MALO</option>
+                                </select>
                             </div>
 
                             <label class="col-sm-1" >idioma</label>
@@ -84,12 +112,12 @@
                             <div class="col-sm-3">
                                 <select name="nivel" id="nivel"  class="form-control" required>
                                     <option value="">Selecionar..</option>
-                                    <option value="Primero">Primero</option>
-                                    <option value="Segundo">Segundo</option>
-                                    <option value="Tercero">Tercero</option>
-                                    <option value="Cuarto">Cuarto</option>
-                                    <option value="Quinto">Quinto</option>
-                                    <option value="Sexto">Sexto</option>
+                                    <option value="1">Primero</option>
+                                    <option value="2">Segundo</option>
+                                    <option value="3">Tercero</option>
+                                    <option value="4">Cuarto</option>
+                                    <option value="5">Quinto</option>
+                                    <option value="6">Sexto</option>
                                 </select>
                             </div>
                             <label class="col-sm-1">Area</label>
@@ -116,16 +144,8 @@
                                     ?>
                                 </select>
                             </div>
-                            <label class="col-sm-1" >Colegio</label>
-                            <div class="col-sm-3">
-                                <select name="colegio" class="form-control" id="colegio" required>
-                                    <option value="">Selecionar..</option>
-                                    <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                                    <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
-                                </select>
-                            </div>
-                            <label class="col-sm-1" >codigo</label>
 
+                            <label class="col-sm-1" >codigo</label>
                             <div class="col-sm-3">
                                 <input type="text" name="codigo" class="form-control" required placeholder="codigo">
                             </div>
