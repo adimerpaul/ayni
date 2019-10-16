@@ -50,7 +50,7 @@
 <div class="left-sidebar-pro">
     <nav id="sidebar" class="">
         <div class="sidebar-header">
-            <a href="<?=base_url()?>Main"><img class="main-logo" src="<?=base_url()?>img/logo/logo.png" alt="" /></a>
+            <a href="<?=base_url()?>Main"><img class="main-logo" width="100" src="<?=base_url()?>img/ayni.jpg" alt="" /></a>
             <!--            <strong><img src="img/logo/logosn.png" alt="" /></strong>-->
         </div>
         <div class="left-custom-menu-adp-wrap comment-scrollbar">

@@ -114,8 +114,8 @@ class Students extends CI_Controller {
         $config['file_name'] = $id;
         $config['allowed_types'] = "*";
         $config['max_size'] = "50000";
-        $config['max_width'] = "2000";
-        $config['max_height'] = "2000";
+        $config['max_width'] = "20000";
+        $config['max_height'] = "20000";
         $config['overwrite'] = true;
 
         $this->load->library('upload', $config);
@@ -242,19 +242,19 @@ class Students extends CI_Controller {
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
-                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.' : '.$nivel.' '.$paralelo.'</small>
+                <td style="width: 36px;text-align:center">            <img src="img/'.$colegio.'.png" width="20" alt=""><br><img src="img/ayni.jpg" ></td>
+                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.': '.$nivel.' '.$paralelo.'</small>
                 </td>
-                <td style="width: 77px;"><img src="'.base_url().'fotos/'.$id.'.png" alt=""></td>
+                <td style="width: 73px;"><img src="'.base_url().'fotos/'.$id.'.png" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3" style="margin: 100px;font-size:9px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
+                <td colspan="3" style="margin: 100px;font-size:10px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
             </tr>   
             <tr>
-            <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>
+            <td colspan="3" style="text-align: center;height: 0px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="22px" alt=""></td>
             </tr>
             <tr>
-               <td style="width: 50px;height: 17px"></td>
+               <td style="width: 50px;height: 5px"></td>
                <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
                <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
             </tr>
