@@ -45,7 +45,6 @@
     <link rel="stylesheet" href="<?=base_url()?>node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
 
 </head>
-
 <body>
 <div class="left-sidebar-pro">
     <nav id="sidebar" class="">
