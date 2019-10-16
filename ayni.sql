@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-10-2019 a las 23:30:56
+-- Tiempo de generación: 16-10-2019 a las 15:55:49
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.2.11
 
@@ -2971,18 +2971,13 @@ CREATE TABLE `prestamo` (
   `id` int(11) NOT NULL,
   `fechadevo` datetime NOT NULL,
   `estado` varchar(20) NOT NULL DEFAULT 'PRESTADO',
-  `prenda` varchar(20) NOT NULL,
-  `tipo` varchar(50) NOT NULL DEFAULT 'ESTUDIANTE'
+  `tipo` varchar(50) NOT NULL DEFAULT 'ESTUDIANTE',
+  `presta` varchar(20) NOT NULL DEFAULT 'SALA',
+  `colegio` varchar(150) NOT NULL,
+  `usuario` varchar(120) NOT NULL,
+  `titulo` varchar(150) NOT NULL,
+  `persona` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `prestamo`
---
-
-INSERT INTO `prestamo` (`idprestamo`, `fecha`, `idlibro`, `id`, `fechadevo`, `estado`, `prenda`, `tipo`) VALUES
-(1, '2019-10-08 15:39:06', 2741, 236, '2019-10-16 00:00:00', 'DEVUELTO', 'CARNET', 'ESTUDIANTE'),
-(2, '2019-10-08 21:13:40', 1, 233, '2019-10-08 17:21:44', 'DEVUELTO', '', 'ESTUDIANTE'),
-(3, '2019-10-08 21:27:02', 1, 233, '2019-10-08 17:27:13', 'DEVUELTO', '', 'ESTUDIANTE');
 
 -- --------------------------------------------------------
 
@@ -3090,7 +3085,7 @@ ALTER TABLE `profesor`
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
+  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
@@ -3102,7 +3097,7 @@ ALTER TABLE `libro`
 -- AUTO_INCREMENT de la tabla `prestamo`
 --
 ALTER TABLE `prestamo`
-  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
