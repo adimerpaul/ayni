@@ -188,7 +188,7 @@ class Imprimir extends CI_Controller{
 
         $query=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio' ");
         $con=0;
-        $y=10;
+        $y=2;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $colegio=$row->colegio;
@@ -220,13 +220,13 @@ class Imprimir extends CI_Controller{
             if ($con==10){
                 $con=0;
                 $pdf->AddPage();
-                $y=10;
+                $y=2;
             }
             if ($con%2==0){
-                $pdf->SetXY(15, $y);
+                $pdf->SetXY(25, $y);
             }else{
                 $pdf->SetXY(110, $y);
-                $y=$y+51;
+                $y=$y+55;
             }
             $pdf->writeHTML($html,0,0);
             $con++;

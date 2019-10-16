@@ -64,30 +64,25 @@
                             <li><a title="Compose Mail" href="<?=base_url()?>Profesores"><i class="fa fa-paper-plane sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Profesores</span></a></li>
                         </ul>
                     </li>
-                    <li><a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
+
                     <li>
                         <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-print icon-wrap"></i> <span class="mini-click-non">Imprimir todo</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
                             <li><a  href="<?=base_url()?>Imprimir"><i class="fa fa-map-marker sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Credenciales</span></a></li>
                             <li><a  href="<?=base_url()?>Imprimir/libros"><i class="fa fa-book sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Libros</span></a></li>
-<!--                            <li><a title="Pdf Viewer" href="pdf-viewer.html"><i class="fa fa-file-pdf-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Pdf Viewer</span></a></li>-->
-<!--                            <li><a title="X-Editable" href="x-editable.html"><i class="fa fa-fighter-jet sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">X-Editable</span></a></li>-->
-<!--                            <li><a title="Code Editor" href="code-editor.html"><i class="fa fa-code sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Code Editor</span></a></li>-->
-<!--                            <li><a title="Tree View" href="tree-view.html"><i class="fa fa-frown-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Tree View</span></a></li>-->
-<!--                            <li><a title="Preloader" href="preloader.html"><i class="fa fa-circle sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Preloader</span></a></li>-->
-<!--                            <li><a title="Images Cropper" href="images-cropper.html"><i class="fa fa-file-image-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Images Cropper</span></a></li>-->
                         </ul>
                     </li>
-                    <!--                    <li>-->
-                    <!--                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-pie-chart icon-wrap"></i> <span class="mini-click-non">Miscellaneous</span></a>-->
-                    <!--                        <ul class="submenu-angle" aria-expanded="false">-->
-                    <!--                            <li><a title="File Manager" href="file-manager.html"><i class="fa fa-folder sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">File Manager</span></a></li>-->
-                    <!--                            <li><a title="Blog" href="blog.html"><i class="fa fa-square sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Blog</span></a></li>-->
-                    <!--                            <li><a title="Blog Details" href="blog-details.html"><i class="fa fa-tags sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Blog Details</span></a></li>-->
-                    <!--                            <li><a title="404 Page" href="404.html"><i class="fa fa-tint sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">404 Page</span></a></li>-->
-                    <!--                            <li><a title="500 Page" href="500.html"><i class="fa fa-tree sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">500 Page</span></a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
+                    <?php if ($_SESSION['colegio']=="AYNI"): ?>
+                        <li>
+                            <a  href="<?=base_url()?>Importar" ><i class="fa big-icon fa-cog icon-wrap"></i> <span class="mini-click-non">Importar datos</span></a>
+                        </li>
+                    <?php else:?>
+                        <li><a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
+                    <li>
+                        <a  href="<?=base_url()?>Exportar" ><i class="fa big-icon fa-pie-chart icon-wrap"></i> <span class="mini-click-non">Expotar datos</span></a>
+                    </li>
+                    <?php endif;?>
+
                     <!--                    <li>-->
                     <!--                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-bar-chart-o icon-wrap"></i> <span class="mini-click-non">Charts</span></a>-->
                     <!--                        <ul class="submenu-angle" aria-expanded="false">-->
@@ -878,7 +873,10 @@
                                             <a > <i class="fa fa-user"></i> <?=$_SESSION['usuario']?></a> <span class="span-left">/</span>
                                         </li>
                                         <li>
-                                            <a > <i class="fa fa-adjust"></i> <?=$_SESSION['profesion']?></a> <span class="span-left">/</span>
+                                            <a > <i class="fa fa-comment"></i> <?=$_SESSION['profesion']?></a> <span class="span-left">/</span>
+                                        </li>
+                                        <li>
+                                            <a > <i class="fa fa-home"></i> <?=$_SESSION['colegio']?></a> <span class="span-left">/</span>
                                         </li>
                                         <li>
                                             <a href="<?=base_url()?>Welcome/logout"> <i class="fa fa-sign-out"></i>SALIR</a>

@@ -16,6 +16,7 @@ class Welcome extends CI_Controller {
             $_SESSION['colegio']=$row->colegio;
             $_SESSION['nombre']=$row->nombre;
             $_SESSION['profesion']=$row->profesion;
+            $_SESSION['colegio']=$row->colegio;
             $_SESSION['usuario']=$row->usuario;
             header('Location: '.base_url().'Main');
         }else{

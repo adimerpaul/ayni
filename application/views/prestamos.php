@@ -3,7 +3,6 @@
     <button type="button" class="btn btn-success p-1 mb-2" id="insert" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-book"></i> Registrar Prestamos de libro
     </button>
-
     <!-- Modal -->
     <style>
         .modal-lg{
@@ -20,12 +19,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form  method="post" action="<?=base_url()?>Prestamos/insert" enctype="multipart/form-data">
+                    <form  method="post" id="formulario" action="<?=base_url()?>Prestamos/insert" enctype="multipart/form-data">
                         <div class="form-group row">
-                            <label class="col-sm-1" >Tipo</label>
+                            <label class="col-sm-1" >Personas</label>
                             <div class="col-sm-3">
                                 <input  type="radio" required checked name="tipo"  id="estudiante" value="ESTUDIANTE" >ESTUDIANTE
                                 <input  type="radio" required name="tipo"  id="profesor" value="PROFESOR" > PROFESOR
+                            </div>
+                            <label class="col-sm-1" >Tipo</label>
+                            <div class="col-sm-3">
+                                <input  type="radio" required checked name="presta" id="sala"  value="SALA" >SALA
+                                <input  type="radio" required name="presta" id="domicilio"  value="DOMICILIO" > DOMICILIO
                             </div>
                         </div>
                         <div class="form-group row">
@@ -33,18 +37,14 @@
                             <div class="col-sm-3">
                                 <input  type="text" required autofocus name="libro" class="form-control" id="libro" >
                             </div>
-                            <div class="col-sm-8" id="datoslibro">
-
-                            </div>
+                            <div class="col-sm-8" id="datoslibro"></div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Persona</label>
                             <div class="col-sm-3">
                                 <input  type="text" required name="codigo" class="form-control" id="codigo" >
                             </div>
-                            <div class="col-sm-8" id="datospersona">
-
-                            </div>
+                            <div class="col-sm-8" id="datospersona"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -59,19 +59,23 @@
         <table id="example" class="display" style="width:100%">
             <thead>
             <tr>
+                <th>id</th>
                 <th>Fecha</th>
+                <th>Cod. libro</th>
                 <th>Libro</th>
                 <th>Persona</th>
                 <th>Estado</th>
+                <th>Dias Pres</th>
                 <th>Fecha devuelto</th>
                 <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            $query=$this->db->query("SELECT p.fecha,l.titulo, p.id,p.estado,p.fechadevo,p.tipo,idprestamo
+            $query=$this->db->query("SELECT p.fecha,l.titulo, p.id,p.estado,p.fechadevo,p.tipo,idprestamo,l.codigo
 FROM prestamo p 
-INNER JOIN libro l ON p.idlibro=l.idlibro");
+INNER JOIN libro l ON p.idlibro=l.idlibro
+WHERE date(p.fecha)=date(now()) OR p.estado='PRESTADO'");
             foreach ($query->result() as $row){
                 if ($row->tipo=='ESTUDIANTE'){
                     $row2=$this->db->query("SELECT * FROM estudiante WHERE idestudiante='$row->id'")->row();
@@ -81,21 +85,36 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                     $nombre=$row2->nombre;
                 }
             if ($row->estado=='PRESTADO'){
-
+                $p="<p class='alert alert-warning p-1' role='alert'>$row->estado</p>";
+                $bo="<a href='".base_url()."Prestamos/boleta/$row->idprestamo' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>
+                        <a href='".base_url()."Prestamos/devolver/$row->idprestamo' class=' devolver btn btn-success p-1'> <i class='fa fa-desktop'></i>Devolver </a>";
             }else{
-
+                $p="<p class='alert alert-success p-1' role='alert'>$row->estado</p>";
+                $bo="";
             }
 
                 $tipo=substr($row->tipo,0,1);
+                if ($row->fechadevo=="0000-00-00 00:00:00"){
+                    $fv="";
+                    $date2 = new DateTime(date('Y-m-d'));
+                }else{
+                    $fv=$row->fechadevo;
+                    $date2 = new DateTime($row->fechadevo);
+                }
+                $date1 = new DateTime($row->fecha);
+
+                $diff = $date1->diff($date2);
                 echo "<tr>
+                    <td>$row->idprestamo</td>
                     <td>$row->fecha</td>
+                    <td>$row->codigo</td>
                     <td>$row->titulo</td>
                     <td>$nombre -$tipo</td>
-                    <td>$row->estado</td>
-                    <td>$row->fechadevo</td>
+                    <td>$p</td>
+                    <td>".($diff->days + 1)."</td>
+                    <td>$fv</td>
                     <td>
-                        <a href='".base_url()."Prestamos/boleta/$row->idprestamo' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>
-                        <a href='".base_url()."Prestamos/devolver/$row->idprestamo' class=' devolver btn btn-success p-1'> <i class='fa fa-desktop'></i>Devolver </a>
+                     $bo   
                     </td>
                 </tr>";
             }
@@ -105,97 +124,6 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
         </table>
 </div>
 
-<div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modificar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form  method="post" action="<?=base_url()?>Students/update" enctype="multipart/form-data">
-                    <div class="form-group row">
-                        <label class="col-sm-1" >Colegio</label>
-                        <div class="col-sm-3">
-                            <input type="text" name="idestudiante" id="idestudiante2" hidden>
-                            <select name="colegio" class="form-control" id="colegio2" required>
-                                <option value="">Selecionar..</option>
-                                <?php
-                                $query=$this->db->query("SELECT colegio FROM estudiante GROUP  BY colegio");
-                                foreach ($query->result() as $row){
-                                    echo "<option value='$row->colegio'>$row->colegio</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <label class="col-sm-1" >Categoria</label>
-                        <div class="col-sm-3">
-                            <select name="categoria" id="categoria2" class="form-control" required>
-                                <option value="">Selecionar..</option>
-                                <option value="PRIMARIA">PRIMARIA</option>
-                                <option value="SECUNDARIA">SECUNDARIA</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1">Nivel</label>
-                        <div class="col-sm-3">
-                            <select name="nivel" id="nivel2"  class="form-control" required>
-                                <option value="">Selecionar..</option>
-                                <option value="Primero">Primero</option>
-                                <option value="Segundo">Segundo</option>
-                                <option value="Tercero">Tercero</option>
-                                <option value="Cuarto">Cuarto</option>
-                                <option value="Quinto">Quinto</option>
-                                <option value="Sexto">Sexto</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1" >Paralelo</label>
-                        <div class="col-sm-3">
-                            <select name="paralelo" id="paralelo2" class="form-control" required>
-                                <option value="">Selecionar..</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                                <option value="E">E</option>
-                                <option value="F">F</option>
-                                <option value="G">G</option>
-                                <option value="H">H</option>
-                                <option value="I">I</option>
-                                <option value="J">J</option>
-                            </select>
-                        </div>
-                        <label class="col-sm-1" >Nombre Completo</label>
-                        <div class="col-sm-3">
-                            <input type="text" name="nombre" id="nombre2" class="form-control" placeholder="Apellido nombres">
-                        </div>
-                        <label class="col-sm-1" >Su cogido sera</label>
-                        <div class="col-sm-3">
-                            <input type="text" name="id" id="codigo2" class="form-control" >
-                        </div>
-
-                        <label class="col-sm-1" >Telefono</label>
-                        <div class="col-sm-3">
-                            <input type="text" id="telefono2" name="telefono" class="form-control" placeholder="telefono">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-1" >Fotografia</label>
-                        <div class="col-sm-3">
-                            <input type="file" name="foto" class="form-control" placeholder="Apellido nombres">
-                        </div>
-                        <div class="col-sm-8"><span class="alert alert-warning">La foto deve ser en PNG y un tamaño de 77x93 Y se guardara con el nombre de su codigo</span></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning">Modificar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script !src="">
     window.onload=function (e) {
@@ -204,23 +132,63 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                 e.preventDefault();
             }
         });
-        $('#libro').keyup(function (e) {
+        $('#estudiante,#profesor,#sala,#domicilio').click(function (e) {
+            $('#libro').val('');
+            $('#codigo').val('');
+            $('#datospersona').html('');
+            $('#datoslibro').html('');
+        });
+        $('#formulario').submit(function (e) {
+            if ($('#datospersona').html()=="" || $('#datoslibro').html()==""){
+                alert('Datos no encontrados');
+                return false;
+            }
+            // e.preventDefault();
+            // console.log($('#datospersona').html()=="");
+            // return false;
+        });
+        $('#libro2').keyup(function (e) {
+            console.log(e.which);
+            e.preventDefault();
             $.ajax({
-               url:'Prestamos/datlibro/'+$(this).val().trim(),
+                url:'Prestamos/datlibro/'+$(this).val().trim(),
                 success:function (e) {
-                   if (e.length>2){
-                       var datos=JSON.parse(e)[0];
-                       $('#datoslibro').html("<b>Titulo=</b>"+datos.titulo+" <b>Autor=</b>"+datos.autor+" <b>Area=</b>"+datos.area+"");
-                       $('#codigo').focus();
-                   }else{
-                       $('#datoslibro').html('');
-                   }
+                    if (e.length>2){
+                        var datos=JSON.parse(e)[0];
+                        $('#datoslibro').html("<b>Titulo=</b>"+datos.titulo+" <b>Autor=</b>"+datos.autor+" <b>Area=</b>"+datos.area+"");
+                        $('#codigo').focus();
+                    }else{
+                        $('#datoslibro').html('');
+                    }
                 }
             });
-            e.preventDefault();
         });
-        $('#codigo').keyup(function (e) {
-            // console.log( $('#estudiante').is(':checked'));
+        $('#libro').keydown(function (e) {
+            // console.log($(this).val());
+            if( e.keyCode == 13 || e.keyCode == 17 || e.keyCode == 74 || e.keyCode == 32 ){
+                e.preventDefault();
+                $.ajax({
+                    url:'Prestamos/datlibro/'+$(this).val().trim(),
+                    success:function (e) {
+                        if (e.length>2){
+                            var datos=JSON.parse(e)[0];
+                            $('#datoslibro').html("<b>Titulo=</b>"+datos.titulo+" <b>Autor=</b>"+datos.autor+" <b>Area=</b>"+datos.area+"");
+                            $('#codigo').focus();
+                        }else{
+                            $('#datoslibro').html('');
+                        }
+                    }
+                });
+            }else{
+                $('#datoslibro').html('');
+            }
+            // e.preventDefault();
+
+            // e.preventDefault();
+        });
+        $('#codigo2').keyup(function (e) {
+            console.log(e.which);
+            e.preventDefault();
             if ($('#estudiante').is(':checked')){
                 var tipo="ESTUDIANTE";
             }else {
@@ -238,14 +206,34 @@ INNER JOIN libro l ON p.idlibro=l.idlibro");
                     }
                 }
             });
-            e.preventDefault();
         });
-        // $('#insert').click(function (e) {
-        //     $('#exampleModal').modal('show');
-        //     $('#libro').val('asd');
-        //     $('#libro').focus();
-        //     e.preventDefault();
-        // });
+        $('#codigo').keydown(function (e) {
+            if( e.keyCode == 13 || e.keyCode == 17 || e.keyCode == 74 || e.keyCode == 32 ){
+                e.preventDefault();
+                if ($('#estudiante').is(':checked')){
+                    var tipo="ESTUDIANTE";
+                }else {
+                    var tipo="PROFESOR";
+                }
+                $.ajax({
+                    url:'Prestamos/datestudiante/'+$(this).val().trim()+'/'+tipo,
+                    success:function (e) {
+                        // console.log(e);
+                        if (e.length>2){
+                            var datos=JSON.parse(e)[0];
+                            $('#datospersona').html("<b>Nombre=</b>"+datos.nombre);
+                        }else{
+                            $('#datospersona').html('');
+                        }
+                    }
+                });
+            }else{
+                // console.log(e.which);
+                $('#datospersona').html('');
+            }
+
+            // e.preventDefault();
+        });
         $('#exampleModal').on('shown.bs.modal', function () {
             $('#libro').focus();
         });

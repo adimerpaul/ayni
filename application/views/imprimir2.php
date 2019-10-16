@@ -7,8 +7,8 @@
                     <label >Colegio</label>
                     <select name="colegio" class="form-control" required>
                         <option value="">Selecionar..</option>
-                        <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>
-                        <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>
+                        <option value="JA">JUANA AZURDUY DE PADILLA</option>
+                        <option value="GV">GUIDO VILLAGOMEZ</option>
                     </select>
                 </div>
                 <div class="form-group">

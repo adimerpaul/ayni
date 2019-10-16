@@ -225,7 +225,7 @@ class Students extends CI_Controller {
         $pdf->AddPage();
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=1;
+        $y=2;
         $query=$this->db->query("SELECT * FROM estudiante ");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
@@ -263,7 +263,7 @@ class Students extends CI_Controller {
                 if ($con==10){
                     $con=0;
                     $pdf->AddPage();
-                    $y=1;
+                    $y=2;
                 }
                 if ($con%2==0){
                     $pdf->SetXY(25, $y);
