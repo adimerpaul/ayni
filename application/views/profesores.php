@@ -56,15 +56,15 @@
                             </div>
                             <label class="col-sm-1">Profesion</label>
                             <div class="col-sm-3">
-                            <select name="profesion" id="profesion" class="form-control" required>
-                                <option value="">Selecionar..</option>
-                                <?php
-                                $query=$this->db->query("SELECT profesion FROM  profesor GROUP  BY profesion");
-                                foreach ($query->result() as $row){
-                                    echo "<option value='$row->profesion'>$row->profesion</option>";
-                                }
-                                ?>
-                            </select>
+                                <input list="profesiones" type="text" name="profesion" class="form-control" id="profesion" required>
+                                <datalist id="profesiones">
+                                    <?php
+                                    $query=$this->db->query("SELECT profesion FROM profesor WHERE profesion<>'AYNI' GROUP BY profesion");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->profesion'>";
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -88,6 +88,10 @@
         <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Generar kardex
         </button>
+        <select name="orden" >
+            <option value="fecha">fecha</option>
+            <option value="nombre">nombre</option>
+        </select>
 
     <table id="example" class="display" style="width:100%">
         <thead>
@@ -232,6 +236,10 @@
         $('#pre').keyup(function (e) {
             $('#codigo').val($('#pre').val()+''+num);
         });
+        $('#nombre,#nombre2,#usuario,#usuario2').keyup(function (e) {
+            // console.log($(this).val());
+            $(this).val($(this).val().toUpperCase());
+        });
         $('#pre').keyup(function (e) {
             $('#codigo').val($('#pre').val()+''+num);
         });
@@ -248,7 +256,7 @@
                         url:'Profesores/consulta/'+$('#colegio').val().trim(),
                         success:function (e) {
                             num=e;
-                            $('#codigo').val(pre+num);
+                            $('#codigo').val(pre+num+'P');
                             // console.log('a');
                             $.ajax({
                                 url:'Profesores/telefono/'+$('#colegio').val().trim(),

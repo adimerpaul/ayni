@@ -208,6 +208,7 @@ class Profesores extends CI_Controller {
         header('Location: '.base_url().'Profesores');
     }
     function kardex(){
+        $orden=$_POST['orden'];
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
@@ -215,7 +216,7 @@ class Profesores extends CI_Controller {
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
         $y=2;
-        $query=$this->db->query("SELECT * FROM profesor ");
+        $query=$this->db->query("SELECT * FROM profesor WHERE $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
                 $nombre = $row->nombre;

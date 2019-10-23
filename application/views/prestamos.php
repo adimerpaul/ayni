@@ -182,31 +182,32 @@ WHERE date(p.fecha)=date(now()) OR p.estado='PRESTADO'");
             }else{
                 $('#datoslibro').html('');
             }
+            // console.log(e.which);
             // e.preventDefault();
 
             // e.preventDefault();
         });
-        $('#codigo2').keyup(function (e) {
-            console.log(e.which);
-            e.preventDefault();
-            if ($('#estudiante').is(':checked')){
-                var tipo="ESTUDIANTE";
-            }else {
-                var tipo="PROFESOR";
-            }
-            $.ajax({
-                url:'Prestamos/datestudiante/'+$(this).val().trim()+'/'+tipo,
-                success:function (e) {
-                    // console.log(e);
-                    if (e.length>2){
-                        var datos=JSON.parse(e)[0];
-                        $('#datospersona').html("<b>Nombre=</b>"+datos.nombre);
-                    }else{
-                        $('#datospersona').html('');
-                    }
-                }
-            });
-        });
+        // $('#codigo2').keyup(function (e) {
+        //     console.log(e.which);
+        //     e.preventDefault();
+        //     if ($('#estudiante').is(':checked')){
+        //         var tipo="ESTUDIANTE";
+        //     }else {
+        //         var tipo="PROFESOR";
+        //     }
+        //     $.ajax({
+        //         url:'Prestamos/datestudiante/'+$(this).val().trim()+'/'+tipo,
+        //         success:function (e) {
+        //             // console.log(e);
+        //             if (e.length>2){
+        //                 var datos=JSON.parse(e)[0];
+        //                 $('#datospersona').html("<b>Nombre=</b>"+datos.nombre);
+        //             }else{
+        //                 $('#datospersona').html('');
+        //             }
+        //         }
+        //     });
+        // });
         $('#codigo').keydown(function (e) {
             if( e.keyCode == 13 || e.keyCode == 17 || e.keyCode == 74 || e.keyCode == 32 ){
                 e.preventDefault();

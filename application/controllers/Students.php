@@ -25,6 +25,25 @@ class Students extends CI_Controller {
             echo $row->telefono;
         }
     }
+    function subir(){
+        if (is_array($_FILES) && count($_FILES) > 0) {
+            if (($_FILES["file"]["type"] == "image/pjpeg")
+                || ($_FILES["file"]["type"] == "image/jpeg")
+                || ($_FILES["file"]["type"] == "image/png")
+                || ($_FILES["file"]["type"] == "image/gif")) {
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], "fotos/".$_FILES['file']['name'])) {
+                    //more code here...
+                    echo "fotos/".$_FILES['file']['name'];
+                } else {
+                    echo 0;
+                }
+            } else {
+                echo 0;
+            }
+        } else {
+            echo 0;
+        }
+    }
     function consulta($colegio=""){
         $colegio=urldecode($colegio);
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'");
@@ -89,6 +108,14 @@ class Students extends CI_Controller {
         idestudiante='$id'
         ");
         header('Location: '.base_url().'Students');
+    }
+    function verificar($id=""){
+        header('Content-Type: text/html; charset=utf-8');
+        $query=$this->db->query("SELECT * FROM estudiante WHERE id='$id'");
+        if ($query->num_rows()>0){
+            echo "Ya exite el estudiante";
+        }
+
     }
     function alta($id){
         $this->db->query("UPDATE estudiante SET 
@@ -219,6 +246,7 @@ class Students extends CI_Controller {
         echo json_encode( $query->result_array());
     }
     function kardex(){
+        $orden=$_POST['orden'];
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
@@ -226,7 +254,7 @@ class Students extends CI_Controller {
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
         $y=2;
-        $query=$this->db->query("SELECT * FROM estudiante ");
+        $query=$this->db->query("SELECT * FROM estudiante ORDER BY $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
                 $nombre = $row->nombre;

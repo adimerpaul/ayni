@@ -1,5 +1,4 @@
-
-
+﻿
 BUSCAR LIBROS AVANZADA
 Campos: 
 - titulo
@@ -11,21 +10,22 @@ Campos:
 - codigo
 y combinaciones (todos libros de primero de cuentos eg)
 
-> intelligente (partes, sin/con signos de puntuación, tremas/acentos, í/ó/á/é, letras mayúsculas/minúsculas)
 
 Seperar database de JAP y GV (viva yo, los 2 escuelas encuentra) par a los profesores (login Ayni puede ver todo)
+CONSULTAS SEPARAOS PROFESOR Y ADMIN
 
 
 REGISTRAR ESTUDIANTES
 - Mostrar ejemplo de fotos y nombre de imagen
-- MODIFICAR: Nombre automatico en mayúsculas
+nombre de foto
 No posible cambiar codigos en un que ya existe o da notificacion primero
+
 
 REGISTRAR PROFESORES
 Nombre automatico en mayúsculas
+
 Profesion: puede aumentar nuevo
 
-Vilagomez: nombres usarios son malos
 
 GENERAR CODIGOS LIBROS
 Como funcione? curso.subarea.numero
@@ -33,16 +33,19 @@ Codigos GV con 1001
 JA con 0001
 
 Carnets: JA y GV
-estudiantes 1xxx
-Profesores 5xxx
+estudiantes 1xxxE
+Profesores 5xxxP
 
 
 PRINT LIBROS
-Seleccionar cual quiere o todo (no siempre todo, ahorita no puede ver cual libros son, hacer una lista)
 Diseño falta (loguito, letra = arial), numero isquierda en 2 lineas, subarea, sin borders izquierda y derecha, y sin division, espacio antes de loguito izquierda
 
 Print: puedes eligir el orden, titulo/categoria/numero de codigo etc.
 libros y estudiantes tambien
+
+ORDENAR POR
+
+
 
 
 EXPORTAR / IMPORTAR
@@ -54,9 +57,6 @@ Exportar: automatico poner data en columnos en excel
 y poner codigo tambien.
 
 
-- Cambiar logo's de U.E. (mejor cualidad)
-- Importar nuevo listo de libros todos (muchos errores): voy a llevar al viernes
-
 
 
 PRESTAMOS
@@ -65,6 +65,14 @@ Ninos: 2 domicilio y 2 sala
 Dias: 2 dias max. en casa
 Profesores: 4 domicilio y 35 sala
 Dias: 4 dias max. en casa
+MULTA: por 2 dias
 >> Poner posibilidad cambiar los limites de numero de libros (casa y sala) y maximum dias en casa
 
-Multas?
+TAMAÑO OFICIO estudiantes colegio
+bajar espacio
+imagen mas pequeño pixels: 76x92
+mas grande logo colegio 
+
+
+
+

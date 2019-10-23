@@ -58,8 +58,6 @@ function index(){
         }
         $pdf->Output('example_006.pdf', 'I');
         exit;
-
-
     }
 function target($id){
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -87,4 +85,107 @@ function datos(){
     $query=$this->db->query("SELECT tematica FROM libro WHERE area='$area' GROUP BY tematica");
     echo json_encode( $query->result_array());
 }
+    function datoslibro($id){
+        header('Content-Type: text/html; charset=utf-8');
+        $query=$this->db->query("SELECT * FROM libro WHERE idlibro='$id'");
+        echo json_encode( $query->result_array());
+    }
+    function incremento($colegio=''){
+        header('Content-Type: text/html; charset=utf-8');
+        $row=$this->db->query("SELECT incremento FROM libro WHERE colegio='$colegio' ")->row();
+        echo $row->incremento;
+    }
+function codigo(){
+    $nivel=$_POST['nivel'];
+    $tematica=$_POST['tematica'];
+    $incremento=$_POST['incremento'];
+    $colegio=$_POST['colegio'];
+    $row=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row();
+    $codigosubarea=$row->codsubarea;
+    $query=$this->db->query("SELECT * FROM libro WHERE nivelno='$nivel' AND codsubarea='$codigosubarea' AND colegio='$colegio'");
+    $cantidad=$query->num_rows()+1;
+    $cantidad=$cantidad+$incremento;
+    echo $nivel.'.'.$codigosubarea.'.'.str_pad($cantidad, 4, '0', STR_PAD_LEFT);;
+}
+function insert(){
+    $area=$_POST['area'];
+    $tematica=$_POST['tematica'];
+    $codarea=$this->db->query("SELECT * FROM libro WHERE area='$area'")->row()->codarea;
+    $codsubarea=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row()->codsubarea;
+    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto');
+    $this->db->insert('libro',array(
+        'colegio'=>$_POST['colegio'],
+        'nroserie'=>$_POST['nroserie'],
+        'nroalcaldia'=>$_POST['nroalcaldia'],
+        'autor'=>$_POST['autor'],
+        'titulo'=>$_POST['titulo'],
+        'original'=>$_POST['original'],
+        'anioedicion'=>$_POST['anioedicion'],
+        'editorial'=>$_POST['editorial'],
+        'procedencia'=>$_POST['procedencia'],
+        'estado'=>$_POST['estado'],
+        'idioma'=>$_POST['idioma'],
+        'nivelno'=>$_POST['nivel'],
+        'nivel'=>$nivel[$_POST['nivel']],
+        'codarea'=>$codarea,
+        'codsubarea'=>$codsubarea,
+        'area'=>$_POST['area'],
+        'tematica'=>$_POST['tematica'],
+        'pre'=>$_POST['pre'],
+        'incremento'=>$_POST['incremento'],
+        'codigo'=>$_POST['codigo']
+
+    ));
+    header("Location: ".base_url()."Book");
+}
+function update(){
+    $area=$_POST['area'];
+    $tematica=$_POST['tematica'];
+    $codarea=$this->db->query("SELECT * FROM libro WHERE area='$area'")->row()->codarea;
+    $codsubarea=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row()->codsubarea;
+    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto');
+
+    $this->db->where('idlibro', $_POST['idlibro']);
+    $this->db->update('libro', array(
+        'colegio'=>$_POST['colegio'],
+        'nroserie'=>$_POST['nroserie'],
+        'nroalcaldia'=>$_POST['nroalcaldia'],
+        'autor'=>$_POST['autor'],
+        'titulo'=>$_POST['titulo'],
+        'original'=>$_POST['original'],
+        'anioedicion'=>$_POST['anioedicion'],
+        'editorial'=>$_POST['editorial'],
+        'procedencia'=>$_POST['procedencia'],
+        'estado'=>$_POST['estado'],
+        'idioma'=>$_POST['idioma'],
+        'nivelno'=>$_POST['nivel'],
+        'nivel'=>$nivel[$_POST['nivel']],
+        'codarea'=>$codarea,
+        'codsubarea'=>$codsubarea,
+        'area'=>$_POST['area'],
+        'tematica'=>$_POST['tematica'],
+        'pre'=>$_POST['pre'],
+        'incremento'=>$_POST['incremento'],
+        'codigo'=>$_POST['codigo']
+    ));
+    header("Location: ".base_url()."Book");
+}
+
+    function baja($id){
+        $this->db->query("UPDATE libro SET 
+        estado='Malo'
+        WHERE
+        idlibro='$id'
+        ");
+        header('Location: '.base_url().'Book');
+    }
+    function alta($id){
+        $this->db->query("UPDATE libro SET 
+        estado='Bueno'
+        WHERE
+        idlibro='$id'
+        ");
+        header('Location: '.base_url().'Book');
+    }
+
 }

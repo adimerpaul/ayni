@@ -42,7 +42,7 @@
                         </div>
 
                         <button class="btn btn-success btn-block loginbtn" type="submit">Ingresar</button>
-                        <h4 class="help-block text-center">Consultas coordicaion@redayni.org</h4>
+                        <h4 class="help-block text-center">Consultas coordinacion@redayni.org</h4>
                     </form>
                 </div>
             </div>

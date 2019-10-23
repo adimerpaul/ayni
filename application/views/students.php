@@ -60,7 +60,7 @@
                             </select>
                             </div>
                             <label class="col-sm-1" >Paralelo</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                             <select name="paralelo" id="paralelo" class="form-control" required>
                                 <option value="">Selecionar..</option>
                                 <option value="A">A</option>
@@ -85,8 +85,9 @@
                                 <input type="text" name="pre" id="pre" class="form-control" >
                             </div>
                             <label class="col-sm-1" >Su cogido sera</label>
-                            <div class="col-sm-1">
+                            <div class="col-sm-2">
                                 <input type="text" name="id" id="codigo" class="form-control" >
+                                <span id="veri" class="alert alert-danger p-0"></span>
                             </div>
                             <label class="col-sm-1" >Telefono</label>
                             <div class="col-sm-3">
@@ -95,14 +96,15 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Fotografia</label>
-                            <div class="col-sm-3">
-                                <input type="file" required name="foto" class="form-control" placeholder="Apellido nombres">
+                            <div class="col-sm-5">
+                                <input type="file" id="foto" required name="foto" class="form-control" placeholder="Apellido nombres">
                             </div>
-                            <div class="col-sm-8"><span class="alert alert-warning">La foto deve ser en PNG y un tamaño de 77x93 Y se guardara con el nombre de su codigo</span></div>
+                            <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia" ></div>
+                            <div class="col-sm-5"><span class="alert alert-danger">FOTOGRAFIA PNG 77x93</span></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">guardar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -114,6 +116,11 @@
         <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Generar kardex
         </button>
+        orden:
+        <select name="orden" >
+            <option value="fecha">fecha</option>
+            <option value="nombre">nombre</option>
+        </select>
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
@@ -226,6 +233,7 @@
                         <label class="col-sm-1" >Su cogido sera</label>
                         <div class="col-sm-3">
                             <input type="text" name="id" id="codigo2" class="form-control" >
+
                         </div>
 
                         <label class="col-sm-1" >Telefono</label>
@@ -235,10 +243,16 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-1" >Fotografia</label>
-                        <div class="col-sm-3">
-                            <input type="file" name="foto" class="form-control" placeholder="Apellido nombres">
+                        <div class="col-sm-5">
+                            <input type="file" id="foto2" required name="foto" class="form-control" placeholder="Apellido nombres">
                         </div>
-                        <div class="col-sm-8"><span class="alert alert-warning">La foto deve ser en PNG y un tamaño de 77x93 Y se guardara con el nombre de su codigo</span></div>
+                        <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia2" ></div>
+                        <div class="col-sm-5">
+                            <span class="alert alert-danger p-0">FORMATO PNG;TAMAÑO 77x93
+                            </span><br>
+                            <span class="alert alert-danger p-0" id="archivo">
+                            </span>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -252,6 +266,50 @@
 
 <script !src="">
     window.onload=function (e) {
+        $('#foto').change(function (e) {
+            $("#fotografia").attr("src", 'fotos/person.png');
+            var formData = new FormData();
+            var files = $('#foto')[0].files[0];
+            formData.append('file',files);
+            $.ajax({
+                url: 'Students/subir',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response != 0) {
+                        $("#fotografia").attr("src", response);
+                    } else {
+                        alert('Formato de imagen incorrecto.');
+                    }
+                }
+            });
+            e.preventDefault();
+        });
+        $('#foto2').change(function (e) {
+            $("#fotografia2").attr("src", 'fotos/person.png');
+            var formData = new FormData();
+            var files = $('#foto2')[0].files[0];
+            formData.append('file',files);
+            $.ajax({
+                url: 'Students/subir',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    // console.log(response);
+                    if (response != 0) {
+                        $("#fotografia2").attr("src", response);
+                    } else {
+                        alert('Formato de imagen incorrecto.');
+                    }
+                }
+            });
+            e.preventDefault();
+        });
         $('#nombre').keyup(function (e) {
             $('#cantidad').html(40-parseInt($(this).val().length));
             $(this).val($(this).val().toUpperCase());
@@ -269,7 +327,7 @@
                 url: 'Students/datos/'+codigo,
                 success:function (e) {
                     var datos=JSON.parse(e)[0];
-                    console.log(datos);
+                    // console.log(datos);
                     $('#idestudiante2').val(datos.idestudiante);
                     $('#categoria2').val(datos.categoria);
                     $('#colegio2').val(datos.colegio);
@@ -279,6 +337,8 @@
                     $('#paralelo2').val(datos.paralelo);
                     $('#nombre2').val(datos.nombre);
                     $('#telefono2').val(datos.telefono);
+                    $('#archivo').html('fotos/'+datos.id+'.png');
+                    $("#fotografia2").attr("src", 'fotos/'+datos.id+'.png');
                 }
             });
         })
@@ -286,6 +346,9 @@
             $('#codigo').val($('#pre').val()+''+num);
         });
         var num;
+        $('#colegio2,#nombre2').keyup(function (e) {
+            $(this).val($(this).val().toUpperCase());
+        });
         $('#colegio').keyup(function (e) {
             $(this).val($(this).val().toUpperCase());
             $.ajax({
@@ -298,14 +361,20 @@
                         url:'Students/consulta/'+$('#colegio').val().trim(),
                         success:function (e) {
                             num=e;
-                            $('#codigo').val(pre+num);
+                            $('#codigo').val(pre+num+'E');
                             // console.log('a');
                             $.ajax({
                                 url:'Students/telefono/'+$('#colegio').val().trim(),
                                 success:function (e) {
-
                                     $('#telefono').val(e);
                                     // console.log('a');
+                                }
+                            })
+                            $.ajax({
+                                url:'Students/verificar/'+$('#codigo').val().trim(),
+                                success:function (e) {
+                                    // console.log(e);
+                                    $('#veri').html(e);
                                 }
                             })
                         }
@@ -313,6 +382,17 @@
                 }
             })
 
+            e.preventDefault();
+        });
+        $('#codigo').keyup(function (e) {
+            // console.log($(this).val());
+            $.ajax({
+                url:'Students/verificar/'+$('#codigo').val().trim(),
+                success:function (e) {
+                    // console.log(e);
+                    $('#veri').html(e);
+                }
+            })
             e.preventDefault();
         });
         $('#example').DataTable({

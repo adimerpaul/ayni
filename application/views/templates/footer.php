@@ -21,6 +21,7 @@
 <script src="<?=base_url()?>node_modules/popper.js/dist/umd/popper.js"></script>
 <script src="<?=base_url()?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?=base_url()?>node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>assets/js/dataTables.fixedHeader.min.js"></script>
 <!-- meanmenu JS
     ============================================ -->
 <script src="<?=base_url()?>js/jquery.meanmenu.js"></script>

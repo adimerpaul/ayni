@@ -42,6 +42,7 @@
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="<?=base_url()?>css/responsive.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/fixedHeader.dataTables.min.css">
     <link rel="stylesheet" href="<?=base_url()?>node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
 
 </head>
@@ -73,7 +74,10 @@
                     </li>
                     <?php if ($_SESSION['colegio']=="AYNI"): ?>
                         <li>
-                            <a  href="<?=base_url()?>Importar" ><i class="fa big-icon fa-cog icon-wrap"></i> <span class="mini-click-non">Importar datos</span></a>
+                            <a  href="<?=base_url()?>Importar" ><i class="fa big-icon fa-archive icon-wrap"></i> <span class="mini-click-non">Importar datos</span></a>
+                        </li>
+                        <li>
+                            <a  href="<?=base_url()?>Config" ><i class="fa big-icon fa-cogs icon-wrap"></i> <span class="mini-click-non">Configuraciones</span></a>
                         </li>
                     <?php else:?>
                         <li><a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
