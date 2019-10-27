@@ -187,7 +187,13 @@
         <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Generar codigos
         </button>
-
+        <select name="orden" id="orden">
+            <option value="area">area</option>
+            <option value="tematica">tematica</option>
+            <option value="idioma">idioma</option>
+            <option value="nivel">nivel</option>
+            <option value="colegio">colegio</option>
+        </select>
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>

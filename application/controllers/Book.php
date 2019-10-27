@@ -187,5 +187,50 @@ function update(){
         ");
         header('Location: '.base_url().'Book');
     }
+    function kardex(){
+        $orden=$_POST['orden'];
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->AddPage();
+        $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
+        $con=0;
+        $y=2;
+        $query=$this->db->query("SELECT * FROM libro ORDER BY $orden");
+        foreach ($query->result() as $row){
+            if (isset($_POST['c'.$row->idlibro])){
+                $titulo = $row->titulo;
+                $area=$row->area;
+                $codarea=$row->codarea;
+                $idioma=$row->idioma;
+                $codigo=$row->codigo;
+                $colegio=$row->colegio;
+                file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
+                $html='<table border="1" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
+            
+            <tr>
+                <td width="50" style="border: 100px solid black;margin: 100px;padding: 100px"><img  src="img/'.$codarea.'.png" width="32"></td>
+                <td  style="text-align: center;height: 0px;"><img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt=""></td>  
+            </tr>
+            </table>';
+
+                if ($con==10){
+                    $con=0;
+                    $pdf->AddPage();
+                    $y=2;
+                }
+                if ($con%2==0){
+                    $pdf->SetXY(25, $y);
+                }else{
+                    $pdf->SetXY(110, $y);
+                    $y=$y+55;
+                }
+                $pdf->writeHTML($html,0,0);
+                $con++;
+            }
+        }
+        $pdf->Output('example_006.pdf', 'I');
+        exit;
+    }
 
 }
