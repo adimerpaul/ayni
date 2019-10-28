@@ -17,7 +17,6 @@ function index(){
 
         $colegio=$_POST['colegio'];
         $area=$_POST['area'];
-
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
@@ -31,7 +30,7 @@ function index(){
             $tematica = $row->tematica;
             $idioma = $row->idioma;
             file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_128));
-            $html='<table border="0" style="border: 1px solid grey;width: 240px;font-family: Times;font-size: 9px ">
+            $html='<table border="" style="border: 1px solid grey;width: 240px;font-family: Times;font-size: 9px ">
             <tr>
                 <td style="width: 65px;text-align: center"><img src="img/'.$area.'.jpg" alt="" width="35" height="35"></td>
                 <td style="width:185px;"><p style="text-align: right">'.$tematica.' <br> <br> '.$idioma.' '.$codigo.'</p></td>
@@ -192,10 +191,10 @@ function update(){
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->AddPage();
+        $pdf->AddPage('P','Legal');
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=2;
+        $y=4;
         $query=$this->db->query("SELECT * FROM libro ORDER BY $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->idlibro])){
@@ -205,16 +204,25 @@ function update(){
                 $idioma=$row->idioma;
                 $codigo=$row->codigo;
                 $colegio=$row->colegio;
+                $subcodigo=explode('.',$codigo);
                 file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
-                $html='<table border="1" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
+                $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 8px ">
             
             <tr>
-                <td width="50" style="border: 100px solid black;margin: 100px;padding: 100px"><img  src="img/'.$codarea.'.png" width="32"></td>
-                <td  style="text-align: center;height: 0px;"><img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt=""></td>  
+                <td width="70" align="center">
+                   <img src="img/'.$codarea.'.png" width="32"><br>
+                   '.$subcodigo[0].'.'.$subcodigo[1].'.<br>
+                   '.$subcodigo[2].'
+                </td>
+                <td width="170" align="right">
+                    '.$titulo.' <br>
+                    '.$area.' <br>
+                    '.$idioma.' *'.$codigo.'*<br>
+                    <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
+                </td>  
             </tr>
             </table>';
-
-                if ($con==10){
+                if ($con==20){
                     $con=0;
                     $pdf->AddPage();
                     $y=2;
@@ -223,7 +231,7 @@ function update(){
                     $pdf->SetXY(25, $y);
                 }else{
                     $pdf->SetXY(110, $y);
-                    $y=$y+55;
+                    $y=$y+22;
                 }
                 $pdf->writeHTML($html,0,0);
                 $con++;
