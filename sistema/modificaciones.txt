@@ -1,40 +1,31 @@
 ﻿
-BUSCAR LIBROS AVANZADA
-Campos: 
-- titulo
-- autor
-- tema
-- subtema
-- curso/nivel
-- idioma
-- codigo
-y combinaciones (todos libros de primero de cuentos eg)
+-buscar en libro
+tema subtema idioma curso colegio buscar colegio en comobox
+cambiar lugar de idioma por area
+titulo mal escrito titulo
+comenzar tematica,area en vacio
+en insertar 
+-juntar los datos editorial año de edicion y procedencia
+-juntar titulo y autor
+-nroalcaldia,nroserie,procedencia,editorial,año de edicion no obligatorio
+-pre y incremento ocultar para profesor
+-pre quitar
+-todo en 2 columnas
+-al generar kardex dar un orden fecha, titulo,autor,codigo,curso,tematica,area,
+-en profesor,estudiante separar que solo muestre los del mismo colegio
 
 
-Seperar database de JAP y GV (viva yo, los 2 escuelas encuentra) par a los profesores (login Ayni puede ver todo)
-CONSULTAS SEPARAOS PROFESOR Y ADMIN
+REGISTRO ESTUDIANTE
+-2 columnas para registrar datos
+-orden por curso al generar kardex
 
-
-REGISTRAR ESTUDIANTES
-- Mostrar ejemplo de fotos y nombre de imagen
-nombre de foto
-No posible cambiar codigos en un que ya existe o da notificacion primero
-
-
-REGISTRAR PROFESORES
-Nombre automatico en mayúsculas
-
-Profesion: puede aumentar nuevo
-
-
-GENERAR CODIGOS LIBROS
-Como funcione? curso.subarea.numero
-Codigos GV con 1001
-JA con 0001
-
-Carnets: JA y GV
-estudiantes 1xxxE
-Profesores 5xxxP
+REGISTRO PROFESOR
+-2 columnas para registrar datos
+-Celular cambiar por telefono de unidad
+-profesion cambiar por cargo
+-foto y nombre de foto 
+-numeroracion en 1000y P
+-Profesores 5xxxP
 
 
 PRINT LIBROS
@@ -55,6 +46,12 @@ Como funcione importar? Puede importar lista con nuevos cursos?
 o Listas de libros?
 Exportar: automatico poner data en columnos en excel
 y poner codigo tambien.
+
+IMPORTAR EXPOTAR
+-DATOS para colegio estudiante,libros
+
+CONFIGURACION
+-Niño: Libro prestamo a domicilio
 
 
 
