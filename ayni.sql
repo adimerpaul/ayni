@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2019 a las 23:50:54
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.2.11
+-- Tiempo de generación: 31-10-2019 a las 13:08:49
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -44,7 +44,7 @@ INSERT INTO `configuracion` (`idconfiguracion`, `nombre`, `dato`) VALUES
 (3, 'Niño días de préstamo', 3),
 (4, 'Profesor prestamos a domicilio', 4),
 (5, 'Profesor prestamos a sala', 35),
-(6, 'Profesor días de préstamo', 2),
+(6, 'Profesor días de préstamo', 4),
 (7, 'Multas', 2);
 
 -- --------------------------------------------------------
@@ -191,8 +191,7 @@ INSERT INTO `estudiante` (`idestudiante`, `colegio`, `nombre`, `nivel`, `id`, `f
 (116, 'GUIDO VILLAGOMEZ', 'YUCRA CACERES MIGUEL ANGEL', 'Segundo', 'GV1054E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
 (117, 'GUIDO VILLAGOMEZ', 'YUCRA MARTINEZ IVAN', 'Segundo', 'GV1055E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
 (118, 'GUIDO VILLAGOMEZ', 'ZAMBRANA QUISPE MARIA BELEN', 'Segundo', 'GV1056E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
-(119, 'GUIDO VILLAGOMEZ', 'ADIMER PAUL CHAMBI AJATA', 'Primero', 'GV1058', '2019-10-23 14:31:44', 'A', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
-(120, 'JUANA AZURDUY DE PADILLA', 'JOSE VENTURA', 'Primero', 'JA1062E', '2019-10-23 21:17:14', 'A', 'PRIMARIA', '', '52-52146', 'ACTIVO', 'JA');
+(120, 'JUANA AZURDUY DE PADILLA', 'CHAMBI AJATA', 'Primero', 'JA1062E', '2019-10-31 11:53:50', 'A', 'PRIMARIA', '', '52-52146', 'ACTIVO', 'JA');
 
 -- --------------------------------------------------------
 
@@ -3492,7 +3491,10 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 (3240, 'GUIDO VILLAGOMEZ', '5372', '', 'Oscar Alfaro', 'Alfabeto de estrellas (Poemas)', 'Original', '0', 'Editorial Hermenca', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.1004', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3241, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'YO MERO', 'Agua (Jugando con la Ciencia)', 'FOTOCOPIA', '2016', 'LATINAS', 'ORURO', 'NUEVO', 'Aymara y Castellano', '2', 'Segundo', '400', 'CIENCIAS SOCIALES', '401', 'Geográfia', '11.1111.1111', '2019-10-23 12:43:24', 'ACTIVO', 'JA', 0),
 (3242, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'Academia lengua aimara', 'Acertijos Matemáticos', 'FOTOCOPIA', '2016', 'LATINAS', 'ORURO', 'Bueno', 'Aymara', '2', 'Segundo', '300', 'CIENCIAS NATURALES', '301', 'Animales', '2.902.0001', '2019-10-23 12:48:57', 'ACTIVO', 'JA', 0),
-(3243, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'SIGRID', 'Algrebra de baldor', 'FOTOCOPIA', '2019', 'LATINAS', 'ORURO', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.0046', '2019-10-23 21:09:24', 'ACTIVO', 'JA', 0);
+(3243, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'SIGRID', 'Algrebra de baldor', 'FOTOCOPIA', '2019', 'LATINAS', 'ORURO', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.0046', '2019-10-23 21:09:24', 'ACTIVO', 'JA', 0),
+(3244, 'GUIDO VILLAGOMEZ', '1010', '1010', 'Adela Basch, Oscar Rojas', 'Acertijos Matemáticos', 'ORIGINAL', '1989', 'LATINAS', 'ORURO', 'Malo', 'Aymara y Castellano', '3', 'Tercero', '400', 'CIENCIAS SOCIALES', '410', 'Derechos', '3.410.1006', '2019-10-28 05:10:30', 'ACTIVO', '', 1000),
+(3245, 'GUIDO VILLAGOMEZ', '1010', '1010', 'Academia lengua aimara', 'Abejita perecita', 'ORIGINAL', '2000', 'LATINAS', 'ORURO', 'Regular', 'Español', '3', 'Tercero', '400', 'CIENCIAS SOCIALES', '401', 'Geográfia', '3.401.1003', '2019-10-28 05:11:32', 'ACTIVO', '', 1000),
+(3246, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'Alberto Balcells, Jacqueline Balcells, Ana María Güiraldes', 'Aguas oscuras (Cuentos ecológicos)', 'ORIGINAL', '2010', 'LATINAS', 'ORURO', 'Bueno', 'Español', '4', 'Cuarto', '700', 'CUENTOS', '701', 'Cuentos Popular', '4.701.0051', '2019-10-31 11:36:30', 'ACTIVO', '', 0);
 
 -- --------------------------------------------------------
 
@@ -3503,8 +3505,6 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 CREATE TABLE `prestamo` (
   `idprestamo` int(11) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `idlibro` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
   `fechadevo` datetime NOT NULL,
   `estado` varchar(20) NOT NULL DEFAULT 'PRESTADO',
   `tipo` varchar(50) NOT NULL DEFAULT 'ESTUDIANTE',
@@ -3512,15 +3512,21 @@ CREATE TABLE `prestamo` (
   `colegio` varchar(150) NOT NULL,
   `usuario` varchar(120) NOT NULL,
   `titulo` varchar(150) NOT NULL,
-  `persona` varchar(150) NOT NULL
+  `persona` varchar(150) NOT NULL,
+  `codigolibro` varchar(35) NOT NULL,
+  `codigopersona` varchar(35) NOT NULL,
+  `autor` varchar(150) NOT NULL,
+  `tematica` varchar(150) NOT NULL,
+  `lote` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `prestamo`
 --
 
-INSERT INTO `prestamo` (`idprestamo`, `fecha`, `idlibro`, `id`, `fechadevo`, `estado`, `tipo`, `presta`, `colegio`, `usuario`, `titulo`, `persona`) VALUES
-(1, '2019-10-23 15:10:38', 660, 63, '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'SALA', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'ESTUDIANTE', 'ALONZO MARCA PITER PAUL ');
+INSERT INTO `prestamo` (`idprestamo`, `fecha`, `fechadevo`, `estado`, `tipo`, `presta`, `colegio`, `usuario`, `titulo`, `persona`, `codigolibro`, `codigopersona`, `autor`, `tematica`, `lote`) VALUES
+(1, '2019-10-29 14:24:21', '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'El Príncipe Oleg y otros cuentos', 'CHOQUE MAMANI ALEXANDER EZEQUIEL', '6.704.0025', 'JA1006E', 'Jairo Camacho G.', 'Cuentos de Ficción', 1),
+(2, '2019-10-29 14:24:21', '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'El sastrecillo valiente', 'CHOQUE MAMANI ALEXANDER EZEQUIEL', '5.704.0064', 'JA1006E', 'Jairo Camacho G.', 'Cuentos de Ficción', 1);
 
 -- --------------------------------------------------------
 
@@ -3590,7 +3596,8 @@ INSERT INTO `profesor` (`idprofesor`, `colegio`, `celular`, `nombre`, `profesion
 (85, 'GUIDO VILLAGOMEZ', '52-36971', 'JUAN GABRIEL PEREZ ORTEGA', 'Profesor', 'GV1014P', '2019-10-23 14:09:38', 'JUAN', 'ACTIVO', 'GV'),
 (86, 'GUIDO VILLAGOMEZ', '52-36971', 'MIRTHA CALLATA MAMANI', 'Secretaria ', 'GV1015P', '2019-10-23 14:09:38', 'MIRTHA', 'ACTIVO', 'GV'),
 (87, 'GUIDO VILLAGOMEZ', '52-36971', 'JORGE MOLLINEDO LOPEZ', 'Regente', 'GV1016P', '2019-10-23 14:09:38', 'JORGE', 'ACTIVO', 'GV'),
-(88, 'JUANA AZURDUY DE PADILLA', '52-52146', 'JOSE LUIS', 'Regente', 'JA5028P', '2019-10-23 21:23:09', 'JOSE', 'ACTIVO', 'JA');
+(90, 'GUIDO VILLAGOMEZ', '52-36971', 'ADIMER PAUL CHAMB AJATA', 'Profesor', 'GV1017P', '2019-10-28 06:00:30', 'ADIMER', 'ACTIVO', 'GV'),
+(91, 'JUANA AZURDUY DE PADILLA', '52-52146', 'ADIMER PAUL ', 'Profesor', 'JA1028P', '2019-10-31 12:00:15', 'ADIMER', 'ACTIVO', 'JA');
 
 --
 -- Índices para tablas volcadas
@@ -3648,19 +3655,19 @@ ALTER TABLE `estudiante`
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `idlibro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3244;
+  MODIFY `idlibro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3247;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamo`
 --
 ALTER TABLE `prestamo`
-  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
