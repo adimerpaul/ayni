@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2019 a las 13:08:49
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 31-10-2019 a las 15:43:15
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,12 +39,12 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`idconfiguracion`, `nombre`, `dato`) VALUES
-(1, 'Niño prestamos a domicilio', 2),
-(2, 'Niño prestamos a sala', 2),
-(3, 'Niño días de préstamo', 3),
-(4, 'Profesor prestamos a domicilio', 4),
-(5, 'Profesor prestamos a sala', 35),
-(6, 'Profesor días de préstamo', 4),
+(1, 'Cantidad libros en préstamo a domicilio; estudiante', 2),
+(2, 'Cantidad libros en préstamo en sala; estudiante', 2),
+(3, 'Días en préstamo a domicilio; estudiante', 3),
+(4, 'Cantidad libros en préstamo a domicilio; Profesor', 4),
+(5, 'Cantidad libros en préstamo en Sala; Profesor', 35),
+(6, 'Días en préstamo a domicilio; profesor', 4),
 (7, 'Multas', 2);
 
 -- --------------------------------------------------------
@@ -191,7 +191,8 @@ INSERT INTO `estudiante` (`idestudiante`, `colegio`, `nombre`, `nivel`, `id`, `f
 (116, 'GUIDO VILLAGOMEZ', 'YUCRA CACERES MIGUEL ANGEL', 'Segundo', 'GV1054E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
 (117, 'GUIDO VILLAGOMEZ', 'YUCRA MARTINEZ IVAN', 'Segundo', 'GV1055E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
 (118, 'GUIDO VILLAGOMEZ', 'ZAMBRANA QUISPE MARIA BELEN', 'Segundo', 'GV1056E', '2019-10-23 13:49:39', 'B', 'PRIMARIA', '', '52-36971', 'ACTIVO', 'GV'),
-(120, 'JUANA AZURDUY DE PADILLA', 'CHAMBI AJATA', 'Primero', 'JA1062E', '2019-10-31 11:53:50', 'A', 'PRIMARIA', '', '52-52146', 'ACTIVO', 'JA');
+(120, 'JUANA AZURDUY DE PADILLA', 'CHAMBI AJATA', 'Primero', 'JA1062E', '2019-10-31 11:53:50', 'A', 'PRIMARIA', '', '52-52146', 'ACTIVO', 'JA'),
+(121, 'JUANA AZURDUY DE PADILLA', 'CHAVEZ ISABEL', 'Primero', 'JA1063E', '2019-10-31 14:18:35', 'B', 'PRIMARIA', '', '52-52146', 'ACTIVO', 'JA');
 
 -- --------------------------------------------------------
 
@@ -3494,7 +3495,8 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 (3243, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'SIGRID', 'Algrebra de baldor', 'FOTOCOPIA', '2019', 'LATINAS', 'ORURO', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.0046', '2019-10-23 21:09:24', 'ACTIVO', 'JA', 0),
 (3244, 'GUIDO VILLAGOMEZ', '1010', '1010', 'Adela Basch, Oscar Rojas', 'Acertijos Matemáticos', 'ORIGINAL', '1989', 'LATINAS', 'ORURO', 'Malo', 'Aymara y Castellano', '3', 'Tercero', '400', 'CIENCIAS SOCIALES', '410', 'Derechos', '3.410.1006', '2019-10-28 05:10:30', 'ACTIVO', '', 1000),
 (3245, 'GUIDO VILLAGOMEZ', '1010', '1010', 'Academia lengua aimara', 'Abejita perecita', 'ORIGINAL', '2000', 'LATINAS', 'ORURO', 'Regular', 'Español', '3', 'Tercero', '400', 'CIENCIAS SOCIALES', '401', 'Geográfia', '3.401.1003', '2019-10-28 05:11:32', 'ACTIVO', '', 1000),
-(3246, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'Alberto Balcells, Jacqueline Balcells, Ana María Güiraldes', 'Aguas oscuras (Cuentos ecológicos)', 'ORIGINAL', '2010', 'LATINAS', 'ORURO', 'Bueno', 'Español', '4', 'Cuarto', '700', 'CUENTOS', '701', 'Cuentos Popular', '4.701.0051', '2019-10-31 11:36:30', 'ACTIVO', '', 0);
+(3246, 'JUANA AZURDUY DE PADILLA', '1010', '1010', 'Alberto Balcells, Jacqueline Balcells, Ana María Güiraldes', 'Aguas oscuras (Cuentos ecológicos)', 'ORIGINAL', '2010', 'LATINAS', 'ORURO', 'Bueno', 'Español', '4', 'Cuarto', '700', 'CUENTOS', '701', 'Cuentos Popular', '4.701.0051', '2019-10-31 11:36:30', 'ACTIVO', '', 0),
+(3247, 'GUIDO VILLAGOMEZ', '', '', 'Adela Basch, Oscar Rojas', 'Agua (Jugando con la Ciencia)', 'ORIGINAL', '2019', 'LATINAS', 'ORURO', 'Bueno', 'Aymara y Castellano', '6', 'Sexto', '400', 'CIENCIAS SOCIALES', '410', 'Derechos', '6.410.1001', '2019-10-31 14:10:32', 'ACTIVO', '', 1000);
 
 -- --------------------------------------------------------
 
@@ -3526,7 +3528,11 @@ CREATE TABLE `prestamo` (
 
 INSERT INTO `prestamo` (`idprestamo`, `fecha`, `fechadevo`, `estado`, `tipo`, `presta`, `colegio`, `usuario`, `titulo`, `persona`, `codigolibro`, `codigopersona`, `autor`, `tematica`, `lote`) VALUES
 (1, '2019-10-29 14:24:21', '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'El Príncipe Oleg y otros cuentos', 'CHOQUE MAMANI ALEXANDER EZEQUIEL', '6.704.0025', 'JA1006E', 'Jairo Camacho G.', 'Cuentos de Ficción', 1),
-(2, '2019-10-29 14:24:21', '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'El sastrecillo valiente', 'CHOQUE MAMANI ALEXANDER EZEQUIEL', '5.704.0064', 'JA1006E', 'Jairo Camacho G.', 'Cuentos de Ficción', 1);
+(2, '2019-10-29 14:24:21', '0000-00-00 00:00:00', 'PRESTADO', 'ESTUDIANTE', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'El sastrecillo valiente', 'CHOQUE MAMANI ALEXANDER EZEQUIEL', '5.704.0064', 'JA1006E', 'Jairo Camacho G.', 'Cuentos de Ficción', 1),
+(3, '2019-10-31 14:27:02', '2019-10-31 10:28:07', 'DEVUELTO', 'PROFESOR', 'SALA', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'Nuestra casa', 'CAROLA MENCIA GUTIÉRREZ', '1.702.1029', 'GV1001P', 'Ramón Bolivar', 'Cuentos Familiar', 2),
+(4, '2019-10-31 14:27:02', '2019-10-31 10:28:07', 'DEVUELTO', 'PROFESOR', 'SALA', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'Pinta, Pinta, Gregorita', 'CAROLA MENCIA GUTIÉRREZ', '2.702.1013', 'GV1001P', 'Lada Josefa Kratky', 'Cuentos Familiar', 2),
+(5, '2019-10-31 14:27:02', '2019-10-31 10:28:07', 'DEVUELTO', 'PROFESOR', 'SALA', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'La rebelión de los robots', 'CAROLA MENCIA GUTIÉRREZ', '8.704.1009', 'GV1001P', 'Alberto Balcells, Jacqueline Balcells, Ana María Güiraldes', 'Cuentos de Ficción', 2),
+(6, '2019-10-31 14:27:02', '2019-10-31 10:28:07', 'DEVUELTO', 'PROFESOR', 'SALA', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'La increíble historia de Lavinia', 'CAROLA MENCIA GUTIÉRREZ', '5.702.1003', 'GV1001P', 'Bianca Pitzorno', 'Cuentos Familiar', 2);
 
 -- --------------------------------------------------------
 
@@ -3649,19 +3655,19 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
 --
 ALTER TABLE `libro`
-  MODIFY `idlibro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3247;
+  MODIFY `idlibro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3248;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamo`
 --
 ALTER TABLE `prestamo`
-  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
