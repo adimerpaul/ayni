@@ -91,6 +91,7 @@ function datos(){
     }
     function incremento($colegio=''){
         header('Content-Type: text/html; charset=utf-8');
+        $colegio=urldecode($colegio);
         $row=$this->db->query("SELECT incremento FROM libro WHERE colegio='$colegio' ")->row();
         echo $row->incremento;
     }
@@ -130,7 +131,6 @@ function insert(){
         'codsubarea'=>$codsubarea,
         'area'=>$_POST['area'],
         'tematica'=>$_POST['tematica'],
-        'pre'=>$_POST['pre'],
         'incremento'=>$_POST['incremento'],
         'codigo'=>$_POST['codigo']
 
@@ -224,7 +224,7 @@ function update(){
             </table>';
                 if ($con==20){
                     $con=0;
-                    $pdf->AddPage();
+                    $pdf->AddPage('P','Legal');
                     $y=2;
                 }
                 if ($con%2==0){

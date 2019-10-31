@@ -1,15 +1,12 @@
+<?php
+$colegio=$_SESSION['colegio'];
+?>
 <div class="button-ad-wrap" style="width: 100%">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success p-1 mb-2" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-user"></i> Registrar Profesor
     </button>
 
-    <!-- Modal -->
-    <style>
-        .modal-lg{
-            min-width: 99%;
-        }
-    </style>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -22,40 +19,39 @@
                 <div class="modal-body">
                     <form  method="post" action="<?=base_url()?>Profesores/insert" enctype="multipart/form-data">
                         <div class="form-group row">
-                            <label class="col-sm-1" >Colegio</label>
-                            <div class="col-sm-3">
-                                <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
-                                <datalist id="colegios">
-                                    <?php
-                                    $query=$this->db->query("SELECT colegio FROM profesor WHERE colegio<>'AYNI' GROUP BY colegio");
-                                    foreach ($query->result() as $row){
-                                        echo "<option value='$row->colegio'>";
-                                    }
+                            <label class="col-sm-2" >Colegio</label>
+                            <div class="col-sm-4">
+                                <?php
+                                if ($colegio=='AYNI'):
                                     ?>
-                                </datalist>
+                                    <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
+                                    <datalist id="colegios">
+                                        <?php
+                                        $query=$this->db->query("SELECT colegio FROM libro GROUP BY colegio");
+                                        foreach ($query->result() as $row){
+                                            echo "<option value='$row->colegio'>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                <?php else:?>
+                                    <input type="text" name="colegio" id="colegio" value="<?=$colegio?>" hidden>
+                                    <label ><?=$colegio?></label>
+                                <?php endif;?>
                             </div>
-                            <label class="col-sm-1" >Nombre Completo</label>
-                            <div class="col-sm-3">
-                                <input type="text" required name="nombre" id="nombre" class="form-control" placeholder="Nombres apellidos">
-                            </div>
-                            <label class="col-sm-1" >Celular</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Telefono unidad</label>
+                            <div class="col-sm-4">
                                 <input type="text"  name="celular" id="celular" class="form-control" placeholder="celular">
                             </div>
-                            <label class="col-sm-1" >Prefijo</label>
-                            <div class="col-sm-1">
-                                <input type="text" name="pre" id="pre" class="form-control" >
+                            <label class="col-sm-2" >Nombre Completo</label>
+                            <div class="col-sm-4">
+                                <input type="text" required name="nombre" id="nombre" class="form-control" placeholder="Nombres apellidos">
                             </div>
-                            <label class="col-sm-1" >Su cogido sera</label>
-                            <div class="col-sm-1">
-                                <input type="text" name="id" id="codigo" class="form-control" >
-                            </div>
-                            <label class="col-sm-1" >Usuario</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Usuario</label>
+                            <div class="col-sm-4">
                                 <input type="text" required name="usuario" id="usuario" class="form-control" placeholder="usuario">
                             </div>
-                            <label class="col-sm-1">Profesion</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2">Cargo</label>
+                            <div class="col-sm-4">
                                 <input list="profesiones" type="text" name="profesion" class="form-control" id="profesion" required>
                                 <datalist id="profesiones">
                                     <?php
@@ -66,13 +62,22 @@
                                     ?>
                                 </datalist>
                             </div>
+                            <label class="col-sm-2" >Prefijo</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="pre" id="pre" class="form-control" >
+                            </div>
+                            <label class="col-sm-2" >Su cogido sera</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="id" id="codigo" class="form-control" >
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Fotografia</label>
-                            <div class="col-sm-3">
-                                <input type="file" required name="foto" class="form-control" placeholder="Apellido nombres">
+                            <div class="col-sm-5">
+                                <input type="file" id="foto" required name="foto" class="form-control" placeholder="Apellido nombres">
                             </div>
-                            <div class="col-sm-8"><span class="alert alert-warning">La foto deve ser en PNG y un tamaño de 77x93 Y se guardara con el nombre de su codigo</span></div>
+                            <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia" ></div>
+                            <div class="col-sm-5"><span class="alert alert-danger">FORMATO PNG;TAMAÑO 77x93</span></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -96,7 +101,7 @@
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
-            <th></th>
+            <th><input type="checkbox" id="selectall"/>ALL</th>
             <th>Fecha</th>
             <th>Codigo</th>
             <th>Nombre</th>
@@ -107,13 +112,19 @@
         </thead>
         <tbody>
         <?php
-        $query=$this->db->query("SELECT * FROM profesor WHERE nombre!='AYNI'");
+        if ($colegio=='AYNI'){
+            $query=$this->db->query("SELECT * FROM profesor WHERE nombre!='AYNI'");
+        }else{
+            $query=$this->db->query("SELECT * FROM profesor WHERE nombre!='AYNI' AND colegio='$colegio'");
+//            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio'");
+        }
+
         foreach ($query->result() as $row){
             if ($row->estado=="INACTIVO"){
                 $in="";
                 $ba="<a href='".base_url()."Profesores/alta/$row->idprofesor'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
             }else{
-                $in="<input type='checkbox' name='c$row->id'>";
+                $in="<input type='checkbox' name='c$row->id' class='case'>";
                 $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idprofesor' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
 <a href='".base_url()."Profesores/baja/$row->idprofesor'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
             }
@@ -192,10 +203,16 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-1" >Fotografia</label>
-                        <div class="col-sm-3">
-                            <input type="file" name="foto" class="form-control" placeholder="Apellido nombres">
+                        <div class="col-sm-5">
+                            <input type="file" id="foto2" required name="foto" class="form-control" placeholder="Apellido nombres">
                         </div>
-                        <div class="col-sm-8"><span class="alert alert-warning">La foto deve ser en PNG y un tamaño de 77x93 Y se guardara con el nombre de su codigo</span></div>
+                        <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia2" ></div>
+                        <div class="col-sm-5">
+                            <span class="alert alert-danger p-0">FORMATO PNG;TAMAÑO 77x93
+                            </span><br>
+                            <span class="alert alert-danger p-0" id="archivo">
+                            </span>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -209,6 +226,34 @@
 
 <script !src="">
     window.onload=function (e) {
+        $("#selectall").on("click", function() {
+            $(".case").attr("checked", this.checked);
+            console.log(this.checked);
+        });
+        $('#foto').change(function (e) {
+            $("#fotografia").attr("src", 'fotos/person.png');
+            var formData = new FormData();
+            var files = $('#foto')[0].files[0];
+            formData.append('file',files);
+            $.ajax({
+                url: 'Students/subir',
+                type: 'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response != 0) {
+                        $("#fotografia").attr("src", response);
+                    } else {
+                        alert('Formato de imagen incorrecto.');
+                    }
+                }
+            });
+            e.preventDefault();
+        });
+
+
         $('.confirmar').click(function (e) {
             if (!confirm("Seguro de dar de baja?")){
                 e.preventDefault();
@@ -230,6 +275,8 @@
                     $('#usuario2').val(datos.usuario);
                     $('#profesion2').val(datos.profesion);
                     $('#idprofesor2').val(datos.idprofesor);
+                    $('#archivo').html('fotos/'+datos.id+'.png');
+                    $("#fotografia2").attr("src", 'fotos/profesores/'+datos.id+'.png');
                 }
             });
         })

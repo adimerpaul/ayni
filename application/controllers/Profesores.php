@@ -44,7 +44,7 @@ class Profesores extends CI_Controller {
     function consulta($colegio=""){
         $colegio=urldecode($colegio);
         $query=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio'");
-        echo $query->num_rows() +5001;
+        echo $query->num_rows() +1001;
     }
     function insert(){
         $colegio=$_POST['colegio'];
@@ -210,12 +210,14 @@ class Profesores extends CI_Controller {
     function kardex(){
         $orden=$_POST['orden'];
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->AddPage();
+
+        $pdf->AddPage('P', array(216,356));
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=2;
+        $y=4;
         $query=$this->db->query("SELECT * FROM profesor WHERE $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
@@ -249,8 +251,8 @@ class Profesores extends CI_Controller {
 
                 if ($con==10){
                     $con=0;
-                    $pdf->AddPage();
-                    $y=2;
+                    $pdf->AddPage('P', array(216,356));
+                    $y=4;
                 }
                 if ($con%2==0){
                     $pdf->SetXY(25, $y);

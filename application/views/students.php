@@ -1,15 +1,11 @@
+<?php
+$colegio=$_SESSION['colegio'];
+?>
 <div class="button-ad-wrap" style="width: 100%">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success p-1 mb-2" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-user-secret"></i> Registrar Estudiante
     </button>
-
-    <!-- Modal -->
-    <style>
-        .modal-lg{
-            min-width: 99%;
-        }
-    </style>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -22,33 +18,36 @@
                 <div class="modal-body">
                     <form  method="post" action="<?=base_url()?>Students/insert" enctype="multipart/form-data">
                         <div class="form-group row">
-                            <label class="col-sm-1" >Colegio</label>
-                            <div class="col-sm-3">
-<!--                                <select name="colegio" class="form-control" id="colegio" required>-->
-<!--                                    <option value="">Selecionar..</option>-->
-<!--                                    <option value="JUANA AZURDUY DE PADILLA">JUANA AZURDUY DE PADILLA</option>-->
-<!--                                    <option value="GUIDO VILLAGOMEZ">GUIDO VILLAGOMEZ</option>-->
-<!--                                </select>-->
-                                <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
-                                <datalist id="colegios">
-                                    <?php
-                                    $query=$this->db->query("SELECT colegio FROM estudiante GROUP BY colegio");
-                                    foreach ($query->result() as $row){
-                                        echo "<option value='$row->colegio'>";
-                                    }
+                            <label class="col-sm-2" >Colegio</label>
+                            <div class="col-sm-4">
+                                <?php
+                                if ($colegio=='AYNI'):
                                     ?>
-                                </datalist>
+                                    <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
+                                    <datalist id="colegios">
+                                        <?php
+                                        $query=$this->db->query("SELECT colegio FROM libro GROUP BY colegio");
+                                        foreach ($query->result() as $row){
+                                            echo "<option value='$row->colegio'>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                <?php else:?>
+                                    <input type="text" name="colegio" id="colegio" value="<?=$colegio?>" hidden>
+                                    <label ><?=$colegio?></label>
+                                <?php endif;?>
                             </div>
-                            <label class="col-sm-1" >Categoria</label>
-                            <div class="col-sm-3">
+
+                            <label class="col-sm-2" >Categoria</label>
+                            <div class="col-sm-4">
                             <select name="categoria" id="categoria" class="form-control" required>
                                 <option value="">Selecionar..</option>
                                 <option value="PRIMARIA">PRIMARIA</option>
                                 <option value="SECUNDARIA">SECUNDARIA</option>
                             </select>
                             </div>
-                            <label class="col-sm-1">Nivel</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2">Nivel</label>
+                            <div class="col-sm-4">
                             <select name="nivel" id="nivel"  class="form-control" required>
                                 <option value="">Selecionar..</option>
                                 <option value="Primero">Primero</option>
@@ -59,8 +58,8 @@
                                 <option value="Sexto">Sexto</option>
                             </select>
                             </div>
-                            <label class="col-sm-1" >Paralelo</label>
-                            <div class="col-sm-2">
+                            <label class="col-sm-2" >Paralelo</label>
+                            <div class="col-sm-4">
                             <select name="paralelo" id="paralelo" class="form-control" required>
                                 <option value="">Selecionar..</option>
                                 <option value="A">A</option>
@@ -75,22 +74,22 @@
                                 <option value="J">J</option>
                             </select>
                             </div>
-                            <label class="col-sm-1" >Nombre Completo</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Nombre Completo</label>
+                            <div class="col-sm-4">
                                 <input type="text"  name="nombre" id="nombre" class="form-control" placeholder="Apellido nombres">
                                 <small class="alert alert-success p-0">Cantidad libres de carateres <span id="cantidad">40</span></small>
                             </div>
-                            <label class="col-sm-1" >Prefijo</label>
-                            <div class="col-sm-1">
+                            <label class="col-sm-2" >Prefijo</label>
+                            <div class="col-sm-4">
                                 <input type="text" name="pre" id="pre" class="form-control" >
                             </div>
-                            <label class="col-sm-1" >Su cogido sera</label>
-                            <div class="col-sm-2">
+                            <label class="col-sm-2" >Su cogido sera</label>
+                            <div class="col-sm-4">
                                 <input type="text" name="id" id="codigo" class="form-control" >
                                 <span id="veri" class="alert alert-danger p-0"></span>
                             </div>
-                            <label class="col-sm-1" >Telefono</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Telefono</label>
+                            <div class="col-sm-4">
                                 <input type="text" id="telefono" name="telefono" class="form-control" placeholder="52-11111">
                             </div>
                         </div>
@@ -100,7 +99,7 @@
                                 <input type="file" id="foto" required name="foto" class="form-control" placeholder="Apellido nombres">
                             </div>
                             <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia" ></div>
-                            <div class="col-sm-5"><span class="alert alert-danger">FOTOGRAFIA PNG 77x93</span></div>
+                            <div class="col-sm-5"><span class="alert alert-danger">FORMATO PNG;TAMAÑO 77x93</span></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -120,11 +119,12 @@
         <select name="orden" >
             <option value="fecha">fecha</option>
             <option value="nombre">nombre</option>
+            <option value="nivel">curso</option>
         </select>
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
-            <td></td>
+            <td><input type="checkbox" id="selectall"/>ALL</td>
             <th>Fecha</th>
             <th>Codigo</th>
             <th>Nombre</th>
@@ -135,13 +135,17 @@
         </thead>
         <tbody>
         <?php
-        $query=$this->db->query("SELECT * FROM estudiante");
+        if ($colegio=='AYNI'){
+            $query=$this->db->query("SELECT * FROM estudiante");
+        }else{
+            $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'");
+        }
         foreach ($query->result() as $row){
             if ($row->estado=="INACTIVO"){
                 $in="";
                 $ba="<a href='".base_url()."Students/alta/$row->idestudiante'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
             }else{
-                $in="<input type='checkbox' name='c$row->id'>";
+                $in="<input type='checkbox' name='c$row->id' class='case'>";
                 $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idestudiante' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
 <a href='".base_url()."Students/baja/$row->idestudiante'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
             }
@@ -266,6 +270,12 @@
 
 <script !src="">
     window.onload=function (e) {
+
+        $("#selectall").on("click", function() {
+            $(".case").attr("checked", this.checked);
+            console.log(this.checked);
+        });
+
         $('#foto').change(function (e) {
             $("#fotografia").attr("src", 'fotos/person.png');
             var formData = new FormData();

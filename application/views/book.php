@@ -1,3 +1,6 @@
+<?php
+$colegio=$_SESSION['colegio'];
+?>
 <div class="button-ad-wrap" style="width: 100%">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success p-1" data-toggle="modal" data-target="#exampleModal">
@@ -5,9 +8,7 @@
     </button>
     <!-- Modal -->
     <style>
-        .modal-lg{
-            min-width: 99%;
-        }
+
     </style>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,11 +23,9 @@
                 <div class="modal-body">
                     <form  method="post" action="<?=base_url()?>Book/insert" enctype="multipart/form-data">
                         <div class="form-group row">
-                            <label class="col-sm-1" >Colegio</label>
-
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Colegio</label>
+                            <div class="col-sm-4">
                                 <?php
-                                $colegio=$_SESSION['colegio'];
                                 if ($colegio=='AYNI'):
                                 ?>
                                 <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
@@ -43,14 +42,14 @@
                                     <label ><?=$colegio?></label>
                                 <?php endif;?>
                             </div>
-                            <div class="col-sm-2">
-                                <input type="number" name="nroserie" class="form-control" required placeholder="Nro Serie">
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="number" name="nroalcaldia" class="form-control" required placeholder="Nro alcaldia">
-                            </div>
-                            <label class="col-sm-1" >Autor</label>
                             <div class="col-sm-3">
+                                <input type="number" name="nroserie" class="form-control"  placeholder="Nro Serie">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number" name="nroalcaldia" class="form-control"  placeholder="Nro alcaldia">
+                            </div>
+                            <label class="col-sm-2" >Autor</label>
+                            <div class="col-sm-4">
 <!--                                <input type="text" name="autor" class="form-control" placeholder="Apellido nombres">-->
                                 <input list="autor" name="autor" class="form-control"placeholder="Autor">
                                 <datalist id="autor">
@@ -62,9 +61,9 @@
                                     ?>
                                 </datalist>
                             </div>
-                            <label class="col-sm-1" >Titulo</label>
-                            <div class="col-sm-3">
-                                <input list="titulos" name="titulo" class="form-control"placeholder="Titulor">
+                            <label class="col-sm-2" >Titulo</label>
+                            <div class="col-sm-4">
+                                <input list="titulos" name="titulo" class="form-control"placeholder="Titulo">
                                 <datalist id="titulos">
                                     <?php
                                     $query=$this->db->query("SELECT titulo FROM libro GROUP BY titulo");
@@ -74,41 +73,42 @@
                                     ?>
                                 </datalist>
                             </div>
-                            <label class="col-sm-1" >Original</label>
-                            <div class="col-sm-1">
+                            <label class="col-sm-2" >Original</label>
+                            <div class="col-sm-4">
                                 <select name="original" class="form-control" id="" required>
                                     <option value="">Selecionar..</option>
                                     <option value="ORIGINAL">ORIGINAL</option>
                                     <option value="FOTOCOPIA">FOTOCOPIA</option>
                                 </select>
                             </div>
-                            <div class="col-sm-2">
-                                <input type="number" name="anioedicion" class="form-control" required placeholder="Año Edicion">
-                            </div>
-                            <label class="col-sm-1" >Pre</label>
-                            <div class="col-sm-1">
+
+                            <label class="col-sm-2" >Incremento</label>
+                            <div class="col-sm-4">
                                 <?php
-                                $pre=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->pre;
-                                ?>
-                                <input type="text" name="pre" id="pre" class="form-control" value="<?=$pre?>" required placeholder="Pre">
-                            </div>
-                            <label class="col-sm-1" >Incremento</label>
-                            <div class="col-sm-1">
-                                <?php
-                                $incremento=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->incremento;
+//                                $incremento=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->incremento;
+                                $query=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'");
+                                if ($query->num_rows()>0){
+                                    $incremento=$query->row()->incremento;
+                                }else{
+                                    $incremento='';
+                                }
                                 ?>
                                 <input type="number" name="incremento" id="incremento" class="form-control" value="<?=$incremento?>" required placeholder="Incremento">
                             </div>
-                            <label class="col-sm-1" >editorial</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="editorial" class="form-control" required placeholder="editorial">
+                            <label class="col-sm-2" >Editorial</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="editorial" class="form-control"  placeholder="editorial">
                             </div>
-                            <label class="col-sm-1" >procedencia</label>
-                            <div class="col-sm-3">
-                                <input type="text" name="procedencia" class="form-control" required placeholder="procedencia">
+                            <label class="col-sm-2" >Año edicion</label>
+                            <div class="col-sm-4">
+                                <input type="number" name="anioedicion" class="form-control"  placeholder="Año Edicion">
                             </div>
-                            <label class="col-sm-1" >estado</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >procedencia</label>
+                            <div class="col-sm-4">
+                                <input type="text" name="procedencia" class="form-control"  placeholder="procedencia">
+                            </div>
+                            <label class="col-sm-2" >Estado</label>
+                            <div class="col-sm-4">
                                 <select name="estado" class="form-control" id="" required>
                                     <option value="">Selecionar..</option>
                                     <option value="Nuevo">Nuevo</option>
@@ -117,9 +117,8 @@
                                 </select>
                             </div>
 
-                            <label class="col-sm-1" >idioma</label>
-
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >Idioma</label>
+                            <div class="col-sm-4">
                                 <input list="idioma" name="idioma" class="form-control" placeholder="Idioma">
                                 <datalist id="idioma">
                                     <?php
@@ -131,8 +130,8 @@
                                 </datalist>
 
                             </div>
-                            <label class="col-sm-1">Nivel</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2">Nivel</label>
+                            <div class="col-sm-4">
                                 <select name="nivel" id="nivel"  class="form-control" required>
 <!--                                    <option value="">Selecionar..</option>-->
                                     <option value="1">Primero</option>
@@ -143,8 +142,8 @@
                                     <option value="6">Sexto</option>
                                 </select>
                             </div>
-                            <label class="col-sm-1">Area</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2">Area</label>
+                            <div class="col-sm-4">
                             <select name="area" class="form-control" required id="area">
 <!--                                <option value="">Selecionar..</option>-->
                                 <?php
@@ -155,10 +154,10 @@
                                 ?>
                             </select>
                             </div>
-                            <label class="col-sm-1">Tematica</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2">Tematica</label>
+                            <div class="col-sm-4">
                                 <select name="tematica" class="form-control" required id="tematica">
-<!--                                    <option value="">Selecionar..</option>-->
+                                    <option value="">Selecionar..</option>
                                     <?php
                                     $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
                                     foreach ($query->result() as $row){
@@ -168,8 +167,8 @@
                                 </select>
                             </div>
 
-                            <label class="col-sm-1" >codigo</label>
-                            <div class="col-sm-3">
+                            <label class="col-sm-2" >codigo</label>
+                            <div class="col-sm-4">
                                 <input type="text" name="codigo" class="form-control" id="codigo" required placeholder="codigo">
                                 <span class=""></span>
                             </div>
@@ -188,10 +187,14 @@
             <i class="fa fa-camera"></i> Generar codigos
         </button>
         <select name="orden" id="orden">
+            <option value="fecha">fecha</option>
+            <option value="titulo">titulo</option>
+            <option value="autor">autor</option>
+            <option value="codigo">codigo</option>
             <option value="area">area</option>
             <option value="tematica">tematica</option>
             <option value="idioma">idioma</option>
-            <option value="nivel">nivel</option>
+            <option value="nivel">curso</option>
             <option value="colegio">colegio</option>
         </select>
     <table id="example" class="display" style="width:100%">
@@ -425,7 +428,11 @@
 <script !src="">
     window.onload=function (e) {
         $('#area').change(function (e) {
-            // console.log($(this).val());
+            // console.log($('#colegio').val());
+            if ($('#colegio').val()==''){
+                alert('primero selecionar colegio');
+                return false;
+            }
             $.ajax({
                 data:'area='+$(this).val(),
                 type:'POST',
@@ -433,7 +440,7 @@
                 success:function (e) {
                     // console.log(e);
                     var datos= JSON.parse(e);
-                    $('#tematica').html('');
+                    $('#tematica').html('<option value="">Seleccionar..</option>');
                     datos.forEach(function (e) {
                         $('#tematica').append('<option value="'+e.tematica+'">'+e.tematica+'</option>');
                     })
@@ -442,6 +449,10 @@
             e.preventDefault();
         });
         $('#nivel,#tematica').change(function (e) {
+            if ($('#colegio').val()==''){
+                alert('primero selecionar colegio');
+                return false;
+            }
             if ($('#nivel').val()=='' || $('#area').val()=='' || $('#tematica').val()==''){
                 alert('debe llenar los campos de nivel area y tematica');
             }else{
@@ -475,7 +486,101 @@
                 });
             }else if (i==10){
 
-            }else{
+            }else if (i==4){
+                $(this).html( '<select style="width:100px" >' +
+                    '<option value="">Seleccionar..</option>' +
+                    <?php
+                        $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                        foreach ($query->result() as $row){
+                            echo "'<option value=\"$row->area\">$row->area</option>' +";
+                        }
+                    ?>
+                    '</select>' );
+                $( 'select', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            }else if (i==5){
+                $(this).html( '<select style="width:100px" >' +
+                    '<option value="">Seleccionar..</option>' +
+                    <?php
+                    $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
+                    foreach ($query->result() as $row){
+                        echo "'<option value=\"$row->tematica\">$row->tematica</option>' +";
+                    }
+                    ?>
+                    '</select>' );
+                $( 'select', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            }
+            else if (i==6){
+                $(this).html( '<select style="width:100px" >' +
+                    '<option value="">Seleccionar..</option>' +
+                    <?php
+                    $query=$this->db->query("SELECT idioma FROM libro GROUP BY idioma");
+                    foreach ($query->result() as $row){
+                        echo "'<option value=\"$row->idioma\">$row->idioma</option>' +";
+                    }
+                    ?>
+                    '</select>' );
+                $( 'select', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            }
+            else if (i==8){
+                $(this).html( '<select style="width:100px" >' +
+                    '<option value="">Seleccionar..</option>' +
+                    <?php
+                    $query=$this->db->query("SELECT nivel FROM libro GROUP BY nivel");
+                    foreach ($query->result() as $row){
+                        echo "'<option value=\"$row->nivel\">$row->nivel</option>' +";
+                    }
+                    ?>
+                    '</select>' );
+                $( 'select', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            }
+            else if (i==9){
+                $(this).html( '<select style="width:100px" >' +
+                    '<option value="">Seleccionar..</option>' +
+                    <?php
+                    $query=$this->db->query("SELECT colegio FROM libro GROUP BY colegio");
+                    foreach ($query->result() as $row){
+                        echo "'<option value=\"$row->colegio\">$row->colegio</option>' +";
+                    }
+                    ?>
+                    '</select>' );
+                $( 'select', this ).on( 'keyup change', function () {
+                    if ( table.column(i).search() !== this.value ) {
+                        table
+                            .column(i)
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            }
+            else{
                 var title = $(this).text();
                 $(this).html( '<input type="text" style="width: 100px;" placeholder="Buscar '+title+'" />' );
                 $( 'input', this ).on( 'keyup change', function () {
@@ -494,11 +599,11 @@
         //     fixedHeader: true
         // } );
         $('#colegio').change(function (e) {
-            console.log('aa');
+            // console.log($(this).val().trim());
             $.ajax({
                url:'Book/incremento/'+$(this).val().trim(),
                success:function (e) {
-                   console.log(e);
+                   $('#incremento').val(e);
                }
             });
             e.preventDefault();

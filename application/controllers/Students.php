@@ -250,10 +250,10 @@ class Students extends CI_Controller {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->AddPage();
+        $pdf->AddPage('P', array(216,356));
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=2;
+        $y=4;
         $query=$this->db->query("SELECT * FROM estudiante ORDER BY $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
@@ -290,8 +290,8 @@ class Students extends CI_Controller {
 
                 if ($con==10){
                     $con=0;
-                    $pdf->AddPage();
-                    $y=2;
+                    $pdf->AddPage('P', array(216,356));
+                    $y=4;
                 }
                 if ($con%2==0){
                     $pdf->SetXY(25, $y);
