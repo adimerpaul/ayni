@@ -39,9 +39,20 @@ $colegio=$_SESSION['colegio'];
                                 <?php endif;?>
                             </div>
                             <label class="col-sm-2" >Telefono unidad</label>
-                            <div class="col-sm-4">
-                                <input type="text"  name="celular" id="celular" class="form-control" placeholder="celular">
-                            </div>
+
+                            <?php if ($colegio=='AYNI'): ?>
+                                <div class="col-sm-4">
+                                    <input type="text"  name="celular" id="celular" class="form-control" placeholder="celular">
+                                </div>
+                            <?php else:?>
+                                <?php
+                                $celular=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio'")->row()->celular;
+                                ?>
+                                <div class="col-sm-4">
+                                    <input type="text" name="celular" id="celular" value="<?=$celular?>" >
+
+                                </div>
+                            <?php endif;?>
                             <label class="col-sm-2" >Nombre Completo</label>
                             <div class="col-sm-4">
                                 <input type="text" required name="nombre" id="nombre" class="form-control" placeholder="Nombres apellidos">
@@ -63,13 +74,37 @@ $colegio=$_SESSION['colegio'];
                                 </datalist>
                             </div>
                             <label class="col-sm-2" >Prefijo</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="pre" id="pre" class="form-control" >
-                            </div>
+                            <?php if ($colegio=='AYNI'): ?>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pre" id="pre" class="form-control" >
+                                </div>
+                            <?php else:?>
+                                <?php
+                                $pre=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio'")->row()->pre;
+                                ?>
+                                <div class="col-sm-4">
+                                    <input type="text" name="pre" id="pre" value="<?=$pre?>" hidden>
+                                    <label ><?=$pre?></label>
+                                </div>
+                            <?php endif;?>
                             <label class="col-sm-2" >Su cogido sera</label>
-                            <div class="col-sm-4">
-                                <input type="text" name="id" id="codigo" class="form-control" >
-                            </div>
+<!--                            <div class="col-sm-4">-->
+<!--                                <input type="text" name="id" id="codigo" class="form-control" >-->
+<!--                            </div>-->
+                            <?php if ($colegio=='AYNI'): ?>
+                                <div class="col-sm-4">
+                                    <input type="text" name="id" id="codigo" class="form-control" >
+                                </div>
+                            <?php else:?>
+                                <?php
+                                $cantidad=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio'")->num_rows();
+                                $codigo=$pre.($cantidad+1001)."P";
+                                ?>
+                                <div class="col-sm-4">
+                                    <input type="text" name="id" id="codigo" value="<?=$codigo?>" hidden>
+                                    <label ><?=$codigo?></label>
+                                </div>
+                            <?php endif;?>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Fotografia</label>
@@ -204,7 +239,7 @@ $colegio=$_SESSION['colegio'];
                     <div class="form-group row">
                         <label class="col-sm-1" >Fotografia</label>
                         <div class="col-sm-5">
-                            <input type="file" id="foto2" required name="foto" class="form-control" placeholder="Apellido nombres">
+                            <input type="file" id="foto2"  name="foto" class="form-control" placeholder="Apellido nombres">
                         </div>
                         <div class="col-sm-1"><img src="<?=base_url()?>fotos/person.png" id="fotografia2" ></div>
                         <div class="col-sm-5">

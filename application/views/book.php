@@ -112,6 +112,7 @@ $colegio=$_SESSION['colegio'];
                                 <select name="estado" class="form-control" id="" required>
                                     <option value="">Selecionar..</option>
                                     <option value="Nuevo">Nuevo</option>
+                                    <option value="Bueno">Bueno</option>
                                     <option value="Regular">Regular</option>
                                     <option value="Malo">Malo</option>
                                 </select>
@@ -327,15 +328,9 @@ $colegio=$_SESSION['colegio'];
                         <div class="col-sm-2">
                             <input type="number" name="anioedicion" id="anioedicion2" class="form-control" required placeholder="Año Edicion">
                         </div>
-                        <label class="col-sm-1" >Pre</label>
-                        <div class="col-sm-1">
-                            <?php
-                            $pre=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->pre;
-                            ?>
-                            <input type="text" name="pre" id="pre2" class="form-control" value="<?=$pre?>" required placeholder="Pre">
-                        </div>
+
                         <label class="col-sm-1" >Incremento</label>
-                        <div class="col-sm-1">
+                        <div class="col-sm-3">
                             <?php
                             $incremento=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->incremento;
                             ?>
@@ -354,6 +349,7 @@ $colegio=$_SESSION['colegio'];
                             <select name="estado" class="form-control" id="estado2" required>
                                 <option value="">Selecionar..</option>
                                 <option value="Nuevo">Nuevo</option>
+                                <option value="Bueno">Bueno</option>
                                 <option value="Regular">Regular</option>
                                 <option value="Malo">Malo</option>
                             </select>
