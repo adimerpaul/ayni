@@ -25,9 +25,7 @@ $colegio=$_SESSION['colegio'];
                         <div class="form-group row">
                             <label class="col-sm-2" >Colegio</label>
                             <div class="col-sm-4">
-                                <?php
-                                if ($colegio=='AYNI'):
-                                ?>
+                                <?php if ($colegio=='AYNI'):?>
                                 <input list="colegios" type="text" name="colegio" class="form-control" id="colegio" required>
                                 <datalist id="colegios">
                                     <?php
@@ -117,7 +115,30 @@ $colegio=$_SESSION['colegio'];
                                     <option value="Malo">Malo</option>
                                 </select>
                             </div>
-
+                            <label class="col-sm-2">Area</label>
+                            <div class="col-sm-4">
+                                <select name="area" class="form-control" required id="area">
+                                    <!--                                <option value="">Selecionar..</option>-->
+                                    <?php
+                                    $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->area'>$row->area</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <label class="col-sm-2">Tematica</label>
+                            <div class="col-sm-4">
+                                <select name="tematica" class="form-control" required id="tematica">
+                                    <option value="">Selecionar..</option>
+                                    <?php
+                                    $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
+                                    foreach ($query->result() as $row){
+                                        echo "<option value='$row->tematica'>$row->tematica</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <label class="col-sm-2" >Idioma</label>
                             <div class="col-sm-4">
                                 <input list="idioma" name="idioma" class="form-control" placeholder="Idioma">
@@ -141,32 +162,15 @@ $colegio=$_SESSION['colegio'];
                                     <option value="4">Cuarto</option>
                                     <option value="5">Quinto</option>
                                     <option value="6">Sexto</option>
+                                    <option value="7">Septimo</option>
+                                    <option value="8">Octavo</option>
+                                    <option value="9">Noveno</option>
+                                    <option value="10">Decimo</option>
+                                    <option value="11">Undecimo</option>
+                                    <option value="12">Duodecimo</option>
                                 </select>
                             </div>
-                            <label class="col-sm-2">Area</label>
-                            <div class="col-sm-4">
-                            <select name="area" class="form-control" required id="area">
-<!--                                <option value="">Selecionar..</option>-->
-                                <?php
-                                $query=$this->db->query("SELECT area FROM libro GROUP BY area");
-                                foreach ($query->result() as $row){
-                                    echo "<option value='$row->area'>$row->area</option>";
-                                }
-                                ?>
-                            </select>
-                            </div>
-                            <label class="col-sm-2">Tematica</label>
-                            <div class="col-sm-4">
-                                <select name="tematica" class="form-control" required id="tematica">
-                                    <option value="">Selecionar..</option>
-                                    <?php
-                                    $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
-                                    foreach ($query->result() as $row){
-                                        echo "<option value='$row->tematica'>$row->tematica</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+
 
                             <label class="col-sm-2" >codigo</label>
                             <div class="col-sm-4">
@@ -184,9 +188,11 @@ $colegio=$_SESSION['colegio'];
         </div>
     </div>
     <form action="<?=base_url()?>Book/Kardex" method="post" target="_blank">
+        <?php if ($_SESSION['profesion']=="Directora" || $_SESSION['profesion']=="Director"):?>
         <button type="submit" class="btn btn-info p-1" >
-            <i class="fa fa-camera"></i> Generar codigos
+            <i class="fa fa-camera"></i> Imprimir codigos
         </button>
+        <?php endif;?>
         <select name="orden" id="orden">
             <option value="fecha">fecha</option>
             <option value="titulo">titulo</option>
@@ -342,7 +348,7 @@ $colegio=$_SESSION['colegio'];
                         </div>
                         <label class="col-sm-1" >procedencia</label>
                         <div class="col-sm-3">
-                            <input type="text" name="procedencia" id="procedencia2" class="form-control" required placeholder="procedencia">
+                            <input type="text" name="pais" id="procedencia2" class="form-control" required placeholder="procedencia">
                         </div>
                         <label class="col-sm-1" >estado</label>
                         <div class="col-sm-3">
@@ -379,6 +385,12 @@ $colegio=$_SESSION['colegio'];
                                 <option value="4">Cuarto</option>
                                 <option value="5">Quinto</option>
                                 <option value="6">Sexto</option>
+                                <option value="7">Septimo</option>
+                                <option value="8">Octavo</option>
+                                <option value="9">Noveno</option>
+                                <option value="10">Decimo</option>
+                                <option value="11">Undecimo</option>
+                                <option value="12">Duodecimo</option>
                             </select>
                         </div>
                         <label class="col-sm-1">Area</label>
@@ -541,12 +553,18 @@ $colegio=$_SESSION['colegio'];
             else if (i==8){
                 $(this).html( '<select style="width:100px" >' +
                     '<option value="">Seleccionar..</option>' +
-                    <?php
-                    $query=$this->db->query("SELECT nivel FROM libro GROUP BY nivel");
-                    foreach ($query->result() as $row){
-                        echo "'<option value=\"$row->nivel\">$row->nivel</option>' +";
-                    }
-                    ?>
+                    '<option value="Primero">Primero</option>' +
+                    '<option value="Segundo">Segundo</option>' +
+                    '<option value="Tercero">Tercero</option>' +
+                    '<option value="Cuarto">Cuarto</option>' +
+                    '<option value="Quinto">Quinto</option>' +
+                    '<option value="Sexto">Sexto</option>' +
+                    '<option value="Septimo">Septimo</option>' +
+                    '<option value="Octavo">Octavo</option>' +
+                    '<option value="Noveno">Noveno</option>' +
+                    '<option value="Decimo">Decimo</option>' +
+                    '<option value="Undecimo">Undecimo</option>' +
+                    '<option value="Duodecimo">Duodecimo</option>' +
                     '</select>' );
                 $( 'select', this ).on( 'keyup change', function () {
                     if ( table.column(i).search() !== this.value ) {

@@ -20,7 +20,17 @@
 <script src="<?=base_url()?>node_modules/jquery/dist/jquery.min.js"></script>
 <script src="<?=base_url()?>node_modules/popper.js/dist/umd/popper.js"></script>
 <script src="<?=base_url()?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--datatables-->
 <script src="<?=base_url()?>node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>js/buttons.flash.min.js"></script>
+<script src="<?=base_url()?>js/jszip.min.js"></script>
+<script src="<?=base_url()?>js/pdfmake.min.js"></script>
+<script src="<?=base_url()?>js/vfs_fonts.js"></script>
+<script src="<?=base_url()?>js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>js/buttons.print.min.js"></script>
+
+
 <script src="<?=base_url()?>assets/js/dataTables.fixedHeader.min.js"></script>
 <!-- meanmenu JS
     ============================================ -->

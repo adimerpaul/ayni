@@ -226,24 +226,50 @@ class Profesores extends CI_Controller {
                 $colegio=$row->colegio;
                 $id=$row->id;
                 file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_39));
+//                $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
+//            <tr>
+//                <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
+//            </tr>
+//            <tr>
+//                <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
+//                <td style="width: 153px;font-size: 8px;height: 70px"><small style="font-size: 7px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.'</small>
+//                </td>
+//                <td style="width: 55px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="55" alt=""></td>
+//            </tr>
+//            <tr>
+//                <td colspan="3" style="margin: 100px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>
+//            </tr>
+//            <tr>
+//            <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>
+//            </tr>
+//            <tr>
+//               <td style="width: 50px;height: 17px"></td>
+//               <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
+//               <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
+//            </tr>
+//            </table>';
                 $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
-                <td style="width: 153px;font-size: 8px;height: 70px"><small style="font-size: 7px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.'</small>
+                <td style="width: 36px;text-align:center">            <br><img src="img/'.$colegio.'.png" width="22" alt=""><br><img src="img/ayni.jpg" ></td>
+                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.': <br></small>
                 </td>
-                <td style="width: 55px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="55" alt=""></td>
+                <td style="width: 73px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="58" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3" style="margin: 100px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
+                
+                <td colspan="3" style="margin: 100px;font-size:10px;height: 15px;text-align: center;font-weight: bold">
+                
+                '.$nombre.'
+                </td>  
             </tr>   
             <tr>
-            <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>
+            <td colspan="3" style="text-align: center;height: 0px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="22px" alt=""></td>
             </tr>
             <tr>
-               <td style="width: 50px;height: 17px"></td>
+               <td height="16" style="width: 50px;height: 5px"></td>
                <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
                <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
             </tr>

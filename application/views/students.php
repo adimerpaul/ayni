@@ -145,9 +145,11 @@ $colegio=$_SESSION['colegio'];
         </div>
     </div>
     <form action="<?=base_url()?>Students/Kardex" method="post" target="_blank">
-        <button type="submit" class="btn btn-info p-1" >
-            <i class="fa fa-camera"></i> Generar kardex
-        </button>
+        <?php if ($_SESSION['profesion']=="Directora" || $_SESSION['profesion']=="Director"):?>
+            <button type="submit" class="btn btn-info p-1" >
+                <i class="fa fa-camera"></i> Imprimir codigos
+            </button>
+        <?php endif;?>
         orden:
         <select name="orden" >
             <option value="fecha">fecha</option>

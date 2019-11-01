@@ -27,42 +27,55 @@ class Imprimir extends CI_Controller{
             $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
             $pdf->setPrintHeader(false);
             $pdf->setPrintFooter(false);
-            $pdf->AddPage();
+        $pdf->AddPage('P','Legal');
             $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
 
             $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' AND  area='$area'");
             $con=0;
             $y=10;
-            foreach ($query->result() as $row){
-                $codigo = $row->codigo;
-                $tematica = $row->tematica;
-                $idioma = $row->idioma;
-                file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_128));
-                $html='<table border="0" style="border: 1px solid grey;width: 240px;font-family: Times;font-size: 9px ">
+        $bo="4";
+        foreach ($query->result() as $row){
+                $titulo = $row->titulo;
+                $area=$row->tematica;
+                $codarea=$row->codarea;
+                $idioma=$row->idioma;
+                $codigo=$row->codigo;
+                $colegio=$row->colegio;
+                $subcodigo=explode('.',$codigo);
+                file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
+
+                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;border-'.$bo.': 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 8px ">
             <tr>
-                <td style="width: 65px;text-align: center"><img src="img/'.$area.'.jpg" alt="" width="35" height="35"></td>
-                <td style="width:185px;"><p style="text-align: right">'.$tematica.' <br> <br> '.$idioma.' '.$codigo.'</p></td>
-            </tr> 
-            <tr>
-            <td style="text-align: center">'.$row->codigo.'</td>
-            <td colspan="2" style="text-align: right"><img src="img/qr/'.$row->codigo.'.jpg" width="120" alt=""></td>
+                <td width="70" align="center">
+                   <img src="img/'.$codarea.'.png" width="32"><br>
+                   '.$subcodigo[0].'.'.$subcodigo[1].'.<br>
+                   '.$subcodigo[2].'
+                </td>
+                <td width="170" align="right">
+                    <small style="font-family: Arial;font-size: 8px;">'.$titulo.'<br><br></small>
+                    '.$area.' <br>
+                    '.$idioma.' *'.$codigo.'*<br>
+                    <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
+                </td>  
             </tr>
             </table>';
-
                 if ($con==20){
                     $con=0;
-                    $pdf->AddPage();
-                    $y=10;
+                    $pdf->AddPage('P','Legal');
+                    $y=2;
                 }
                 if ($con%2==0){
-                    $pdf->SetXY(15, $y);
+                    $pdf->SetXY(25, $y);
+                    $bo="left";
                 }else{
                     $pdf->SetXY(110, $y);
-                    $y=$y+19;
+                    $y=$y+22;
+                    $bo="right";
                 }
                 $pdf->writeHTML($html,0,0);
                 $con++;
-            }
+
+        }
             $pdf->Output('example_006.pdf', 'I');
             exit;
 
@@ -120,12 +133,12 @@ class Imprimir extends CI_Controller{
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->AddPage();
+        $pdf->AddPage('P', array(216,356));
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
 
         $query=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio' AND categoria='$categoria' AND nivel='$nivel' AND paralelo='$paralelo'");
         $con=0;
-        $y=2;
+        $y=4;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $nivel=$row->nivel;
@@ -140,19 +153,23 @@ class Imprimir extends CI_Controller{
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/'.$colegio.'.jpg" width="20" alt=""><br><img src="img/ayni.png" style="width: 500px;" width="1000" alt=""></td>
-                <td style="width: 153px;font-size: 8px;height: 70px"><small style="font-size: 7px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.' : '.$nivel.' '.$paralelo.'</small>
+                <td style="width: 36px;text-align:center">            <br><img src="img/'.$colegio.'.png" width="22" alt=""><br><img src="img/ayni.jpg" ></td>
+                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.': '.$nivel.' '.$paralelo.'<br></small>
                 </td>
-                <td style="width: 55px;"><img src="'.base_url().'fotos/'.$id.'.png" width="55" alt=""></td>
+                <td style="width: 73px;"><img src="'.base_url().'fotos/'.$id.'.png" width="58" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3" style="margin: 100px;height: 15px;text-align: center;font-weight: bold">'.$nombre.'</td>  
+                
+                <td colspan="3" style="margin: 100px;font-size:10px;height: 15px;text-align: center;font-weight: bold">
+                
+                '.$nombre.'
+                </td>  
             </tr>   
             <tr>
-            <td colspan="3" style="text-align: center;height: 33px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="25px" alt=""></td>
+            <td colspan="3" style="text-align: center;height: 0px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="22px" alt=""></td>
             </tr>
             <tr>
-               <td style="width: 50px;height: 17px"></td>
+               <td height="16" style="width: 50px;height: 5px"></td>
                <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
                <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
             </tr>
@@ -160,8 +177,8 @@ class Imprimir extends CI_Controller{
 
             if ($con==10){
                 $con=0;
-                $pdf->AddPage();
-                $y=2;
+                $pdf->AddPage('P', array(216,356));
+                $y=4;
             }
             if ($con%2==0){
                 $pdf->SetXY(25, $y);
@@ -183,44 +200,48 @@ class Imprimir extends CI_Controller{
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->AddPage();
+        $pdf->AddPage('P', array(216,356));
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
 
         $query=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio' ");
         $con=0;
-        $y=2;
+        $y=4;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $colegio=$row->colegio;
             $id=$row->id;
-            $profesion=$row->profesion;
+            $categoria=$row->profesion;
             file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_128));
-            $html='<table border="0" style="border: 1px solid grey;width: 240px;font-family: Times;font-size: 9px ">
+            $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
             </tr>
             <tr>
-                <td style="width: 32px;"><img src="img/GUIDO VILLAGOMEZ.jpg" width="30" alt=""><br><br><img src="img/ayni.jpg" width="45" alt=""></td>
-                <td style="width: 153px;font-size: 8px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br>'.$profesion.'</td>
-                <td style="width: 55px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="55" alt=""></td>
+                <td style="width: 36px;text-align:center">            <br><img src="img/'.$colegio.'.png" width="22" alt=""><br><img src="img/ayni.jpg" ></td>
+                <td style="width: 131px;font-size: 8px;height: 70px"><small style="font-size:8px;padding: 10px">UNIDAD EDUCATIVA <br>"'.$colegio.'"<br> <br>Con el apoyo de: <br>ONG AYNI BOLIVIA <br><br>'.$categoria.'<br></small>
+                </td>
+                <td style="width: 73px;"><img src="'.base_url().'fotos/profesores/'.$id.'.png" width="58" alt=""></td>
             </tr>
             <tr>
-                <td colspan="3"><p style="font-size: 9px;"><small style="text-align: center;font-size: 9px;font-weight: bold;">'.$nombre.'</small><br></p></td>  
+                
+                <td colspan="3" style="margin: 100px;font-size:10px;height: 15px;text-align: center;font-weight: bold">
+                
+                '.$nombre.'
+                </td>  
             </tr>   
             <tr>
-            <td colspan="3" style="text-align: center"><img src="img/qr/'.$row->id.'.jpg" width="120" alt=""></td>
+            <td colspan="3" style="text-align: center;height: 0px;"><img src="img/qr/'.$row->id.'.jpg" width="120" height="22px" alt=""></td>
             </tr>
             <tr>
-               <td style="width: 50px;"></td>
-               <td style="width: 140px;text-align: center">*'.$id.'*</td>
-               <td style="width: 50px;text-align: right">'.date('Y').'</td>
+               <td height="16" style="width: 50px;height: 5px"></td>
+               <td style="width: 140px;text-align: center;font-size: 8px">*'.$id.'*</td>
+               <td style="width: 50px;text-align: right;font-size: 8px">'.date('Y').'</td>
             </tr>
             </table>';
-
             if ($con==10){
                 $con=0;
-                $pdf->AddPage();
-                $y=2;
+                $pdf->AddPage('P', array(216,356));
+                $y=4;
             }
             if ($con%2==0){
                 $pdf->SetXY(25, $y);

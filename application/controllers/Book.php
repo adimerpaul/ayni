@@ -196,18 +196,19 @@ function update(){
         $con=0;
         $y=4;
         $query=$this->db->query("SELECT * FROM libro ORDER BY $orden");
+        $bo="right";
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->idlibro])){
                 $titulo = $row->titulo;
-                $area=$row->area;
+                $area=$row->tematica;
                 $codarea=$row->codarea;
                 $idioma=$row->idioma;
                 $codigo=$row->codigo;
                 $colegio=$row->colegio;
                 $subcodigo=explode('.',$codigo);
                 file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
-                $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 8px ">
-            
+
+                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;border-'.$bo.': 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 8px ">
             <tr>
                 <td width="70" align="center">
                    <img src="img/'.$codarea.'.png" width="32"><br>
@@ -215,7 +216,7 @@ function update(){
                    '.$subcodigo[2].'
                 </td>
                 <td width="170" align="right">
-                    '.$titulo.' <br>
+                    <small style="font-family: Arial;font-size: 8px;">'.$titulo.'<br><br></small>
                     '.$area.' <br>
                     '.$idioma.' *'.$codigo.'*<br>
                     <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
@@ -229,9 +230,11 @@ function update(){
                 }
                 if ($con%2==0){
                     $pdf->SetXY(25, $y);
+                    $bo="left";
                 }else{
                     $pdf->SetXY(110, $y);
                     $y=$y+22;
+                    $bo="right";
                 }
                 $pdf->writeHTML($html,0,0);
                 $con++;

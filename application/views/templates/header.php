@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="<?=base_url()?>css/responsive.css">
     <link rel="stylesheet" href="<?=base_url()?>assets/css/fixedHeader.dataTables.min.css">
     <link rel="stylesheet" href="<?=base_url()?>node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>css/buttons.dataTables.min.css">
 
 </head>
 <body>
@@ -64,14 +65,27 @@
                             <li><a title="Compose Mail" href="<?=base_url()?>Profesores"><i class="fa fa-paper-plane sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Profesores</span></a></li>
                         </ul>
                     </li>
-
                     <li>
-                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-print icon-wrap"></i> <span class="mini-click-non">Imprimir todo</span></a>
+                        <a class="has-arrow" aria-expanded="false"><i class="fa big-icon fa-bar-chart-o icon-wrap"></i> <span class="mini-click-non">Listados</span></a>
                         <ul class="submenu-angle" aria-expanded="false">
-                            <li><a  href="<?=base_url()?>Imprimir"><i class="fa fa-map-marker sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Credenciales</span></a></li>
-                            <li><a  href="<?=base_url()?>Imprimir/libros"><i class="fa fa-book sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Libros</span></a></li>
+                            <li><a title="Listados Docentes" href="<?=base_url()?>Listados/docentes"><i class="fa fa-line-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Docentes</span></a></li>
+                            <li><a title="Listados Estudiantes" href="<?=base_url()?>Listados/estudiantes"><i class="fa fa-area-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Estudiantes</span></a></li>
+                            <li><a title="Listado libros" href="<?=base_url()?>Listados/libros"><i class="fa fa-pie-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Libros</span></a></li>
+<!--                            <li><a title="Rounded Charts" href="rounded-chart.html"><i class="fa fa-signal sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Rounded Charts</span></a></li>-->
+<!--                            <li><a title="C3 Charts" href="c3.html"><i class="fa fa-barcode sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">C3 Charts</span></a></li>-->
+<!--                            <li><a title="Sparkline Charts" href="sparkline.html"><i class="fa fa-sort-amount-desc sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Sparkline Charts</span></a></li>-->
+<!--                            <li><a title="Peity Charts" href="peity.html"><i class="fa fa-object-ungroup sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Peity Charts</span></a></li>-->
                         </ul>
                     </li>
+                    <?php if ($_SESSION['profesion']=="AYNI" || $_SESSION['profesion']=="Directora" || $_SESSION['profesion']=="Director" ): ?>
+                        <li>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-print icon-wrap"></i> <span class="mini-click-non">Imprimir todo</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a  href="<?=base_url()?>Imprimir"><i class="fa fa-map-marker sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Credenciales</span></a></li>
+                                <li><a  href="<?=base_url()?>Imprimir/libros"><i class="fa fa-book sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Libros</span></a></li>
+                            </ul>
+                        </li>
+                    <?php endif;?>
                     <?php if ($_SESSION['colegio']=="AYNI"): ?>
                         <li>
                             <a  href="<?=base_url()?>Importar" ><i class="fa big-icon fa-archive icon-wrap"></i> <span class="mini-click-non">Importar datos</span></a>
@@ -86,18 +100,7 @@
                     </li>
                     <?php endif;?>
 
-                    <!--                    <li>-->
-                    <!--                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-bar-chart-o icon-wrap"></i> <span class="mini-click-non">Charts</span></a>-->
-                    <!--                        <ul class="submenu-angle" aria-expanded="false">-->
-                    <!--                            <li><a title="Bar Charts" href="bar-charts.html"><i class="fa fa-line-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Bar Charts</span></a></li>-->
-                    <!--                            <li><a title="Line Charts" href="line-charts.html"><i class="fa fa-area-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Line Charts</span></a></li>-->
-                    <!--                            <li><a title="Area Charts" href="area-charts.html"><i class="fa fa-pie-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Area Charts</span></a></li>-->
-                    <!--                            <li><a title="Rounded Charts" href="rounded-chart.html"><i class="fa fa-signal sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Rounded Charts</span></a></li>-->
-                    <!--                            <li><a title="C3 Charts" href="c3.html"><i class="fa fa-barcode sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">C3 Charts</span></a></li>-->
-                    <!--                            <li><a title="Sparkline Charts" href="sparkline.html"><i class="fa fa-sort-amount-desc sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Sparkline Charts</span></a></li>-->
-                    <!--                            <li><a title="Peity Charts" href="peity.html"><i class="fa fa-object-ungroup sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Peity Charts</span></a></li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
+
                     <!--                    <li>-->
                     <!--                        <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa big-icon fa-table icon-wrap"></i> <span class="mini-click-non">Data Tables</span></a>-->
                     <!--                        <ul class="submenu-angle" aria-expanded="false">-->
