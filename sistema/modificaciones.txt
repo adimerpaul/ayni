@@ -1,4 +1,35 @@
-﻿
+﻿-registro de libro
+nivel hasta el 12 ordenado
+
+-listado de libro de bajas
+-dar de baja estudiante
+-generar codigo cambiar por imprimir codigo
+-area y tematica por idoima y nivel
+PRESTAMO
+-al prestamo solo de su colegio
+
+imprimir todo
+-listado de libro por colegio
+-listado de libro (tal vez otra ventana)
+-phacelholder procedencia pais
+-area colocar selecionar
+-imprimir libro tematica por area
+-estudiantes muy pequeño al modificar
+
+imprimir estudiante
+-foto muy grande
+
+
+-IMPORTAR 
+libros estudiantes profesores prestamos
+Admin
+consultas de prestamos
+
+-BUSCAR LIBRO PARA ESTUDIANTES
+
+
+
+
 -buscar en libro
 tema subtema idioma curso colegio buscar colegio en comobox
 cambiar lugar de idioma por area
