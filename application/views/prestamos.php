@@ -272,6 +272,7 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
                     $.ajax({
                         url:'Prestamos/datestudiante/'+$(this).val().trim(),
                         success:function (e) {
+                            // console.log(e);
                             var datos=JSON.parse(e)[0];
                             var tipo=JSON.parse(e)['tipo'];
                             cantidadsala=JSON.parse(e)['cantidadsala'];

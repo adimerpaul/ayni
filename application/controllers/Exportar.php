@@ -29,14 +29,12 @@ function archivo($anio,$mes){
 }
     function libros($anio,$mes){
         // file name
-
         $colegio=$_SESSION['colegio'];
         $filename = 'libros_'.$colegio.'_'.$anio.'_'.$mes.'.csv';
         header("Content-Description: File Transfer");
         header("Content-Disposition: attachment; filename=$filename");
         header("Content-Type: application/csv; ");
         // get data
-
         $usersData = $this->db->query("SELECT 
 colegio,
 nroserie,
@@ -44,6 +42,8 @@ nroalcaldia,
 autor,
 titulo,
 original,
+anioedicion,
+editorial,
 procedencia,
 estado,
 idioma,
@@ -66,6 +66,8 @@ incremento
             "autor",
             "titulo",
             "original",
+            "anioedicion",
+            "editorial",
             "procedencia",
             "estado",
             "idioma",

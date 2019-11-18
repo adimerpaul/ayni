@@ -9,7 +9,6 @@ class Importar extends CI_Controller{
         $this->load->view('templates/footer');
     }
     function prestamos(){
-
         $count=0;
         $fp = fopen($_FILES['userfile']['tmp_name'],'r') or die("can't open file");
         $im=false;
@@ -36,7 +35,6 @@ class Importar extends CI_Controller{
             $i++;
             $colegio=$insert_csv['colegio'];
             $fecha=$insert_csv['fecha'];
-
             $query=$this->db->query("SELECT YEAR(fecha) as anio,MONTH(fecha)as mes,count(*) as cantidad 
             FROM prestamo
             WHERE colegio='$colegio' AND MONTH(fecha) =MONTH('$fecha') AND YEAR(fecha) =YEAR('$fecha')
@@ -73,6 +71,87 @@ class Importar extends CI_Controller{
         return $data;
 
     }
+    /*
+        function libros(){
+        $count=0;
+        $fp = fopen($_FILES['userfile']['tmp_name'],'r') or die("can't open file");
+        $im=false;
+        while($csv_line = fgetcsv($fp,1024))
+        {
+            $count++;
+            if($count == 1)
+            {
+                continue;
+            }//keep this if condition if you want to remove the first row
+            for($i = 0, $j = count($csv_line); $i < $j; $i++)
+            {
+                $insert_csv = array();
+                $insert_csv['colegio'] = $csv_line[0];//remove if you want to have primary key,
+                $insert_csv['nroserie'] = $csv_line[1];
+                $insert_csv['nroalcaldia'] = $csv_line[2];
+                $insert_csv['autor'] = $csv_line[3];
+                $insert_csv['titulo'] = $csv_line[4];
+                $insert_csv['original'] = $csv_line[5];
+                $insert_csv['anioedicion'] = $csv_line[6];
+                $insert_csv[''] = $csv_line[7];
+                $insert_csv['usuario'] = $csv_line[8];
+                ,
+titulo,
+original,
+anioedicion,
+editorial,
+procedencia,
+estado,
+idioma,
+nivelno,
+nivel,
+codarea,
+area,
+codsubarea,
+tematica,
+codigo,
+fecha,
+            }
+            $i++;
+            $colegio=$insert_csv['colegio'];
+            $fecha=$insert_csv['fecha'];
+            $query=$this->db->query("SELECT YEAR(fecha) as anio,MONTH(fecha)as mes,count(*) as cantidad 
+            FROM prestamo
+            WHERE colegio='$colegio' AND MONTH(fecha) =MONTH('$fecha') AND YEAR(fecha) =YEAR('$fecha')
+            GROUP BY YEAR(fecha),MONTH(fecha) ");
+            if ($query->num_rows()>0 && $im==false){
+                echo "Ya existe";
+                exit;
+            }else{
+                $this->db->insert('prestamo',array(
+                    'estado' => $insert_csv['estado'] ,
+                    'idlibro' => $insert_csv['idlibro'] ,
+                    'id' => $insert_csv['id'],
+                    'fechadevo' => $insert_csv['fechadevo'],
+                    'fecha' => $insert_csv['fecha'],
+                    'tipo' => $insert_csv['tipo'],
+                    'presta' => $insert_csv['presta'],
+                    'colegio' => $insert_csv['colegio'],
+                    'usuario' => $insert_csv['usuario']
+                ));
+                $im=true;
+            }
+
+
+//            var_dump($data);
+//                $data['crane_features']=$this->db->insert('tableName', $data);
+//            echo $insert_csv['nombre']."<br>";
+
+        }
+        fclose($fp) or die("can't close file");
+
+        $data['success']="success";
+        echo "Se importo correctamente datos";
+        echo "<meta http-equiv='refresh' content='2; url=".base_url()."Importar'>";
+        return $data;
+
+    }
+*/
     function uploadData()
     {
         $count=0;

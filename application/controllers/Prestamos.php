@@ -27,12 +27,12 @@ class Prestamos extends CI_Controller{
     }
     function datlibro($id=""){
         $colegio=$_SESSION['colegio'];
-        $query=$this->db->query("SELECT * FROM libro WHERE codigo='$id' WHERE colegio='$colegio'");
+        $query=$this->db->query("SELECT * FROM libro WHERE codigo='$id' AND colegio='$colegio'");
         echo json_encode( $query->result_array());
     }
     function datestudiante($cod=""){
         $colegio=$_SESSION['colegio'];
-        $query=$this->db->query("SELECT * FROM estudiante WHERE id='$cod' WHERE colegio='$colegio'");
+        $query=$this->db->query("SELECT * FROM estudiante WHERE id='$cod' AND colegio='$colegio'");
             if ($query->num_rows()>0){
                 $ca=$query->result_array();
                 $ninodomicilio=$this->db->query("SELECT * FROM configuracion WHERE idconfiguracion='1'")->row()->dato;
@@ -44,7 +44,7 @@ class Prestamos extends CI_Controller{
                 $ca['cantidadsala']=$ninosala-$ninosalatiene;
                 echo json_encode($ca);
             }else{
-                $query=$this->db->query("SELECT * FROM profesor WHERE id='$cod' WHERE colegio='$colegio'");
+                $query=$this->db->query("SELECT * FROM profesor WHERE id='$cod' AND colegio='$colegio'");
                 $ca=$query->result_array();
                 $profedomicilio=$this->db->query("SELECT * FROM configuracion WHERE idconfiguracion='4'")->row()->dato;
                 $profesala=$this->db->query("SELECT * FROM configuracion WHERE idconfiguracion='5'")->row()->dato;

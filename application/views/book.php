@@ -188,7 +188,7 @@ $colegio=$_SESSION['colegio'];
         </div>
     </div>
     <form action="<?=base_url()?>Book/Kardex" method="post" target="_blank">
-        <?php if ($_SESSION['profesion']=="Directora" || $_SESSION['profesion']=="Director"):?>
+        <?php if ($_SESSION['profesion']=="Directora" || $_SESSION['profesion']=="Director" || $_SESSION['profesion']=="AYNI"):?>
         <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Imprimir codigos
         </button>

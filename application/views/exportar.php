@@ -5,6 +5,21 @@ $colegio=$_SESSION['colegio'];
     <div class="row">
         <div class="col-12">
             <h4>Libros</h4>
+            <!--form action="<?=base_url()?>Importar/libros" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                <table>
+                    <tr>
+                        <td> Choose your file: </td>
+                        <td>
+                            <input type="file" class="form-control" required name="userfile" id="userfile"  align="center"/>
+                        </td>
+                        <td>
+                            <div class="col-lg-offset-3 col-lg-9">
+                                <button type="submit" name="submit" class="btn btn-info">Save</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form-->
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -16,6 +31,7 @@ $colegio=$_SESSION['colegio'];
                 </thead>
                 <tbody>
                 <?php
+
                 $query=$this->db->query("SELECT YEAR(fecha) as anio,MONTH(fecha)as mes,count(*) as cantidad 
 FROM libro
 WHERE colegio='$colegio'
