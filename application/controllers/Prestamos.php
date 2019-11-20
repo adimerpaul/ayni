@@ -22,6 +22,8 @@ class Prestamos extends CI_Controller{
             WHERE
             idprestamo='$row2->idprestamo'
             ");
+//            echo $row2->idlibro."<br>";
+            $this->db->query("UPDATE libro SET status='ACTIVO' WHERE codigo ='".$row2->codigolibro."'");
         }
         header("Location: ".base_url()."Prestamos");
     }
@@ -157,6 +159,7 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,presta,codigopersona
         lote='$lote',
         fecha='$fecha'
         ");
+                $this->db->query("UPDATE libro SET status='PRESTAMO' WHERE idlibro ='".$row->idlibro."'");
             }
         }
         //        $codigo=trim($_POST['codigo']);

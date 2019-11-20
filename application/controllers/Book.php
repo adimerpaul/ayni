@@ -13,6 +13,22 @@ function index(){
     $this->load->view('book');
     $this->load->view('templates/footer');
 }
+function codarea(){
+    $area=$_POST['area'];
+    $query=$this->db->query("SELECT * FROM libro WHERE area='$area'");
+    if($query->num_rows()!=0){
+        $row=$query->row();
+        echo $row->codarea;
+    }
+}
+function codtematica(){
+    $tematica=$_POST['tematica'];
+    $query=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'");
+    if($query->num_rows()!=0){
+        $row=$query->row();
+        echo $row->codsubarea;
+    }
+}
     function librosprint(){
 
         $colegio=$_POST['colegio'];
@@ -110,8 +126,15 @@ function codigo(){
 function insert(){
     $area=$_POST['area'];
     $tematica=$_POST['tematica'];
-    $codarea=$this->db->query("SELECT * FROM libro WHERE area='$area'")->row()->codarea;
-    $codsubarea=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row()->codsubarea;
+    if ($_SESSION['colegio']=='AYNI'){
+        $codarea=$_POST['codarea'];
+        $codsubarea=$_POST['codtematica'];
+    }else{
+        $codarea=$this->db->query("SELECT * FROM libro WHERE area='$area'")->row()->codarea;
+        $codsubarea=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row()->codsubarea;
+    }
+
+
     $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto');
     $this->db->insert('libro',array(
         'colegio'=>$_POST['colegio'],

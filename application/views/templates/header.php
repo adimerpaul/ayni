@@ -94,7 +94,12 @@
                             <a  href="<?=base_url()?>Config" ><i class="fa big-icon fa-cogs icon-wrap"></i> <span class="mini-click-non">Configuraciones</span></a>
                         </li>
                     <?php else:?>
-                        <li><a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a></li>
+                        <li>
+                            <a title="Landing Page" href="<?=base_url()?>Prestamos" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Prestamos </span></a>
+                        </li>
+                        <li>
+                            <a title="Landing Page" href="<?=base_url()?>Buscar" aria-expanded="false"><i class="fa fa-eye" aria-hidden="true"></i> <span class="mini-click-non">Buscar </span></a>
+                        </li>
                     <li>
                         <a  href="<?=base_url()?>Exportar" ><i class="fa big-icon fa-pie-chart icon-wrap"></i> <span class="mini-click-non">Expotar datos</span></a>
                     </li>

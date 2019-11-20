@@ -24,8 +24,9 @@
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
             <div class="text-center m-b-md custom-login">
-                <h3>Porfavor ingrese  nombre y contraseña</h3>
-                <p>Su nombre es el usuario y su id es contraseña</p>
+                <h3>SISTEMA DE BIBLIOTECA</h3>
+                <p>
+                    Ayni Bolivia</p>
             </div>
             <div class="hpanel">
                 <div class="panel-body">

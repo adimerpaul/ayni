@@ -50,11 +50,11 @@ $colegio=$_SESSION['colegio'];
                             <div class="col-sm-4">
 <!--                                <input type="text" name="autor" class="form-control" placeholder="Apellido nombres">-->
                                 <input list="autor" name="autor" class="form-control"placeholder="Autor">
-                                <datalist id="autor">
+                                <datalist id="autor" style='margin: 0px;padding: 0px;border: 0px'>
                                     <?php
-                                    $query=$this->db->query("SELECT autor FROM libro GROUP BY autor");
+                                    $query=$this->db->query("SELECT autor FROM libro GROUP BY autor ORDER BY autor");
                                     foreach ($query->result() as $row){
-                                        echo "<option value='$row->autor'>";
+                                        echo "<option value='$row->autor' style='margin: 0px;padding: 0px;border: 0px'>";
                                     }
                                     ?>
                                 </datalist>
@@ -101,9 +101,9 @@ $colegio=$_SESSION['colegio'];
                             <div class="col-sm-4">
                                 <input type="number" name="anioedicion" class="form-control"  placeholder="Año Edicion">
                             </div>
-                            <label class="col-sm-2" >procedencia</label>
+                            <label class="col-sm-2" >Pais</label>
                             <div class="col-sm-4">
-                                <input type="text" name="procedencia" class="form-control"  placeholder="procedencia">
+                                <input type="text" name="procedencia" class="form-control"  placeholder="Pais">
                             </div>
                             <label class="col-sm-2" >Estado</label>
                             <div class="col-sm-4">
@@ -116,29 +116,69 @@ $colegio=$_SESSION['colegio'];
                                 </select>
                             </div>
                             <label class="col-sm-2">Area</label>
-                            <div class="col-sm-4">
-                                <select name="area" class="form-control" required id="area">
-                                    <!--                                <option value="">Selecionar..</option>-->
+
+                            <?php if ($colegio=='AYNI'):?>
+                            <div class="col-sm-2">
+                                <input list="areas" type="text" name="area" class="form-control" id="area" required>
+                                <datalist id="areas">
                                     <?php
-                                    $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                                    $query=$this->db->query("SELECT area FROM libro GROUP BY area ORDER BY area");
                                     foreach ($query->result() as $row){
-                                        echo "<option value='$row->area'>$row->area</option>";
+                                        echo "<option value='$row->area'>";
                                     }
                                     ?>
-                                </select>
+                                </datalist>
                             </div>
+                            <div class="col-sm-2">
+                                <input type="text" id="codarea" name="codarea" class="form-control">
+                            </div>
+                            <?php else:?>
+                                    <div class="col-sm-4">
+                                    <select name="area" class="form-control" required id="area">
+                                        <option value="">Selecionar..</option>
+                                        <?php
+                                        $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                                        foreach ($query->result() as $row){
+                                            echo "<option value='$row->area'>$row->area</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    </div>
+                                <?php endif;?>
+
+
                             <label class="col-sm-2">Tematica</label>
+
+                            <?php if ($colegio=='AYNI'):?>
+                                <div class="col-sm-2">
+                                    <input list="tematicas" type="text" name="tematica" class="form-control" id="tematica" required>
+                                    <datalist id="tematicas">
+                                        <?php
+                                        $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica ORDER BY tematica");
+                                        foreach ($query->result() as $row){
+                                            echo "<option value='$row->area'>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" id="codtematica" name="codtematica" class="form-control">
+                                </div>
+                            <?php else:?>
                             <div class="col-sm-4">
-                                <select name="tematica" class="form-control" required id="tematica">
-                                    <option value="">Selecionar..</option>
-                                    <?php
-                                    $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
-                                    foreach ($query->result() as $row){
-                                        echo "<option value='$row->tematica'>$row->tematica</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                                    <select name="tematica" class="form-control" required id="tematica">
+                                        <option value="">Selecionar..</option>
+                                        <?php
+                                        $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
+                                        foreach ($query->result() as $row){
+                                            echo "<option value='$row->tematica'>$row->tematica</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            <?php endif;?>
+
+
                             <label class="col-sm-2" >Idioma</label>
                             <div class="col-sm-4">
                                 <input list="idioma" name="idioma" class="form-control" placeholder="Idioma">
@@ -192,18 +232,19 @@ $colegio=$_SESSION['colegio'];
         <button type="submit" class="btn btn-info p-1" >
             <i class="fa fa-camera"></i> Imprimir codigos
         </button>
+            <select name="orden" id="orden">
+                <option value="fecha">fecha</option>
+                <option value="titulo">titulo</option>
+                <option value="autor">autor</option>
+                <option value="codigo">codigo</option>
+                <option value="area">area</option>
+                <option value="tematica">tematica</option>
+                <option value="idioma">idioma</option>
+                <option value="nivel">curso</option>
+                <option value="colegio">colegio</option>
+            </select>
         <?php endif;?>
-        <select name="orden" id="orden">
-            <option value="fecha">fecha</option>
-            <option value="titulo">titulo</option>
-            <option value="autor">autor</option>
-            <option value="codigo">codigo</option>
-            <option value="area">area</option>
-            <option value="tematica">tematica</option>
-            <option value="idioma">idioma</option>
-            <option value="nivel">curso</option>
-            <option value="colegio">colegio</option>
-        </select>
+
     <table id="example" class="display" style="width:100%">
         <thead>
         <tr>
@@ -217,15 +258,16 @@ $colegio=$_SESSION['colegio'];
             <th>Codigo</th>
             <th>Curso</th>
             <th>Colegio</th>
+            <th>En prestamo?</th>
             <th>Opciones</th>
         </tr>
         </thead>
         <tbody>
         <?php
         if ($colegio=='AYNI'){
-            $query=$this->db->query("SELECT * FROM libro");
+            $query=$this->db->query("SELECT * FROM libro ORDER  BY codarea,codsubarea");
         }else{
-            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio'");
+            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' ORDER  BY codarea,codsubarea");
         }
         foreach ($query->result() as $row){
             if ($row->estado=="Malo"){
@@ -247,6 +289,7 @@ $colegio=$_SESSION['colegio'];
                     <td>$row->codigo</td>
                     <td>$row->nivel</td>
                     <td>$row->colegio</td>
+                    <td>$row->status</td>
                     <td>
                         $ba
                     </td>
@@ -338,7 +381,13 @@ $colegio=$_SESSION['colegio'];
                         <label class="col-sm-1" >Incremento</label>
                         <div class="col-sm-3">
                             <?php
-                            $incremento=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'")->row()->incremento;
+                            $query=$this->db->query("SELECT *  FROM libro WHERE colegio='$colegio'");
+                            if($query->num_rows()>0){
+                                $incremento=$query->row()->incremento;
+                            }else{
+                                $incremento=0;
+                            }
+
                             ?>
                             <input type="number" name="incremento" id="incremento2" class="form-control" value="<?=$incremento?>" required placeholder="Incremento">
                         </div>
@@ -439,6 +488,7 @@ $colegio=$_SESSION['colegio'];
             // console.log($('#colegio').val());
             if ($('#colegio').val()==''){
                 alert('primero selecionar colegio');
+                $('#area').val('');
                 return false;
             }
             $.ajax({
@@ -448,13 +498,35 @@ $colegio=$_SESSION['colegio'];
                 success:function (e) {
                     // console.log(e);
                     var datos= JSON.parse(e);
-                    $('#tematica').html('<option value="">Seleccionar..</option>');
+                    $('#tematica').val('');
+                    $('#tematicas').html('');
                     datos.forEach(function (e) {
-                        $('#tematica').append('<option value="'+e.tematica+'">'+e.tematica+'</option>');
-                    })
+                        $('#tematicas').append('<option value="'+e.tematica+'">');
+                    });
+                    $.ajax({
+                        data:'area='+$('#area').val(),
+                        type:'POST',
+                        url:'Book/codarea',
+                        success:function (e) {
+                            $('#codarea').val(e);
+                        }
+                    });
                 }
             })
             e.preventDefault();
+        });
+        $('#tematica').change(function (e) {
+            e.preventDefault();
+            // console.log($('#tematica').val());
+            $.ajax({
+                data:'tematica='+$('#tematica').val(),
+                type:'POST',
+                url:'Book/codtematica',
+                success:function (e) {
+                    // console.log(e);
+                    $('#codtematica').val(e);
+                }
+            });
         });
         $('#nivel,#tematica').change(function (e) {
             if ($('#colegio').val()==''){
@@ -476,11 +548,17 @@ $colegio=$_SESSION['colegio'];
                     data:datos,
                     success:function (e) {
                         // console.log(e);
+                        // if (e.length)
                         $('#codigo').val(e);
+
                     }
                 })
             }
            e.preventDefault();
+        });
+        $('#codtematica').keyup(function (e) {
+            e.preventDefault();
+            $('#codigo').val($('#nivel').val()+'.'+$('#codtematica').val()+'.'+ parseInt( parseInt( $('#incremento').val())+1)).toString();
         });
         // Setup - add a text input to each footer cell
         $('#example thead tr').clone(true).appendTo( '#example thead' );

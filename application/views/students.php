@@ -269,7 +269,7 @@ $colegio=$_SESSION['colegio'];
                         <div class="col-sm-3">
                             <input type="text" name="nombre" id="nombre2" class="form-control" placeholder="Apellido nombres">
                         </div>
-                        <label class="col-sm-1" >Su cogido sera</label>
+                        <label class="col-sm-1" >Codigo</label>
                         <div class="col-sm-3">
                             <input type="text" name="id" id="codigo2" class="form-control" >
 
