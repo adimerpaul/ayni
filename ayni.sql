@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2019 a las 10:46:19
+-- Tiempo de generación: 26-11-2019 a las 13:30:39
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -1088,7 +1088,7 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 (852, 'JUANA AZURDUY DE PADILLA', '1852', '', 'José Luis Rivero Zegarra', 'Aprendiendo de la naturaleza', 'Original', '1995', 'Qori Llama', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.0007', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
 (853, 'JUANA AZURDUY DE PADILLA', '1853', '', 'José Luis Rivero Zegarra', 'Aprendiendo de la naturaleza', 'Original', '1995', 'Qori Llama', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.0008', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
 (854, 'JUANA AZURDUY DE PADILLA', '1854', '', 'José Luis Rivero Zegarra', 'Aprendiendo de la naturaleza', 'Original', '1995', 'Qori Llama', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.0009', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
-(855, 'JUANA AZURDUY DE PADILLA', '1855', '', 'Julian Mamani Condori', 'Suma Arusa', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Aymara', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '103', 'Adivinanzas, Trabalenguas', '5.103.0001', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
+(855, 'JUANA AZURDUY DE PADILLA', '1855', '', 'Julian Mamani Condori', 'Suma Arusa', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Aymara', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '103', 'Adivinanzas, Trabalenguas', '5.103.0001', '2019-10-21 12:21:08', 'PRESTAMO', 'JA', 0),
 (856, 'JUANA AZURDUY DE PADILLA', '1856', '', 'Julian Mamani Condori', 'Suma Arusa', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Aymara', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '103', 'Adivinanzas, Trabalenguas', '5.103.0002', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
 (857, 'JUANA AZURDUY DE PADILLA', '1857', '', 'Julian Mamani Condori', 'Suma Arusa', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Aymara', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '103', 'Adivinanzas, Trabalenguas', '5.103.0003', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
 (858, 'JUANA AZURDUY DE PADILLA', '1858', '', 'Julian Mamani Condori', 'Suma Arusa', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Aymara', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '103', 'Adivinanzas, Trabalenguas', '5.103.0004', '2019-10-21 12:21:08', 'ACTIVO', 'JA', 0),
@@ -3407,7 +3407,7 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 (3158, 'GUIDO VILLAGOMEZ', '4752', '0998', 'Proyecto Experimental', 'Unay Pachas', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Quechua y Castellano', '6', 'Sexto', '700', 'CUENTOS', '701', 'Cuentos Popular', '6.701.1020', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3159, 'GUIDO VILLAGOMEZ', '4753', '0999', 'Proyecto Experimental', 'Unay Pachas', 'Original', '1995', 'Monterrico S.A.', 'Perú', 'Bueno', 'Quechua y Castellano', '6', 'Sexto', '700', 'CUENTOS', '701', 'Cuentos Popular', '6.701.1021', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3160, 'GUIDO VILLAGOMEZ', '5292', '', 'Gladys Rivero de Jiménez', 'Semilla', 'Original', '0', 'Editorial Jiménez S.R.L.', 'Bolivia', 'Bueno', 'Español', '5', 'Quinto', '900', 'DIFERENTES AREAS', '901', 'Apoyo educativo', '5.901.1001', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
-(3161, 'GUIDO VILLAGOMEZ', '5293', '', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Lenguaje', 'Original', '2004', 'Ediciones SM', 'Bolivia', 'Bueno', 'Español', '8', 'Octavo', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '8.101.1001', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
+(3161, 'GUIDO VILLAGOMEZ', '5293', '', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Lenguaje', 'Original', '2004', 'Ediciones SM', 'Bolivia', 'Bueno', 'Español', '8', 'Octavo', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '8.101.1001', '2019-10-21 12:21:08', 'PRESTAMO', 'GV', 1000),
 (3162, 'GUIDO VILLAGOMEZ', '5294', '', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Lenguaje', 'Original', '2004', 'Ediciones SM', 'Bolivia', 'Regular', 'Español', '8', 'Octavo', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '8.101.1002', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3163, 'GUIDO VILLAGOMEZ', '5295', '', 'Anónimo', 'Ciencias de la Vida', 'Original', '2004', 'Ediciones Educativas de Santillana de Ediciones S.A.', 'Bolivia', 'Bueno', 'Español', '8', 'Octavo', '300', 'CIENCIAS NATURALES', '305', 'Etapas de la vida', '8.305.1001', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3164, 'GUIDO VILLAGOMEZ', '5296', '', 'Anónimo', 'Ciencias de la Vida', 'Original', '2004', 'Ediciones Educativas de Santillana de Ediciones S.A.', 'Bolivia', 'Bueno', 'Español', '8', 'Octavo', '300', 'CIENCIAS NATURALES', '305', 'Etapas de la vida', '8.305.1002', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
@@ -3487,7 +3487,9 @@ INSERT INTO `libro` (`idlibro`, `colegio`, `nroserie`, `nroalcaldia`, `autor`, `
 (3237, 'GUIDO VILLAGOMEZ', '5369', '', 'María Ninoska Enríquez Quintanilla', 'Marlene - tablero magnético', 'Original', '2019', 'Ipins, Imanes personalizados', 'Bolivia', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.1043', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3238, 'GUIDO VILLAGOMEZ', '5370', '', 'María Ninoska Enríquez Quintanilla', 'Marlene - tablero magnético', 'Original', '2019', 'Ipins, Imanes personalizados', 'Bolivia', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.1044', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
 (3239, 'GUIDO VILLAGOMEZ', '5371', '', 'María Ninoska Enríquez Quintanilla', 'Marlene - tablero magnético', 'Original', '2019', 'Ipins, Imanes personalizados', 'Bolivia', 'Bueno', 'Español', '1', 'Primero', '100', 'COMUNICACIÓN Y LENGUAJE', '101', 'Gramatica', '1.101.1045', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
-(3240, 'GUIDO VILLAGOMEZ', '5372', '', 'Oscar Alfaro', 'Alfabeto de estrellas (Poemas)', 'Original', '0', 'Editorial Hermenca', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.1004', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000);
+(3240, 'GUIDO VILLAGOMEZ', '5372', '', 'Oscar Alfaro', 'Alfabeto de estrellas (Poemas)', 'Original', '0', 'Editorial Hermenca', 'Bolivia', 'Bueno', 'Quechua y Castellano', '5', 'Quinto', '100', 'COMUNICACIÓN Y LENGUAJE', '104', 'Poesías', '5.104.1004', '2019-10-21 12:21:08', 'ACTIVO', 'GV', 1000),
+(3245, 'GUIDO VILLAGOMEZ', '1010', '1010', 'adimer', 'Aguas oscuras (Cuentos ecológicos)', 'FOTOCOPIA', '2019', 'latinas', 'BOLIVIA', 'Regular', 'Aymara y Castellano', '2', 'Segundo', '400', 'CIENCIAS SOCIALES', '301', 'Animales', '2.301.1001', '2019-11-26 11:25:34', 'ACTIVO', '', 1000),
+(3246, 'GUIDO VILLAGOMEZ', '2020', '2020', 'adimer', 'Agua (Jugando con la Ciencia)', 'FOTOCOPIA', '2000', 'latinas', 'BOLIVIA', 'Bueno', 'Aymara y Castellano', '8', 'Octavo', '300', 'CIENCIAS NATURALES', '103', 'Adivinanzas, Trabalenguas', '8.103.1001', '2019-11-26 11:30:46', 'ACTIVO', '', 1000);
 
 -- --------------------------------------------------------
 
@@ -3510,8 +3512,19 @@ CREATE TABLE `prestamo` (
   `codigopersona` varchar(35) NOT NULL,
   `autor` varchar(150) NOT NULL,
   `tematica` varchar(150) NOT NULL,
-  `lote` int(11) NOT NULL
+  `lote` int(11) NOT NULL,
+  `telefono` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `prestamo`
+--
+
+INSERT INTO `prestamo` (`idprestamo`, `fecha`, `fechadevo`, `estado`, `tipo`, `presta`, `colegio`, `usuario`, `titulo`, `persona`, `codigolibro`, `codigopersona`, `autor`, `tematica`, `lote`, `telefono`) VALUES
+(3, '2019-11-26 10:49:28', '0000-00-00 00:00:00', 'PRESTADO', 'PROFESOR', 'DOMICILIO', 'GUIDO VILLAGOMEZ', 'CAROLA MENCIA GUTIÉRREZ', 'Lenguaje', 'CAROLA MENCIA GUTIÉRREZ', '8.101.1001', 'GV1001P', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Gramatica', 3, ''),
+(4, '2019-11-26 10:54:28', '0000-00-00 00:00:00', 'PRESTADO', 'PROFESOR', 'DOMICILIO', 'GUIDO VILLAGOMEZ', 'CAROLA MENCIA GUTIÉRREZ', 'Lenguaje', 'CAROLA MENCIA GUTIÉRREZ', '8.101.1001', 'GV1001P', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Gramatica', 4, ''),
+(5, '2019-11-26 10:58:43', '0000-00-00 00:00:00', 'PRESTADO', 'PROFESOR', 'DOMICILIO', 'GUIDO VILLAGOMEZ', 'CAROLA MENCIA GUTIÉRREZ', 'Lenguaje', 'CAROLA MENCIA GUTIÉRREZ', '8.101.1001', 'GV1001P', 'Rosa Mónica Salinas, Cecilia Lampo, Marcos Tarifa', 'Gramatica', 5, '52-36971'),
+(7, '2019-11-26 11:57:16', '0000-00-00 00:00:00', 'PRESTADO', 'PROFESOR', 'DOMICILIO', 'JUANA AZURDUY DE PADILLA', 'ELIZABETH SARAVIA VASQUEZ', 'Suma Arusa', 'ELIZABETH SARAVIA VASQUEZ', '5.103.0001', 'JA1001P', 'Julian Mamani Condori', 'Adivinanzas, Trabalenguas', 6, '');
 
 -- --------------------------------------------------------
 
@@ -3632,7 +3645,7 @@ ALTER TABLE `configuracion`
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `idestudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT de la tabla `libro`
@@ -3644,13 +3657,13 @@ ALTER TABLE `libro`
 -- AUTO_INCREMENT de la tabla `prestamo`
 --
 ALTER TABLE `prestamo`
-  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idprestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `idprofesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
