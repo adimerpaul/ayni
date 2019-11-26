@@ -6,7 +6,11 @@ $colegio=$_SESSION['colegio'];
     <button type="button" class="btn btn-success p-1 mb-2" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-user"></i> Registrar Profesor
     </button>
-
+    <style>
+        .modal-lg{
+            min-width: 98%;
+        }
+    </style>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

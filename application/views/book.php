@@ -8,7 +8,9 @@ $colegio=$_SESSION['colegio'];
     </button>
     <!-- Modal -->
     <style>
-
+        .modal-lg{
+            min-width: 98%;
+        }
     </style>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,7 +93,14 @@ $colegio=$_SESSION['colegio'];
                                     $incremento='';
                                 }
                                 ?>
-                                <input type="number" name="incremento" id="incremento" class="form-control" value="<?=$incremento?>" required placeholder="Incremento">
+                                <?php if ($colegio=='AYNI'):?>
+                                    <input type="number" name="incremento" id="incremento" class="form-control" value="<?=$incremento?>" required placeholder="Incremento">
+                                <?php else:?>
+                                    <input type="number" hidden name="incremento" id="incremento" class="form-control" value="<?=$incremento?>" required placeholder="Incremento">
+                                    <?=$incremento?>
+                                <?php endif;?>
+
+
                             </div>
                             <label class="col-sm-2" >Editorial</label>
                             <div class="col-sm-4">

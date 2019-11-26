@@ -6,6 +6,11 @@ $colegio=$_SESSION['colegio'];
     <button type="button" class="btn btn-success p-1 mb-2" data-toggle="modal" data-target="#exampleModal">
         <i class="fa fa-user-secret"></i> Registrar Estudiante
     </button>
+    <style>
+        .modal-lg{
+            min-width: 98%;
+        }
+    </style>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -112,19 +117,19 @@ $colegio=$_SESSION['colegio'];
 
                             <label class="col-sm-2" >Telefono</label>
 
-                            <?php if ($colegio=='AYNI'): ?>
+<!--                            --><?php //if ($colegio=='AYNI'): ?>
                                 <div class="col-sm-4">
                                     <input type="text" id="telefono" name="telefono" class="form-control" placeholder="52-11111">
                                 </div>
-                            <?php else:?>
-                                <?php
-                                $telefono=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'")->row()->telefono;
-                                ?>
-                                <div class="col-sm-4">
-                                    <input type="text" name="telefono" id="telefono" value="<?=$telefono?>" hidden>
-                                    <label ><?=$telefono?></label>
-                                </div>
-                            <?php endif;?>
+<!--                            --><?php //else:?>
+<!--                                --><?php
+//                                $telefono=$this->db->query("SELECT * FROM estudiante WHERE colegio='$colegio'")->row()->telefono;
+//                                ?>
+<!--                                <div class="col-sm-4">-->
+<!--                                    <input type="text" name="telefono" id="telefono" value="--><?//=$telefono?><!--" hidden>-->
+<!--                                    <label >--><?//=$telefono?><!--</label>-->
+<!--                                </div>-->
+<!--                            --><?php //endif;?>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-1" >Fotografia</label>

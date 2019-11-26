@@ -5,7 +5,7 @@ $colegio=$_SESSION['colegio'];
     <div class="row">
         <div class="col-12">
             <h4>Libros</h4>
-            <!--form action="<?=base_url()?>Importar/libros" method="post" enctype="multipart/form-data" name="form1" id="form1">
+            <form action="<?=base_url()?>Exportar/Importprestamos" method="post" enctype="multipart/form-data" name="form1" id="form1">
                 <table>
                     <tr>
                         <td> Choose your file: </td>
@@ -19,7 +19,7 @@ $colegio=$_SESSION['colegio'];
                         </td>
                     </tr>
                 </table>
-            </form-->
+            </form>
             <table class="table">
                 <thead class="thead-dark">
                 <tr>

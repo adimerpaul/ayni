@@ -135,7 +135,7 @@ function insert(){
     }
 
 
-    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto');
+    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Septimo','Octavo','Noveno','Decimo','Undecimo','Duodecimo');
     $this->db->insert('libro',array(
         'colegio'=>$_POST['colegio'],
         'nroserie'=>$_POST['nroserie'],

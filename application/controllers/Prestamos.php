@@ -131,14 +131,18 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,presta,codigopersona
         $query=$this->db->query("SELECT * FROM estudiante WHERE id='$codigo'");
         if ($query->num_rows()>0){
             $persona=$query->row()->nombre;
+            $telefono=$query->row()->telefono;
             $codigopersona=$query->row()->id;
             $tipo="ESTUDIANTE";
         }else{
             $query=$this->db->query("SELECT * FROM profesor WHERE id='$codigo'");
             $persona=$query->row()->nombre;
+            $telefono=$query->row()->celular;
             $codigopersona=$query->row()->id;
             $tipo="PROFESOR";
         }
+//        echo $telefono;
+//        exit;
         $query=$this->db->query("SELECT lote FROM prestamo GROUP BY lote ORDER BY lote DESC ");
         $lote=$query->row()->lote+1;
         $query=$this->db->query("SELECT * FROM libro");
@@ -156,6 +160,7 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,presta,codigopersona
         codigopersona='$codigopersona',
         autor='$row->autor',
         tematica='$row->tematica',
+        telefono='$telefono',
         lote='$lote',
         fecha='$fecha'
         ");

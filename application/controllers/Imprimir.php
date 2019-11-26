@@ -109,9 +109,9 @@ class Imprimir extends CI_Controller{
                 $y=2;
             }
             if ($con%2==0){
-                $pdf->SetXY(25, $y);
+                $pdf->SetXY(20, $y);
             }else{
-                $pdf->SetXY(110, $y);
+                $pdf->SetXY(105, $y);
                 $y=$y+55;
             }
 

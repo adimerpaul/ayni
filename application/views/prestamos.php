@@ -1,3 +1,6 @@
+<?php
+$colegio=$_SESSION['colegio'];
+?>
 <div class="button-ad-wrap" style="width: 100%">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-success p-1 mb-2" id="insert" data-toggle="modal" data-target="#exampleModal">
@@ -74,8 +77,8 @@
             <tbody>
             <?php
             $query=$this->db->query("
-      SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad FROM `prestamo`            
-WHERE date(fecha)=date(now()) OR estado='PRESTADO'
+      SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
+WHERE (date(fecha)=date(now()) OR estado='PRESTADO') AND colegio='$colegio'
 GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
             foreach ($query->result() as $row){
             if ($row->estado=='PRESTADO'){
@@ -109,7 +112,7 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
                     <td>$row->fecha</td>
                     <td><div style='border: 0px;margin: 0px;padding: 0px;font-size: 10px'>$codigos</div></td>
                     <td><div style='border: 0px;margin: 0px;padding: 0px;font-size: 10px'>$libros</div></td>
-                    <td>$row->persona</td>
+                    <td>$row->persona $row->telefono</td>
                     <td>$p</td>
                     <td>".($diff->days + 1)."</td>
                     <td>$fv</td>
