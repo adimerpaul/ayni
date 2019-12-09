@@ -97,7 +97,7 @@ function target($id){
 function datos(){
     header('Content-Type: text/html; charset=utf-8');
     $area=$_POST['area'];
-    $query=$this->db->query("SELECT tematica FROM libro WHERE area='$area' GROUP BY tematica");
+    $query=$this->db->query("SELECT tematica,codsubarea FROM libro WHERE area='$area' GROUP BY tematica");
     echo json_encode( $query->result_array());
 }
     function datoslibro($id){
@@ -116,16 +116,25 @@ function codigo(){
     $tematica=$_POST['tematica'];
     $incremento=$_POST['incremento'];
     $colegio=$_POST['colegio'];
-    $row=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row();
-    $codigosubarea=$row->codsubarea;
+    $codtematica=$_POST['codtematica'];
+    $query=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'");
+    if ($query->num_rows()>0){
+    $row=$query->row();
+        $codigosubarea=$row->codsubarea;
+    }else{
+        $codigosubarea=$codtematica;
+    }
     $query=$this->db->query("SELECT * FROM libro WHERE nivelno='$nivel' AND codsubarea='$codigosubarea' AND colegio='$colegio'");
     $cantidad=$query->num_rows()+1;
     $cantidad=$cantidad+$incremento;
     echo $nivel.'.'.$codigosubarea.'.'.str_pad($cantidad, 4, '0', STR_PAD_LEFT);;
 }
 function insert(){
-    $area=$_POST['area'];
-    $tematica=$_POST['tematica'];
+    $division= explode(',',$_POST['area']);
+    $area=$division[1];
+    $division= explode(',',$_POST['tematica']);
+    $tematica=$division[1];
+
     if ($_SESSION['colegio']=='AYNI'){
         $codarea=$_POST['codarea'];
         $codsubarea=$_POST['codtematica'];
@@ -135,7 +144,7 @@ function insert(){
     }
 
 
-    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Septimo','Octavo','Noveno','Decimo','Undecimo','Duodecimo');
+    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Septimo','Octavo','Noveno','Decimo','Undecimo','Duodecimo','Profesores');
     $this->db->insert('libro',array(
         'colegio'=>$_POST['colegio'],
         'nroserie'=>$_POST['nroserie'],
@@ -152,8 +161,8 @@ function insert(){
         'nivel'=>$nivel[$_POST['nivel']],
         'codarea'=>$codarea,
         'codsubarea'=>$codsubarea,
-        'area'=>$_POST['area'],
-        'tematica'=>$_POST['tematica'],
+        'area'=>$area,
+        'tematica'=>$tematica,
         'incremento'=>$_POST['incremento'],
         'codigo'=>$_POST['codigo']
 
@@ -165,7 +174,7 @@ function update(){
     $tematica=$_POST['tematica'];
     $codarea=$this->db->query("SELECT * FROM libro WHERE area='$area'")->row()->codarea;
     $codsubarea=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'")->row()->codsubarea;
-    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto');
+    $nivel=array('0','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Septimo','Octavo','Noveno','Decimo','Undecimo','Duodecimo','Profesores');
 
     $this->db->where('idlibro', $_POST['idlibro']);
     $this->db->update('libro', array(

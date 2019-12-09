@@ -84,7 +84,7 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
             if ($row->estado=='PRESTADO'){
                 $p="<p class='alert alert-warning p-1' role='alert'>$row->estado</p>";
                 $bo="<a href='".base_url()."Prestamos/boleta/$row->lote' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>
-                        <a href='".base_url()."Prestamos/devolver/$row->lote' class=' devolver btn btn-success p-1'> <i class='fa fa-desktop'></i>Devolver </a>";
+                        <button data-lote='$row->lote' class=' devolver btn btn-success p-1'> <i class='fa fa-desktop'></i>Devolver </button>";
             }else{
                 $p="<p class='alert alert-success p-1' role='alert'>$row->estado</p>";
                 $bo="";
@@ -126,13 +126,65 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
         </table>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="devolver" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Devolver libros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenido">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning" id="devo">Devolver libro</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script !src="">
     window.onload=function (e) {
+        $('#contenido').on('click','#all',function (e) {
+            // $(".case").attr("checked", this.checked);
+            $('.case').attr('checked',this.checked);
+        });
+
+        $('#devo').click(function (e) {
+            e.preventDefault();
+            // console.log('aaa');
+            $("input[type=checkbox]:checked").each(function(index, check ){
+                // / window["valorInput"+index] = check.value;
+                if (check.value!='on'){
+                    console.log(check.value);
+                }
+            });
+        });
         $('.devolver').click(function (e) {
-            if (!confirm("Seguro de devolver?")){
-                e.preventDefault();
-            }
+            var idlote=($(this).data('lote'));
+            $('#devolver').modal('show');
+            $.ajax({
+                url:'Prestamos/datlibros/'+idlote,
+                success:function (e) {
+                    // console.log(e);
+                    var datos=JSON.parse(e);
+                    $('#contenido').html('<input type="checkbox" id="all"> <b>Marcar todos</b> <br>');
+                    datos.forEach(e=>{
+                       // console.log(e);
+                       $('#contenido').append('<input class="case" type="checkbox" id="" value="'+e.idprestamo+'"> '+e.titulo+' '+e.codigolibro+' <br>');
+                    });
+
+                }
+            })
+            // if (!confirm("Seguro de devolver?")){
+            //     e.preventDefault();
+            // }
         });
         $('#estudiante,#profesor,#sala,#domicilio').click(function (e) {
             $('#libro').val('');

@@ -3,6 +3,10 @@ require_once('tcpdf.php');
 include('src/BarcodeGenerator.php');
 include('src/BarcodeGeneratorJPG.php');
 class Prestamos extends CI_Controller{
+    function datlibros($idlote){
+        $query=$this->db->query("SELECT * FROM prestamo WHERE lote='$idlote'");
+        echo json_encode($query->result_array());
+    }
     function index()
     {
         if (!isset($_SESSION['profesion'])) {
@@ -12,8 +16,10 @@ class Prestamos extends CI_Controller{
         $this->load->view('prestamos');
         $this->load->view('templates/footer');
     }
+    function devo($idprestamo){
+        $this->db->query("UPDATE prestamo SET estado=''");
+    }
     function devolver($id){
-
         $query2=$this->db->query("SELECT * FROM prestamo WHERE lote='$id' ORDER BY idprestamo");
         foreach ($query2->result() as $row2){
             $this->db->query("UPDATE prestamo SET 
@@ -122,9 +128,6 @@ GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,presta,codigopersona
     function insert(){
         $codigo=trim($_POST['codigo']);
         $presta= trim( $_POST['presta']);
-
-
-
         $colegio=$_SESSION['colegio'];
         $nombre=$_SESSION['nombre'];
         $fecha=date("Y-m-d H:i:s");

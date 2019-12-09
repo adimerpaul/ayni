@@ -41,7 +41,7 @@ $colegio=$_SESSION['colegio'];
                                 <?php endif;?>
                             </div>
 
-                            <label class="col-sm-2" >Categoria</label>
+                            <label class="col-sm-2" >Nivel</label>
                             <div class="col-sm-4">
                             <select name="categoria" id="categoria" class="form-control" required>
                                 <option value="">Selecionar..</option>
@@ -49,7 +49,7 @@ $colegio=$_SESSION['colegio'];
                                 <option value="SECUNDARIA">SECUNDARIA</option>
                             </select>
                             </div>
-                            <label class="col-sm-2">Nivel</label>
+                            <label class="col-sm-2">Grado</label>
                             <div class="col-sm-4">
                             <select name="nivel" id="nivel"  class="form-control" required>
                                 <option value="">Selecionar..</option>
@@ -115,7 +115,7 @@ $colegio=$_SESSION['colegio'];
                                 </div>
                             <?php endif;?>
 
-                            <label class="col-sm-2" >Telefono</label>
+                            <label class="col-sm-2" >telefono del tutor</label>
 
 <!--                            --><?php //if ($colegio=='AYNI'): ?>
                                 <div class="col-sm-4">
@@ -234,7 +234,7 @@ $colegio=$_SESSION['colegio'];
                                 ?>
                             </select>
                         </div>
-                        <label class="col-sm-1" >Categoria</label>
+                        <label class="col-sm-1" >Nivel</label>
                         <div class="col-sm-3">
                             <select name="categoria" id="categoria2" class="form-control" required>
                                 <option value="">Selecionar..</option>
@@ -242,7 +242,7 @@ $colegio=$_SESSION['colegio'];
                                 <option value="SECUNDARIA">SECUNDARIA</option>
                             </select>
                         </div>
-                        <label class="col-sm-1">Nivel</label>
+                        <label class="col-sm-1">Grado</label>
                         <div class="col-sm-3">
                             <select name="nivel" id="nivel2"  class="form-control" required>
                                 <option value="">Selecionar..</option>
@@ -280,7 +280,7 @@ $colegio=$_SESSION['colegio'];
 
                         </div>
 
-                        <label class="col-sm-1" >Telefono</label>
+                        <label class="col-sm-1" >telefono del tutor</label>
                         <div class="col-sm-3">
                             <input type="text" id="telefono2" name="telefono" class="form-control" placeholder="telefono">
                         </div>

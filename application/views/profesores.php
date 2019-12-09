@@ -42,7 +42,7 @@ $colegio=$_SESSION['colegio'];
                                     <label ><?=$colegio?></label>
                                 <?php endif;?>
                             </div>
-                            <label class="col-sm-2" >Telefono unidad</label>
+                            <label class="col-sm-2" >Telefono</label>
 
                             <?php if ($colegio=='AYNI'): ?>
                                 <div class="col-sm-4">
@@ -217,7 +217,7 @@ $colegio=$_SESSION['colegio'];
                         <div class="col-sm-3">
                             <input type="text" required name="nombre" id="nombre2" class="form-control" placeholder="Nombres apellidos">
                         </div>
-                        <label class="col-sm-1" >Celular</label>
+                        <label class="col-sm-1" >Telefono</label>
                         <div class="col-sm-3">
                             <input type="text" required name="celular" id="celular2" class="form-control" placeholder="celular">
                         </div>

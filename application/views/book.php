@@ -110,7 +110,7 @@ $colegio=$_SESSION['colegio'];
                             <div class="col-sm-4">
                                 <input type="number" name="anioedicion" class="form-control"  placeholder="Año Edicion">
                             </div>
-                            <label class="col-sm-2" >Pais</label>
+                            <label class="col-sm-2" >Procedencia</label>
                             <div class="col-sm-4">
                                 <input type="text" name="procedencia" class="form-control"  placeholder="Pais">
                             </div>
@@ -131,9 +131,9 @@ $colegio=$_SESSION['colegio'];
                                 <input list="areas" type="text" name="area" class="form-control" id="area" required>
                                 <datalist id="areas">
                                     <?php
-                                    $query=$this->db->query("SELECT area FROM libro GROUP BY area ORDER BY area");
+                                    $query=$this->db->query("SELECT codarea,area FROM libro GROUP BY area ORDER BY codarea");
                                     foreach ($query->result() as $row){
-                                        echo "<option value='$row->area'>";
+                                        echo "<option value='$row->codarea,$row->area'>";
                                     }
                                     ?>
                                 </datalist>
@@ -201,7 +201,7 @@ $colegio=$_SESSION['colegio'];
                                 </datalist>
 
                             </div>
-                            <label class="col-sm-2">Nivel</label>
+                            <label class="col-sm-2">Grado</label>
                             <div class="col-sm-4">
                                 <select name="nivel" id="nivel"  class="form-control" required>
 <!--                                    <option value="">Selecionar..</option>-->
@@ -217,6 +217,7 @@ $colegio=$_SESSION['colegio'];
                                     <option value="10">Decimo</option>
                                     <option value="11">Undecimo</option>
                                     <option value="12">Duodecimo</option>
+                                    <option value="13">Profesores</option>
                                 </select>
                             </div>
 
@@ -433,7 +434,7 @@ $colegio=$_SESSION['colegio'];
                             </datalist>
 
                         </div>
-                        <label class="col-sm-1">Nivel</label>
+                        <label class="col-sm-1">Grado</label>
                         <div class="col-sm-3">
                             <select name="nivel" id="nivel2"  class="form-control" required>
                                 <!--                                    <option value="">Selecionar..</option>-->
@@ -449,6 +450,7 @@ $colegio=$_SESSION['colegio'];
                                 <option value="10">Decimo</option>
                                 <option value="11">Undecimo</option>
                                 <option value="12">Duodecimo</option>
+                                <option value="13">Profesores</option>
                             </select>
                         </div>
                         <label class="col-sm-1">Area</label>
@@ -500,20 +502,23 @@ $colegio=$_SESSION['colegio'];
                 $('#area').val('');
                 return false;
             }
+            var division = $(this).val().split(',');
+            var area=(division[1]);
             $.ajax({
-                data:'area='+$(this).val(),
+                data:'area='+area,
                 type:'POST',
                 url:'Book/datos',
                 success:function (e) {
-                    // console.log(e);
+
                     var datos= JSON.parse(e);
+                    console.log(datos);
                     $('#tematica').val('');
                     $('#tematicas').html('');
                     datos.forEach(function (e) {
-                        $('#tematicas').append('<option value="'+e.tematica+'">');
+                        $('#tematicas').append('<option value="'+e.codsubarea+','+e.tematica+'">');
                     });
                     $.ajax({
-                        data:'area='+$('#area').val(),
+                        data:'area='+area,
                         type:'POST',
                         url:'Book/codarea',
                         success:function (e) {
@@ -527,8 +532,10 @@ $colegio=$_SESSION['colegio'];
         $('#tematica').change(function (e) {
             e.preventDefault();
             // console.log($('#tematica').val());
+            var division = $('#tematica').val().split(',');
+            var tematica=(division[1]);
             $.ajax({
-                data:'tematica='+$('#tematica').val(),
+                data:'tematica='+tematica,
                 type:'POST',
                 url:'Book/codtematica',
                 success:function (e) {
@@ -545,11 +552,14 @@ $colegio=$_SESSION['colegio'];
             if ($('#nivel').val()=='' || $('#area').val()=='' || $('#tematica').val()==''){
                 alert('debe llenar los campos de nivel area y tematica');
             }else{
+                var division = $('#tematica').val().split(',');
+                var tematica=(division[1]);
                 var datos={
                     nivel:$('#nivel').val(),
-                    tematica:$('#tematica').val(),
+                    tematica:tematica,
                     colegio:$('#colegio').val(),
-                    incremento:$('#incremento').val()
+                    incremento:$('#incremento').val(),
+                    codtematica:$('#codtematica').val()
                 }
                 $.ajax({
                     url:'Book/codigo',
@@ -559,7 +569,6 @@ $colegio=$_SESSION['colegio'];
                         // console.log(e);
                         // if (e.length)
                         $('#codigo').val(e);
-
                     }
                 })
             }
@@ -765,7 +774,6 @@ $colegio=$_SESSION['colegio'];
                     $('#tematica2').val(datos.tematica);
                     $('#editorial2').val(datos.editorial);
                     $('#codigo2').val(datos.codigo);
-
                 }
             });
         })
