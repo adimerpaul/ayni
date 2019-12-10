@@ -135,8 +135,7 @@ function codigo(){
         $divi= explode('.',$query->row()->codigo);
         $cantidad= ((int)$divi[2]+1);
     }
-    exit;
-    $cantidad=$query->num_rows()+1;
+//    $cantidad=$query->num_rows()+1;
 //    $cantidad=$cantidad+$incremento;
     echo $nivel.'.'.$codigosubarea.'.'.str_pad($cantidad, 4, '0', STR_PAD_LEFT);;
 }
