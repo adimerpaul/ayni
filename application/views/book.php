@@ -125,7 +125,6 @@ $colegio=$_SESSION['colegio'];
                                 </select>
                             </div>
                             <label class="col-sm-2">Area</label>
-
                             <?php if ($colegio=='AYNI'):?>
                             <div class="col-sm-2">
                                 <input list="areas" type="text" name="area" class="form-control" id="area" required>
@@ -183,6 +182,7 @@ $colegio=$_SESSION['colegio'];
                                             echo "<option value='$row->tematica'>$row->tematica</option>";
                                         }
                                         ?>
+                                        <option value="800">DEPORTES Y PASATIEMPOS</option>
                                     </select>
                                 </div>
                             <?php endif;?>
