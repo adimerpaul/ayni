@@ -97,7 +97,7 @@ function target($id){
 function datos(){
     header('Content-Type: text/html; charset=utf-8');
     $area=$_POST['area'];
-    $query=$this->db->query("SELECT tematica,codsubarea FROM libro WHERE area='$area' GROUP BY tematica");
+    $query=$this->db->query("SELECT tematica,codsubarea FROM libro WHERE area='$area' GROUP BY tematica ORDER BY codsubarea");
     echo json_encode( $query->result_array());
 }
     function datoslibro($id){
@@ -113,13 +113,16 @@ function datos(){
     }
 function codigo(){
     $nivel=$_POST['nivel'];
+
     $tematica=$_POST['tematica'];
+//    echo $tematica;
+//    exit;
     $incremento=$_POST['incremento'];
     $colegio=$_POST['colegio'];
     $codtematica=$_POST['codtematica'];
     $query=$this->db->query("SELECT * FROM libro WHERE tematica='$tematica'");
     if ($query->num_rows()>0){
-    $row=$query->row();
+        $row=$query->row();
         $codigosubarea=$row->codsubarea;
     }else{
         $codigosubarea=$codtematica;

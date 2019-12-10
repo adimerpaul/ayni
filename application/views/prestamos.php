@@ -77,10 +77,12 @@ $colegio=$_SESSION['colegio'];
             <tbody>
             <?php
             $query=$this->db->query("
-      SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
-WHERE (date(fecha)=date(now()) OR estado='PRESTADO') AND colegio='$colegio'
-GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
+          SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
+    WHERE (date(fecha)=date(now()) OR estado='PRESTADO') AND colegio='$colegio'
+    GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
             foreach ($query->result() as $row){
+                $query2=$this->db->query("SELECT count(*) FROM prestamo WHERE lote='$row->lote' ORDER BY idprestamo");
+
             if ($row->estado=='PRESTADO'){
                 $p="<p class='alert alert-warning p-1' role='alert'>$row->estado</p>";
                 $bo="<a href='".base_url()."Prestamos/boleta/$row->lote' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>

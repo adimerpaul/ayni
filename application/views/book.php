@@ -146,9 +146,9 @@ $colegio=$_SESSION['colegio'];
                                     <select name="area" class="form-control" required id="area">
                                         <option value="">Selecionar..</option>
                                         <?php
-                                        $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                                        $query=$this->db->query("SELECT codarea,area FROM libro GROUP BY area ORDER BY codarea");
                                         foreach ($query->result() as $row){
-                                            echo "<option value='$row->area'>$row->area</option>";
+                                            echo "<option value='$row->codarea,$row->area'>$row->codarea,$row->area</option>";
                                         }
                                         ?>
                                     </select>
@@ -274,37 +274,37 @@ $colegio=$_SESSION['colegio'];
         </thead>
         <tbody>
         <?php
-        if ($colegio=='AYNI'){
-            $query=$this->db->query("SELECT * FROM libro ORDER  BY codarea,codsubarea");
-        }else{
-            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' ORDER  BY codarea,codsubarea");
-        }
-        foreach ($query->result() as $row){
-            if ($row->estado=="Malo"){
-                $in="";
-                $ba="<a href='".base_url()."Book/alta/$row->idlibro'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
-            }else{
-                $in="<input type='checkbox' class='case' name='c$row->idlibro'>";
-                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idlibro' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
-                <a href='".base_url()."Book/baja/$row->idlibro'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
-            }
-            echo "<tr>
-                    <td>$in</td>
-                    <td>$row->fecha</td>
-                    <td>$row->titulo</td>
-                    <td>$row->autor</td>
-                    <td>$row->area</td>
-                    <td>$row->tematica</td>
-                    <td>$row->idioma</td>
-                    <td>$row->codigo</td>
-                    <td>$row->nivel</td>
-                    <td>$row->colegio</td>
-                    <td>$row->status</td>
-                    <td>
-                        $ba
-                    </td>
-                </tr>";
-        }
+//        if ($colegio=='AYNI'){
+//            $query=$this->db->query("SELECT * FROM libro ORDER  BY codarea,codsubarea");
+//        }else{
+//            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' ORDER  BY codarea,codsubarea");
+//        }
+//        foreach ($query->result() as $row){
+//            if ($row->estado=="Malo"){
+//                $in="";
+//                $ba="<a href='".base_url()."Book/alta/$row->idlibro'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
+//            }else{
+//                $in="<input type='checkbox' class='case' name='c$row->idlibro'>";
+//                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idlibro' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+//                <a href='".base_url()."Book/baja/$row->idlibro'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
+//            }
+//            echo "<tr>
+//                    <td>$in</td>
+//                    <td>$row->fecha</td>
+//                    <td>$row->titulo</td>
+//                    <td>$row->autor</td>
+//                    <td>$row->area</td>
+//                    <td>$row->tematica</td>
+//                    <td>$row->idioma</td>
+//                    <td>$row->codigo</td>
+//                    <td>$row->nivel</td>
+//                    <td>$row->colegio</td>
+//                    <td>$row->status</td>
+//                    <td>
+//                        $ba
+//                    </td>
+//                </tr>";
+//        }
         ?>
 
         </tbody>
@@ -509,14 +509,22 @@ $colegio=$_SESSION['colegio'];
                 type:'POST',
                 url:'Book/datos',
                 success:function (e) {
-
                     var datos= JSON.parse(e);
                     console.log(datos);
-                    $('#tematica').val('');
+
                     $('#tematicas').html('');
+                    <?php if ($colegio=='AYNI'): ?>
                     datos.forEach(function (e) {
+                        $('#tematica').val('');
                         $('#tematicas').append('<option value="'+e.codsubarea+','+e.tematica+'">');
                     });
+                        <?php else:?>
+                    $('#tematica').html('<option value="">Selecionar..</option>');
+                    datos.forEach(function (e) {
+                        $('#tematica').append('<option value="'+e.codsubarea+','+e.tematica+'">'+e.codsubarea+','+e.tematica+'</option>');
+                    });
+                    <?php endif;?>
+
                     $.ajax({
                         data:'area='+area,
                         type:'POST',
@@ -554,20 +562,32 @@ $colegio=$_SESSION['colegio'];
             }else{
                 var division = $('#tematica').val().split(',');
                 var tematica=(division[1]);
+                console.log(tematica);
+            <?php if ($colegio=='AYNI'): ?>
+                var datos={
+                    nivel:$('#nivel').val(),
+                    tematica:'a',
+                    colegio:$('#colegio').val(),
+                    incremento:$('#incremento').val(),
+                    codtematica:$('#codtematica').val()
+                }
+                <?php else:?>
                 var datos={
                     nivel:$('#nivel').val(),
                     tematica:tematica,
                     colegio:$('#colegio').val(),
                     incremento:$('#incremento').val(),
-                    codtematica:$('#codtematica').val()
+                    codtematica:division[0]
                 }
+                <?php endif;?>
+
                 $.ajax({
                     url:'Book/codigo',
                     type:'POST',
                     data:datos,
                     success:function (e) {
-                        // console.log(e);
-                        // if (e.length)
+                        console.log(e);
+                        if (e.length)
                         $('#codigo').val(e);
                     }
                 })
