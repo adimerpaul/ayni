@@ -133,7 +133,7 @@ $colegio=$_SESSION['colegio'];
                                     <?php
                                     $query=$this->db->query("SELECT codarea,area FROM libro GROUP BY area ORDER BY codarea");
                                     foreach ($query->result() as $row){
-                                        echo "<option value='$row->codarea,$row->area'>";
+                                        echo "<option value='$row->codarea.$row->area'>";
                                     }
                                     ?>
                                 </datalist>
@@ -148,7 +148,7 @@ $colegio=$_SESSION['colegio'];
                                         <?php
                                         $query=$this->db->query("SELECT codarea,area FROM libro GROUP BY area ORDER BY codarea");
                                         foreach ($query->result() as $row){
-                                            echo "<option value='$row->codarea,$row->area'>$row->codarea,$row->area</option>";
+                                            echo "<option value='$row->codarea.$row->area'>$row->codarea.$row->area</option>";
                                         }
                                         ?>
                                     </select>
@@ -165,7 +165,7 @@ $colegio=$_SESSION['colegio'];
                                         <?php
                                         $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica ORDER BY tematica");
                                         foreach ($query->result() as $row){
-                                            echo "<option value='$row->area'>";
+                                            echo "<option value='$row->tematica'>";
                                         }
                                         ?>
                                     </datalist>
@@ -502,7 +502,7 @@ $colegio=$_SESSION['colegio'];
                 $('#area').val('');
                 return false;
             }
-            var division = $(this).val().split(',');
+            var division = $(this).val().split('.');
             var area=(division[1]);
             $.ajax({
                 data:'area='+area,
@@ -516,12 +516,12 @@ $colegio=$_SESSION['colegio'];
                     <?php if ($colegio=='AYNI'): ?>
                     datos.forEach(function (e) {
                         $('#tematica').val('');
-                        $('#tematicas').append('<option value="'+e.codsubarea+','+e.tematica+'">');
+                        $('#tematicas').append('<option value="'+e.codsubarea+'.'+e.tematica+'">');
                     });
                         <?php else:?>
                     $('#tematica').html('<option value="">Selecionar..</option>');
                     datos.forEach(function (e) {
-                        $('#tematica').append('<option value="'+e.codsubarea+','+e.tematica+'">'+e.codsubarea+','+e.tematica+'</option>');
+                        $('#tematica').append('<option value="'+e.codsubarea+'.'+e.tematica+'">'+e.codsubarea+'.'+e.tematica+'</option>');
                     });
                     <?php endif;?>
 
@@ -540,8 +540,9 @@ $colegio=$_SESSION['colegio'];
         $('#tematica').change(function (e) {
             e.preventDefault();
             // console.log($('#tematica').val());
-            var division = $('#tematica').val().split(',');
+            var division = $('#tematica').val().split('.');
             var tematica=(division[1]);
+            // console.log(tematica);
             $.ajax({
                 data:'tematica='+tematica,
                 type:'POST',
@@ -549,10 +550,52 @@ $colegio=$_SESSION['colegio'];
                 success:function (e) {
                     // console.log(e);
                     $('#codtematica').val(e);
+                    /////////////////////////////////////////////////////////////////////////////////
+                    if ($('#colegio').val()==''){
+                        alert('primero selecionar colegio');
+                        return false;
+                    }
+                    if ($('#nivel').val()=='' || $('#area').val()=='' || $('#tematica').val()==''){
+                        alert('debe llenar los campos de nivel area y tematica');
+                    }else{
+                        var division = $('#tematica').val().split('.');
+                        var tematica=(division[1]);
+                        // console.log(tematica);
+                        <?php if ($colegio=='AYNI'): ?>
+                        var datos={
+                            nivel:$('#nivel').val(),
+                            tematica:'a',
+                            colegio:$('#colegio').val(),
+                            incremento:$('#incremento').val(),
+                            codtematica:$('#codtematica').val()
+                        }
+                        <?php else:?>
+                        var datos={
+                            nivel:$('#nivel').val(),
+                            tematica:tematica,
+                            colegio:$('#colegio').val(),
+                            incremento:$('#incremento').val(),
+                            codtematica:division[0]
+                        }
+                        <?php endif;?>
+
+                        $.ajax({
+                            url:'Book/codigo',
+                            type:'POST',
+                            data:datos,
+                            success:function (e) {
+                                console.log(e);
+                                if (e.length)
+                                    $('#codigo').val(e);
+                            }
+                        })
+                    }
+                    // e.preventDefault();
+                    ///////////////////////////
                 }
             });
         });
-        $('#nivel,#tematica').change(function (e) {
+        $('#nivel').change(function (e) {
             if ($('#colegio').val()==''){
                 alert('primero selecionar colegio');
                 return false;
@@ -560,9 +603,9 @@ $colegio=$_SESSION['colegio'];
             if ($('#nivel').val()=='' || $('#area').val()=='' || $('#tematica').val()==''){
                 alert('debe llenar los campos de nivel area y tematica');
             }else{
-                var division = $('#tematica').val().split(',');
+                var division = $('#tematica').val().split('.');
                 var tematica=(division[1]);
-                console.log(tematica);
+                // console.log(tematica);
             <?php if ($colegio=='AYNI'): ?>
                 var datos={
                     nivel:$('#nivel').val(),

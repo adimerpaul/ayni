@@ -127,15 +127,23 @@ function codigo(){
     }else{
         $codigosubarea=$codtematica;
     }
-    $query=$this->db->query("SELECT * FROM libro WHERE nivelno='$nivel' AND codsubarea='$codigosubarea' AND colegio='$colegio'");
+    $query=$this->db->query("SELECT codigo FROM libro WHERE nivelno='$nivel' AND codsubarea='$codigosubarea' AND colegio='$colegio' ORDER BY codigo DESC LIMIT 1");
+//    echo $query->row()->codigo;
+    if($query->num_rows()==0){
+            $cantidad=1;
+    }else{
+        $divi= explode('.',$query->row()->codigo);
+        $cantidad= ((int)$divi[2]+1);
+    }
+    exit;
     $cantidad=$query->num_rows()+1;
-    $cantidad=$cantidad+$incremento;
+//    $cantidad=$cantidad+$incremento;
     echo $nivel.'.'.$codigosubarea.'.'.str_pad($cantidad, 4, '0', STR_PAD_LEFT);;
 }
 function insert(){
-    $division= explode(',',$_POST['area']);
+    $division= explode('.',$_POST['area']);
     $area=$division[1];
-    $division= explode(',',$_POST['tematica']);
+    $division= explode('.',$_POST['tematica']);
     $tematica=$division[1];
 
     if ($_SESSION['colegio']=='AYNI'){
