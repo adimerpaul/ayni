@@ -51,7 +51,7 @@ $colegio=$_SESSION['colegio'];
                             <label class="col-sm-2" >Autor</label>
                             <div class="col-sm-4">
 <!--                                <input type="text" name="autor" class="form-control" placeholder="Apellido nombres">-->
-                                <input list="autor" name="autor" class="form-control"placeholder="Autor">
+                                <input list="autor" name="autor" class="form-control"placeholder="Autor" required>
                                 <datalist id="autor" style='margin: 0px;padding: 0px;border: 0px'>
                                     <?php
                                     $query=$this->db->query("SELECT autor FROM libro GROUP BY autor ORDER BY autor");
@@ -63,7 +63,7 @@ $colegio=$_SESSION['colegio'];
                             </div>
                             <label class="col-sm-2" >Titulo</label>
                             <div class="col-sm-4">
-                                <input list="titulos" name="titulo" class="form-control"placeholder="Titulo">
+                                <input list="titulos" name="titulo" class="form-control"placeholder="Titulo" required>
                                 <datalist id="titulos">
                                     <?php
                                     $query=$this->db->query("SELECT titulo FROM libro GROUP BY titulo");
@@ -274,37 +274,37 @@ $colegio=$_SESSION['colegio'];
         </thead>
         <tbody>
         <?php
-//        if ($colegio=='AYNI'){
-//            $query=$this->db->query("SELECT * FROM libro ORDER  BY codarea,codsubarea");
-//        }else{
-//            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' ORDER  BY codarea,codsubarea");
-//        }
-//        foreach ($query->result() as $row){
-//            if ($row->estado=="Malo"){
-//                $in="";
-//                $ba="<a href='".base_url()."Book/alta/$row->idlibro'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
-//            }else{
-//                $in="<input type='checkbox' class='case' name='c$row->idlibro'>";
-//                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idlibro' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
-//                <a href='".base_url()."Book/baja/$row->idlibro'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
-//            }
-//            echo "<tr>
-//                    <td>$in</td>
-//                    <td>$row->fecha</td>
-//                    <td>$row->titulo</td>
-//                    <td>$row->autor</td>
-//                    <td>$row->area</td>
-//                    <td>$row->tematica</td>
-//                    <td>$row->idioma</td>
-//                    <td>$row->codigo</td>
-//                    <td>$row->nivel</td>
-//                    <td>$row->colegio</td>
-//                    <td>$row->status</td>
-//                    <td>
-//                        $ba
-//                    </td>
-//                </tr>";
-//        }
+        if ($colegio=='AYNI'){
+            $query=$this->db->query("SELECT * FROM libro ORDER  BY codarea,codsubarea");
+        }else{
+            $query=$this->db->query("SELECT * FROM libro WHERE colegio='$colegio' ORDER  BY codarea,codsubarea");
+        }
+        foreach ($query->result() as $row){
+            if ($row->estado=="Malo"){
+                $in="";
+                $ba="<a href='".base_url()."Book/alta/$row->idlibro'  class='btn btn-warning p-1'> <i class='fa fa-upload'></i> Dar Alta</a>";
+            }else{
+                $in="<input type='checkbox' class='case' name='c$row->idlibro'>";
+                $ba="<button type='button' class='btn btn-info p-1' data-codigo='$row->idlibro' data-toggle='modal' data-target='#modificar'> <i class='fa fa-pencil-square-o'></i> Modificar</button>
+                <a href='".base_url()."Book/baja/$row->idlibro'  class='confirmar btn btn-danger p-1'> <i class='fa fa-close'></i> Dar Baja</a>";
+            }
+            echo "<tr>
+                    <td>$in</td>
+                    <td>$row->fecha</td>
+                    <td>$row->titulo</td>
+                    <td>$row->autor</td>
+                    <td>$row->area</td>
+                    <td>$row->tematica</td>
+                    <td>$row->idioma</td>
+                    <td>$row->codigo</td>
+                    <td>$row->nivel</td>
+                    <td>$row->colegio</td>
+                    <td>$row->status</td>
+                    <td>
+                        $ba
+                    </td>
+                </tr>";
+        }
         ?>
 
         </tbody>
