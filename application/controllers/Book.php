@@ -245,8 +245,7 @@ function update(){
         $query=$this->db->query("SELECT * FROM libro ORDER BY $orden");
         $bo="right";
         foreach ($query->result() as $row){
-            if (isset($_POST['c'.$row->idlibro])){
-                $titulo = $row->titulo;
+            if (isset($_POST['c'.$row->idlibro])){$titulo = $row->titulo;
                 $area=$row->tematica;
                 $codarea=$row->codarea;
                 $idioma=$row->idioma;
@@ -255,7 +254,7 @@ function update(){
                 $subcodigo=explode('.',$codigo);
                 file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
 
-                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;;width: 240px;font-family: Arial;font-size: 8px ">
+                $html='<table border="0" style="border-top: 1px solid #E7E7E7; ;;width: 240px;font-family: Arial;font-size: 8px ">
             <tr >
                 <td width="50" align="center">
                    <img src="img/'.$codarea.'.png" width="32"><br>
@@ -263,7 +262,7 @@ function update(){
                    '.$subcodigo[2].'
                 </td>
                 <td width="190" align="right">
-                    <small style="font-family: Arial;font-size: 8px;"><br>'.$titulo.'<br></small>
+                    <small style="font-family: Arial;font-size: 8px;border: 1 px solid black"><br>'.$titulo.substr(0,45).'<br></small>
                     '.$area.' <br>
                     '.$idioma.' *'.$codigo.'*<br>
                     <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
