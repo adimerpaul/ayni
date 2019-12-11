@@ -16,8 +16,13 @@ class Prestamos extends CI_Controller{
         $this->load->view('prestamos');
         $this->load->view('templates/footer');
     }
-    function devo($idprestamo){
-        $this->db->query("UPDATE prestamo SET estado=''");
+    function devo(){
+//var_dump($_POST);
+        foreach ($_POST as &$valor) {
+            $this->db->query("UPDATE prestamo SET estado='DEVUELTO' WHERE idprestamo='$valor'");
+        }
+        echo 1;
+//        $this->db->query("UPDATE prestamo SET estado='DEVUELTO' WHERE id");
     }
     function devolver($id){
         $query2=$this->db->query("SELECT * FROM prestamo WHERE lote='$id' ORDER BY idprestamo");

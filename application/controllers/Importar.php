@@ -169,7 +169,66 @@ class Importar extends CI_Controller{
         return $data;
 
     }
-
+    function librosE($anio,$mes){
+        // file name
+        $filename = 'libros_'.'_'.$anio.'_'.$mes.'.csv';
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-Type: application/csv; ");
+        // get data
+        $usersData = $this->db->query("SELECT 
+colegio,
+nroserie,
+nroalcaldia,
+autor,
+titulo,
+original,
+anioedicion,
+editorial,
+procedencia,
+estado,
+idioma,
+nivelno,
+nivel,
+codarea,
+area,
+codsubarea,
+tematica,
+codigo,
+fecha,
+incremento
+ FROM libro WHERE  YEAR(fecha)='$anio' AND MONTH(fecha)='$mes'")->result_array();
+        // file creation
+        $file = fopen('php://output', 'w');
+        $header = array(
+            "colegio",
+            "nroserie",
+            "nroalcaldia",
+            "autor",
+            "titulo",
+            "original",
+            "anioedicion",
+            "editorial",
+            "procedencia",
+            "estado",
+            "idioma",
+            "nivelno",
+            "nivel",
+            "codarea",
+            "area",
+            "codsubarea",
+            "tematica",
+            "codigo",
+            "fecha",
+            "incremento"
+        );
+        fputcsv($file, $header);
+        foreach ($usersData as $key=>$line){
+            fputcsv($file,$line);
+        }
+        fclose($file);
+        exit;
+    }
     function uploadData()
     {
         $count=0;

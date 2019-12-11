@@ -79,7 +79,7 @@ $colegio=$_SESSION['colegio'];
             $query=$this->db->query("
           SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
     WHERE (date(fecha)=date(now()) OR estado='PRESTADO') AND colegio='$colegio'
-    GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo");
+    GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,lote");
             foreach ($query->result() as $row){
                 $query2=$this->db->query("SELECT count(*) FROM prestamo WHERE lote='$row->lote' ORDER BY idprestamo");
 
@@ -161,12 +161,29 @@ $colegio=$_SESSION['colegio'];
         $('#devo').click(function (e) {
             e.preventDefault();
             // console.log('aaa');
+            var data={};
+            var c=0;
             $("input[type=checkbox]:checked").each(function(index, check ){
                 // / window["valorInput"+index] = check.value;
+
                 if (check.value!='on'){
-                    console.log(check.value);
+                    c++;
+                    data[c]=check.value;
                 }
             });
+            // console.log(data);
+            $.ajax({
+                data: (data),
+                type:'POST',
+                url:'Prestamos/devo',
+                success:function (e) {
+                    console.log(e);
+                    if (e==1){
+                        location.reload();
+                    }
+                }
+            })
+
         });
         $('.devolver').click(function (e) {
             var idlote=($(this).data('lote'));

@@ -111,6 +111,11 @@ function datos(){
         $row=$this->db->query("SELECT incremento FROM libro WHERE colegio='$colegio' ")->row();
         echo $row->incremento;
     }
+    function btematicas(){
+        $area=$_POST['area'];
+        $query=$this->db->query("SELECT tematica FROM libro WHERE area='$area' GROUP BY tematica ORDER BY codsubarea");
+        echo json_encode( $query->result_array());
+    }
 function codigo(){
     $nivel=$_POST['nivel'];
 
@@ -130,7 +135,7 @@ function codigo(){
     $query=$this->db->query("SELECT codigo FROM libro WHERE nivelno='$nivel' AND codsubarea='$codigosubarea' AND colegio='$colegio' ORDER BY codigo DESC LIMIT 1");
 //    echo $query->row()->codigo;
     if($query->num_rows()==0){
-            $cantidad=1;
+            $cantidad=1+$incremento;
     }else{
         $divi= explode('.',$query->row()->codigo);
         $cantidad= ((int)$divi[2]+1);
@@ -236,7 +241,7 @@ function update(){
         $pdf->AddPage('P','Legal');
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=4;
+        $y=10;
         $query=$this->db->query("SELECT * FROM libro ORDER BY $orden");
         $bo="right";
         foreach ($query->result() as $row){
@@ -250,32 +255,33 @@ function update(){
                 $subcodigo=explode('.',$codigo);
                 file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
 
-                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;border-'.$bo.': 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 8px ">
-            <tr>
-                <td width="70" align="center">
+                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;;width: 240px;font-family: Arial;font-size: 8px ">
+            <tr >
+                <td width="50" align="center">
                    <img src="img/'.$codarea.'.png" width="32"><br>
                    '.$subcodigo[0].'.'.$subcodigo[1].'.<br>
                    '.$subcodigo[2].'
                 </td>
-                <td width="170" align="right">
-                    <small style="font-family: Arial;font-size: 8px;">'.$titulo.'<br><br></small>
+                <td width="190" align="right">
+                    <small style="font-family: Arial;font-size: 8px;"><br>'.$titulo.'<br></small>
                     '.$area.' <br>
                     '.$idioma.' *'.$codigo.'*<br>
                     <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
+                    
                 </td>  
             </tr>
             </table>';
                 if ($con==20){
                     $con=0;
                     $pdf->AddPage('P','Legal');
-                    $y=2;
+                    $y=10;
                 }
                 if ($con%2==0){
-                    $pdf->SetXY(25, $y);
+                    $pdf->SetXY(15, $y);
                     $bo="left";
                 }else{
-                    $pdf->SetXY(110, $y);
-                    $y=$y+22;
+                    $pdf->SetXY(120, $y);
+                    $y=$y+23;
                     $bo="right";
                 }
                 $pdf->writeHTML($html,0,0);

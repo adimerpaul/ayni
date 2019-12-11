@@ -149,6 +149,7 @@ $colegio=$_SESSION['colegio'];
                                         foreach ($query->result() as $row){
                                             echo "<option value='$row->codarea.$row->area'>$row->codarea.$row->area</option>";
                                         }
+                                        echo "<option value='800.DEPORTES Y PASATIEMPOS'>800.DEPORTES Y PASATIEMPOS</option>";
                                         ?>
                                     </select>
                                     </div>
@@ -162,7 +163,7 @@ $colegio=$_SESSION['colegio'];
                                     <input list="tematicas" type="text" name="tematica" class="form-control" id="tematica" required>
                                     <datalist id="tematicas">
                                         <?php
-                                        $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica ORDER BY tematica");
+                                        $query=$this->db->query("SELECT codsubarea,tematica FROM libro GROUP BY tematica ORDER BY codsubarea");
                                         foreach ($query->result() as $row){
                                             echo "<option value='$row->tematica'>";
                                         }
@@ -177,7 +178,7 @@ $colegio=$_SESSION['colegio'];
                                     <select name="tematica" class="form-control" required id="tematica">
                                         <option value="">Selecionar..</option>
                                         <?php
-                                        $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
+                                        $query=$this->db->query("SELECT tematica,codsubarea FROM libro GROUP BY codsubarea");
                                         foreach ($query->result() as $row){
                                             echo "<option value='$row->tematica'>$row->tematica</option>";
                                         }
@@ -453,8 +454,8 @@ $colegio=$_SESSION['colegio'];
                                 <option value="13">Profesores</option>
                             </select>
                         </div>
-                        <label class="col-sm-1">Area</label>
-                        <div class="col-sm-3">
+                        <label class="col-sm-1" hidden>Area</label>
+                        <div class="col-sm-3" hidden>
                             <select name="area" class="form-control" required id="area2">
                                 <!--                                <option value="">Selecionar..</option>-->
                                 <?php
@@ -465,8 +466,8 @@ $colegio=$_SESSION['colegio'];
                                 ?>
                             </select>
                         </div>
-                        <label class="col-sm-1">Tematica</label>
-                        <div class="col-sm-3">
+                        <label class="col-sm-1" hidden>Tematica</label>
+                        <div class="col-sm-3" hidden>
                             <select name="tematica" class="form-control" required id="tematica2">
                                 <!--                                    <option value="">Selecionar..</option>-->
                                 <?php
@@ -478,8 +479,8 @@ $colegio=$_SESSION['colegio'];
                             </select>
                         </div>
 
-                        <label class="col-sm-1" >codigo</label>
-                        <div class="col-sm-3">
+                        <label class="col-sm-1" hidden>codigo</label>
+                        <div class="col-sm-3" hidden>
                             <input type="text" name="codigo" class="form-control" id="codigo2" required placeholder="codigo">
                             <span class=""></span>
                         </div>
@@ -657,7 +658,7 @@ $colegio=$_SESSION['colegio'];
                 $(this).html( '<select style="width:100px" >' +
                     '<option value="">Seleccionar..</option>' +
                     <?php
-                        $query=$this->db->query("SELECT area FROM libro GROUP BY area");
+                        $query=$this->db->query("SELECT area,codarea FROM libro GROUP BY area ORDER BY codarea");
                         foreach ($query->result() as $row){
                             echo "'<option value=\"$row->area\">$row->area</option>' +";
                         }
@@ -669,10 +670,24 @@ $colegio=$_SESSION['colegio'];
                             .column(i)
                             .search( this.value )
                             .draw();
+                        $.ajax({
+                            type:'POST',
+                            data:'area='+$(this).val(),
+                            url:'Book/btematicas',
+                            success:function(e){
+                                // console.log(e);
+                                var datos=JSON.parse(e);
+                                console.log(datos);
+                                $('#Btematica').html('<option value="">Seleccionar..</option>');
+                                datos.forEach(function (e) {
+                                    $('#Btematica').append('<option value="'+e.tematica+'">'+e.tematica+'</option>');
+                                })
+                            }
+                        })
                     }
                 } );
             }else if (i==5){
-                $(this).html( '<select style="width:100px" >' +
+                $(this).html( '<select style="width:100px" id="Btematica" >' +
                     '<option value="">Seleccionar..</option>' +
                     <?php
                     $query=$this->db->query("SELECT tematica FROM libro GROUP BY tematica");
