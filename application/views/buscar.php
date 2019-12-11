@@ -1272,7 +1272,6 @@ $colegio=$_SESSION['colegio'];
         }
     </script>
 
-
     <!-- Button End-->
 <div class="footer-copyright-area">
     <div class="container-fluid">
