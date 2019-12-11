@@ -54,7 +54,7 @@ $colegio=$_SESSION['colegio'];
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="logo-pro">
-                    <a href="index.html"><img class="main-logo" src="<?=base_url()?>img/logo/logo.png" alt="" /></a>
+
                 </div>
             </div>
         </div>
@@ -626,6 +626,8 @@ $colegio=$_SESSION['colegio'];
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                        <a href="<?=base_url()?>Main"><img class="main-logo" width="100" src="<?=base_url()?>img/ayni.jpg" alt="" /></a>
                         <div class="breadcome-list single-page-breadcome">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -705,8 +707,8 @@ $colegio=$_SESSION['colegio'];
                     <td>$row->fecha</td>
                     <td>$row->titulo</td>
                     <td>$row->autor</td>
-                    <td> $row->codarea $row->area</td>
-                    <td>$row->tematica</td>
+                    <td> $row->codarea.$row->area</td>
+                    <td>$row->codsubarea.$row->tematica</td>
                     <td>$row->idioma</td>
                     <td>$row->codigo</td>
                     <td>$row->nivel</td>
@@ -1070,7 +1072,7 @@ $colegio=$_SESSION['colegio'];
                         <?php
                         $query=$this->db->query("SELECT area,codarea FROM libro GROUP BY area ORDER BY codarea");
                         foreach ($query->result() as $row){
-                            echo "'<option value=\"$row->area\">$row->area</option>' +";
+                            echo "'<option value=\"$row->area\">$row->codarea.$row->area</option>' +";
                         }
                         ?>
                         '</select>' );
@@ -1080,9 +1082,11 @@ $colegio=$_SESSION['colegio'];
                                 .column(i)
                                 .search( this.value )
                                 .draw();
+                            var div=$(this).val().split('.');
+                            // console.log(div[0]);
                             $.ajax({
                                 type:'POST',
-                                data:'area='+$(this).val(),
+                                data:'area='+div[0],
                                 url:'Book/btematicas',
                                 success:function(e){
                                     // console.log(e);
@@ -1090,7 +1094,7 @@ $colegio=$_SESSION['colegio'];
                                     console.log(datos);
                                     $('#Btematica').html('<option value="">Seleccionar..</option>');
                                     datos.forEach(function (e) {
-                                        $('#Btematica').append('<option value="'+e.tematica+'">'+e.tematica+'</option>');
+                                        $('#Btematica').append('<option value="'+e.codsubarea+'.'+e.tematica+'">'+e.codsubarea+'.'+e.tematica+'</option>');
                                     })
                                 }
                             })
