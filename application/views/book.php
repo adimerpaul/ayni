@@ -660,7 +660,7 @@ $colegio=$_SESSION['colegio'];
                     <?php
                         $query=$this->db->query("SELECT area,codarea FROM libro GROUP BY area ORDER BY codarea");
                         foreach ($query->result() as $row){
-                            echo "'<option value=\"$row->area\">$row->area</option>' +";
+                            echo "'<option value=\"$row->area\">$row->codarea.$row->area</option>' +";
                         }
                     ?>
                     '</select>' );
