@@ -28,9 +28,9 @@ $colegio=$_SESSION['colegio'];
                     <select name="area" class="form-control" required>
                         <option value="">Selecionar..</option>
                         <?php
-                        $query=$this->db->query("SELECT area FROM libro GROUP BY area ORDER BY codarea");
+                        $query=$this->db->query("SELECT codarea,area FROM libro GROUP BY area ORDER BY codarea");
                         foreach ($query->result() as $row){
-                            echo "<option value='$row->area'>$row->area</option>";
+                            echo "<option value='$row->area'> $row->codarea $row->area</option>";
                         }
                         ?>
                     </select>
