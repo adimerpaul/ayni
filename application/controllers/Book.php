@@ -281,7 +281,7 @@ function update(){
                     $bo="left";
                 }else{
                     $pdf->SetXY(120, $y);
-                    $y=$y+23;
+                    $y=$y+25;
                     $bo="right";
                 }
                 $pdf->writeHTML($html,0,0);

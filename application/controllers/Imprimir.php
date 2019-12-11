@@ -44,7 +44,7 @@ class Imprimir extends CI_Controller{
                 $subcodigo=explode('.',$codigo);
                 file_put_contents('img/qr/'.$row->codigo.'.jpg', $generatorSVG->getBarcode($row->codigo, $generatorSVG::TYPE_CODE_39));
 
-                $html='<table border="0" style="border-top: 1px solid #E7E7E7;border-bottom: 1px solid #E7E7E7;;width: 240px;font-family: Arial;font-size: 8px ">
+                $html='<table border="0" style="border-top: 1px solid #E7E7E7; ;;width: 240px;font-family: Arial;font-size: 8px ">
             <tr >
                 <td width="50" align="center">
                    <img src="img/'.$codarea.'.png" width="32"><br>
@@ -52,7 +52,7 @@ class Imprimir extends CI_Controller{
                    '.$subcodigo[2].'
                 </td>
                 <td width="190" align="right">
-                    <small style="font-family: Arial;font-size: 8px;"><br>'.$titulo.'<br></small>
+                    <small style="font-family: Arial;font-size: 8px;border: 1 px solid black"><br>'.$titulo.substr(0,45).'<br></small>
                     '.$area.' <br>
                     '.$idioma.' *'.$codigo.'*<br>
                     <img src="img/qr/'.$row->codigo.'.jpg" width="120" height="22px" alt="">
@@ -70,7 +70,7 @@ class Imprimir extends CI_Controller{
                     $bo="left";
                 }else{
                     $pdf->SetXY(120, $y);
-                    $y=$y+23;
+                    $y=$y+25;
                     $bo="right";
                 }
                 $pdf->writeHTML($html,0,0);
@@ -206,13 +206,13 @@ class Imprimir extends CI_Controller{
 
         $query=$this->db->query("SELECT * FROM profesor WHERE colegio='$colegio' ");
         $con=0;
-        $y=4;
+        $y=10;
         foreach ($query->result() as $row){
             $nombre = $row->nombre;
             $colegio=$row->colegio;
             $id=$row->id;
             $categoria=$row->profesion;
-            file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_128));
+            file_put_contents('img/qr/'.$row->id.'.jpg', $generatorSVG->getBarcode($row->id, $generatorSVG::TYPE_CODE_39));
             $html='<table border="0" style="border: 1px solid #E7E7E7;width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td colspan="3" ><p style="text-align: center;font-size: 16px;font-weight: bold;color: #0a6aa1">BIBLIOTECA ESCOLAR</p></td>
@@ -242,7 +242,7 @@ class Imprimir extends CI_Controller{
             if ($con==10){
                 $con=0;
                 $pdf->AddPage('P', array(216,356));
-                $y=4;
+                $y=10;
             }
             if ($con%2==0){
                 $pdf->SetXY(25, $y);

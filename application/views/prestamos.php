@@ -68,6 +68,7 @@ $colegio=$_SESSION['colegio'];
                 <th>Cod. libro</th>
                 <th width="25%">Libro</th>
                 <th>Persona</th>
+                <th>Id</th>
                 <th>Estado</th>
                 <th>Dias Pres</th>
                 <th>Fecha devuelto</th>
@@ -77,12 +78,11 @@ $colegio=$_SESSION['colegio'];
             <tbody>
             <?php
             $query=$this->db->query("
-          SELECT lote,persona,fecha,persona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
+          SELECT lote,persona,fecha,persona,codigopersona,fechadevo,estado,tipo,count(*)  as cantidad,telefono FROM `prestamo`            
     WHERE (date(fecha)=date(now()) OR estado='PRESTADO') AND colegio='$colegio'
     GROUP BY persona,fecha,persona,estado,fechadevo,estado,tipo,lote");
             foreach ($query->result() as $row){
                 $query2=$this->db->query("SELECT count(*) FROM prestamo WHERE lote='$row->lote' ORDER BY idprestamo");
-
             if ($row->estado=='PRESTADO'){
                 $p="<p class='alert alert-warning p-1' role='alert'>$row->estado</p>";
                 $bo="<a href='".base_url()."Prestamos/boleta/$row->lote' target='_blank' class='btn btn-info p-1'> <i class='fa fa-print'></i>Boleta </a>
@@ -115,6 +115,7 @@ $colegio=$_SESSION['colegio'];
                     <td><div style='border: 0px;margin: 0px;padding: 0px;font-size: 10px'>$codigos</div></td>
                     <td><div style='border: 0px;margin: 0px;padding: 0px;font-size: 10px'>$libros</div></td>
                     <td>$row->persona $row->telefono</td>
+                    <td>$row->codigopersona</td>
                     <td>$p</td>
                     <td>".($diff->days + 1)."</td>
                     <td>$fv</td>
