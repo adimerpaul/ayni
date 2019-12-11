@@ -113,7 +113,7 @@ function datos(){
     }
     function btematicas(){
         $area=$_POST['area'];
-        $query=$this->db->query("SELECT tematica FROM libro WHERE area='$area' GROUP BY tematica ORDER BY codsubarea");
+        $query=$this->db->query("SELECT codsubarea,tematica FROM libro WHERE area='$area' GROUP BY tematica ORDER BY codsubarea");
         echo json_encode( $query->result_array());
     }
 function codigo(){

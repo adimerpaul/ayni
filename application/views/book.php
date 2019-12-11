@@ -294,8 +294,8 @@ $colegio=$_SESSION['colegio'];
                     <td>$row->fecha</td>
                     <td>$row->titulo</td>
                     <td>$row->autor</td>
-                    <td> $row->codarea $row->area</td>
-                    <td>$row->tematica</td>
+                    <td> $row->codarea.$row->area</td>
+                    <td>$row->codsubarea.$row->tematica</td>
                     <td>$row->idioma</td>
                     <td>$row->codigo</td>
                     <td>$row->nivel</td>
@@ -670,9 +670,11 @@ $colegio=$_SESSION['colegio'];
                             .column(i)
                             .search( this.value )
                             .draw();
+                        var div=$(this).val().split('.');
+                        // console.log(div[0]);
                         $.ajax({
                             type:'POST',
-                            data:'area='+$(this).val(),
+                            data:'area='+div[0],
                             url:'Book/btematicas',
                             success:function(e){
                                 // console.log(e);
@@ -680,7 +682,7 @@ $colegio=$_SESSION['colegio'];
                                 console.log(datos);
                                 $('#Btematica').html('<option value="">Seleccionar..</option>');
                                 datos.forEach(function (e) {
-                                    $('#Btematica').append('<option value="'+e.tematica+'">'+e.tematica+'</option>');
+                                    $('#Btematica').append('<option value="'+e.codsubarea+'.'+e.tematica+'">'+e.codsubarea+'.'+e.tematica+'</option>');
                                 })
                             }
                         })
