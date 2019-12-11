@@ -262,8 +262,8 @@ $colegio=$_SESSION['colegio'];
             <th>Fecha</th>
             <th>Titulo</th>
             <th>Autor</th>
-            <th>Tema</th>
-            <th>Subtema</th>
+            <th>Area</th>
+            <th>Tematica</th>
             <th>Idioma</th>
             <th>Codigo</th>
             <th>Curso</th>
@@ -293,7 +293,7 @@ $colegio=$_SESSION['colegio'];
                     <td>$row->fecha</td>
                     <td>$row->titulo</td>
                     <td>$row->autor</td>
-                    <td>$row->area</td>
+                    <td> $row->codarea $row->area</td>
                     <td>$row->tematica</td>
                     <td>$row->idioma</td>
                     <td>$row->codigo</td>
