@@ -217,7 +217,7 @@ class Profesores extends CI_Controller {
         $pdf->AddPage('P', array(216,356));
         $generatorSVG = new Picqer\Barcode\BarcodeGeneratorJPG();
         $con=0;
-        $y=4;
+        $y=10;
         $query=$this->db->query("SELECT * FROM profesor WHERE $orden");
         foreach ($query->result() as $row){
             if (isset($_POST['c'.$row->id])){
@@ -278,7 +278,7 @@ class Profesores extends CI_Controller {
                 if ($con==10){
                     $con=0;
                     $pdf->AddPage('P', array(216,356));
-                    $y=4;
+                    $y=10;
                 }
                 if ($con%2==0){
                     $pdf->SetXY(25, $y);
