@@ -93,9 +93,8 @@ class Imprimir extends CI_Controller{
         $telefono=$row->telefono;
         $con=0;
         $y=10;
-
         for ($i=0;$i<10;$i++){
-                $html='<table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
+                $html='<br><table border="0" style="width: 240px;font-family: Arial;font-size: 9px ">
             <tr>
                 <td style="text-align: center" ><br><br>UNIDAD EDUCATIVA <br>"'.$colegio.'"<br>TELEFONO:'.$telefono.'<br>ORURO-BOLIVIA <br> <br></td>               
             </tr>
